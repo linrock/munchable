@@ -1,0 +1,84 @@
+:css
+  #map_canvas {
+    width: 500px;
+    height: 500px;
+    margin: auto;
+  }
+
+  h1.title {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+
+  #restaurant_table{
+    margin: 10px auto;
+  }
+
+= javascript_include_tag 'http://maps.google.com/maps/api/js?sensor=true'
+%script{:type => "text/javascript"}
+  function initialize() {
+  var latlng = new google.maps.LatLng(37.75, -122.40)//38.95, -77.46);
+  var myOptions = {
+  zoom: 8,
+  center: latlng,
+  mapTypeId: google.maps.MapTypeId.ROADMAP
+  };
+  var map = new google.maps.Map(document.getElementById("map_canvas"),myOptions);
+
+  var restaurants = #{@restaurants_serialized};
+
+  var markers = [];
+  var markerCoords = [];
+  var markerLatLng = [];
+  var contentString = '';
+  markerWindows = [];
+
+  for(var i = 0; i<restaurants.length; i++){
+  markerCoords = eval(restaurants[i].yelp.coordinates);
+  markerLatLng = new google.maps.LatLng(parseFloat(markerCoords[0]), -parseFloat(markerCoords[1]));
+  markers.push(new google.maps.Marker({
+  position: markerLatLng,
+  map: map,
+  title: restaurants[i].yelp.title
+  }));
+  
+  contentString = restaurants[i].yelp.title;
+  markerWindows.push(new google.maps.InfoWindow({
+  content: contentString
+  }));
+
+  google.maps.event.addListener(markers[i], 'click', function(index){
+  markerWindows[i].open(map,markers[i]);
+  });
+
+  }
+  }
+
+%h1.title Sample Restaurant App
+#map_canvas{:style => "width: 500px; height: 500px;"}
+
+#info
+  %table.tablesorter#restaurant_table
+    %thead
+      %tr
+        %th
+          %b Name
+        %th
+          %b Website
+        %th
+          %b Rating
+        %th
+          %b Coordinates
+    %tbody
+      - for restaurant in @restaurants
+        %tr
+          %td= restaurant.title
+          %td= link_to restaurant.url
+          %td= restaurant.rating
+          %td= restaurant.coordinates
+  %br/
+  :javascript
+    $("#restaurant_table").tablesorter(); 
+
+:javascript
+  initialize();
