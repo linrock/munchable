@@ -1,6 +1,0 @@
-!!!
-%html
-  %head
-    = javascript_include_tag :all
-  %body
-    =yield

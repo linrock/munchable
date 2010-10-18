@@ -1,5 +1,0 @@
-class YelpController < ApplicationController
-  def index
-    @yelp = Yelp.all
-  end
-end
