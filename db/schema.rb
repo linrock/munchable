@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100000000001) do
+ActiveRecord::Schema.define(:version => 0) do
 
   create_table "menu_comments", :force => true do |t|
     t.integer  "parent_id"
@@ -25,17 +25,6 @@ ActiveRecord::Schema.define(:version => 20100000000001) do
     t.string  "name"
     t.string  "description"
     t.string  "price"
-  end
-
-  create_table "profiles", :force => true do |t|
-    t.integer  "user_id"
-    t.integer  "sat_math"
-    t.integer  "sat_verbal"
-    t.integer  "sat_writing"
-    t.string   "school"
-    t.string   "major"
-    t.datetime "created_at"
-    t.datetime "updated_at"
   end
 
   create_table "restaurants", :force => true do |t|
@@ -56,7 +45,6 @@ ActiveRecord::Schema.define(:version => 20100000000001) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
   add_index "sessions", ["session_id"], :name => "index_sessions_on_session_id"
   add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
 
@@ -77,30 +65,12 @@ ActiveRecord::Schema.define(:version => 20100000000001) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
-
-  create_table "yelp_entries", :primary_key => "url", :force => true do |t|
-    t.string   "title",        :limit => 128
-    t.float    "rating"
-    t.integer  "review_count"
-    t.string   "address",      :limit => 128
-    t.string   "categories",   :limit => 128
-    t.string   "coordinates",  :limit => 32
-    t.datetime "last_checked"
-    t.boolean  "checked"
+  
+  create_table "profiles", :force => true do |t|
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
-
-  create_table "yelps", :primary_key => "url", :force => true do |t|
-    t.string   "title",        :limit => 128
-    t.float    "rating"
-    t.integer  "review_count"
-    t.string   "address",      :limit => 128
-    t.string   "categories",   :limit => 128
-    t.string   "coordinates",  :limit => 32
-    t.datetime "last_checked"
-    t.boolean  "checked"
-  end
-
 end
