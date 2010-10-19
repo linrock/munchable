@@ -50,7 +50,7 @@ RestaurantDemo::Application.routes.draw do
   # just remember to delete public/index.html.
   # root :to => "welcome#index"
   
-  root :to => "yelp#index"
+  root :to => "restaurant#index"
 
   # See how all your routes lay out with "rake routes"
 
