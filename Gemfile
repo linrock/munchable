@@ -9,6 +9,8 @@ gem 'haml'
 gem 'devise'
 gem 'cancan'
 gem 'formtastic'
+gem 'acts_as_commentable'
+gem 'vote_fu'
 
 # For improved rails console/IRB 
 gem 'awesome_print'
