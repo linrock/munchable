@@ -9,7 +9,7 @@ gem 'haml'
 gem 'devise'
 gem 'cancan'
 gem 'formtastic'
-gem 'acts_as_commentable'
+gem 'acts_as_tree'
 
 # For improved rails console/IRB 
 gem 'awesome_print'

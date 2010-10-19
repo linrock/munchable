@@ -10,51 +10,33 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 0) do
+ActiveRecord::Schema.define(:version => 20100000000001) do
 
-  create_table "users", :force => true do |t|
-    # Devise
-    t.string   "email",                               :default => "", :null => false
-    t.string   "encrypted_password",   :limit => 128, :default => "", :null => false
-    t.string   "password_salt",                       :default => "", :null => false
-    t.string   "reset_password_token"
-    t.string   "remember_token"
-    t.datetime "remember_created_at"
-    t.integer  "sign_in_count",                       :default => 0
-    t.datetime "current_sign_in_at"
-    t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip"
-    t.string   "last_sign_in_ip"
-
-    t.integer  "school_id"
-    t.string   "role"
+  create_table "menu_comments", :force => true do |t|
+    t.integer  "parent_id"
+    t.string   "title"
+    t.text     "content"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-  add_index "users", ["email"], :name => "index_users_on_email", :unique => true
-  add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
+
+  create_table "menu_items", :force => true do |t|
+    t.integer "restaurant_id"
+    t.string  "name"
+    t.string  "description"
+    t.string  "price"
+  end
 
   create_table "profiles", :force => true do |t|
     t.integer  "user_id"
-    # t.integer  "school_id"
     t.integer  "sat_math"
     t.integer  "sat_verbal"
     t.integer  "sat_writing"
     t.string   "school"
     t.string   "major"
-
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
-  create_table "sessions", :force => true do |t|
-    t.string   "session_id", :null => false
-    t.text     "data"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-  add_index "sessions", ["session_id"], :name => "index_sessions_on_session_id"
-  add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
 
   create_table "restaurants", :force => true do |t|
     t.string   "url"
@@ -68,10 +50,57 @@ ActiveRecord::Schema.define(:version => 0) do
     t.datetime "updated_at"
   end
 
-  create_table "menu_items", :force => true do |t|
-    t.integer  "restaurant_id"
-    t.string   "name"
-    t.string   "description"
-    t.string   "price"
+  create_table "sessions", :force => true do |t|
+    t.string   "session_id", :null => false
+    t.text     "data"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
+
+  add_index "sessions", ["session_id"], :name => "index_sessions_on_session_id"
+  add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
+
+  create_table "users", :force => true do |t|
+    t.string   "email",                               :default => "", :null => false
+    t.string   "encrypted_password",   :limit => 128, :default => "", :null => false
+    t.string   "password_salt",                       :default => "", :null => false
+    t.string   "reset_password_token"
+    t.string   "remember_token"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",                       :default => 0
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
+    t.integer  "school_id"
+    t.string   "role"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "users", ["email"], :name => "index_users_on_email", :unique => true
+  add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
+
+  create_table "yelp_entries", :primary_key => "url", :force => true do |t|
+    t.string   "title",        :limit => 128
+    t.float    "rating"
+    t.integer  "review_count"
+    t.string   "address",      :limit => 128
+    t.string   "categories",   :limit => 128
+    t.string   "coordinates",  :limit => 32
+    t.datetime "last_checked"
+    t.boolean  "checked"
+  end
+
+  create_table "yelps", :primary_key => "url", :force => true do |t|
+    t.string   "title",        :limit => 128
+    t.float    "rating"
+    t.integer  "review_count"
+    t.string   "address",      :limit => 128
+    t.string   "categories",   :limit => 128
+    t.string   "coordinates",  :limit => 32
+    t.datetime "last_checked"
+    t.boolean  "checked"
+  end
+
 end

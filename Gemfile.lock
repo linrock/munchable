@@ -28,7 +28,7 @@ GEM
       activemodel (= 3.0.1)
       activesupport (= 3.0.1)
     activesupport (3.0.1)
-    acts_as_commentable (3.0.0)
+    acts_as_tree (0.1.1)
     arel (1.0.1)
       activesupport (~> 3.0.0)
     awesome_print (0.2.1)
@@ -89,7 +89,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  acts_as_commentable
+  acts_as_tree
   awesome_print
   bond
   cancan
