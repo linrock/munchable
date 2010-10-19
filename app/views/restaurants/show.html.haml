@@ -1,0 +1,35 @@
+:css
+  #map_canvas {
+    width: 500px;
+    height: 500px;
+    margin: auto;
+  }
+
+  h1.title {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+
+  #restaurant_table{
+    margin: 10px auto;
+  }
+
+= javascript_include_tag 'http://maps.google.com/maps/api/js?sensor=true'
+:javascript
+  var restaurants = #{@restaurant_serialized};
+  var x = #{@coordinates[0]};
+  var y = -#{@coordinates[1]};
+  var zoom = 15;
+
+%h1.title= @restaurant.name
+#map_canvas{:style => "width: 500px; height: 500px;"}
+
+#info
+  %p
+    %b Categories:
+    = @restaurant.categories
+  %p 
+    %b Rating:
+    = "#{@restaurant.rating} (#{@restaurant.review_count})"
+
+= javascript_include_tag 'loader.js'

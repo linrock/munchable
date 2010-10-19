@@ -58,13 +58,20 @@ ActiveRecord::Schema.define(:version => 0) do
 
   create_table "restaurants", :force => true do |t|
     t.string   "url"
-    t.string   "title"
-    t.string   "rating"
+    t.string   "name"
+    t.float    "rating"
     t.integer  "review_count"
-    t.integer  "address"
-    t.datetime "categories"
-    t.datetime "coordinates"
+    t.string   "address"
+    t.string   "categories"
+    t.string   "coordinates"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "menu_items", :force => true do |t|
+    t.integer  "restaurant_id"
+    t.string   "name"
+    t.string   "description"
+    t.string   "price"
   end
 end

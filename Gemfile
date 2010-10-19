@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.0.0'
+gem 'rails', '3.0.1'
 
 gem 'mysql2'
 gem 'jquery-rails'
@@ -10,7 +10,6 @@ gem 'devise'
 gem 'cancan'
 gem 'formtastic'
 gem 'acts_as_commentable'
-gem 'vote_fu'
 
 # For improved rails console/IRB 
 gem 'awesome_print'
