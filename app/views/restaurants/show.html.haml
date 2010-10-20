@@ -20,6 +20,7 @@
   var x = #{@coordinates[0]};
   var y = -#{@coordinates[1]};
   var zoom = 15;
+= javascript_include_tag 'loader.js'
 
 %h1.title= @restaurant.name
 #map_canvas{:style => "width: 500px; height: 500px;"}
@@ -46,4 +47,3 @@
   %p
     %b User Comments:
 
-= javascript_include_tag 'loader.js'

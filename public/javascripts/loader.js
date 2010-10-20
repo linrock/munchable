@@ -26,8 +26,12 @@ function initialize() {
       title: restaurants[i].restaurant.name
     }));
     markerWindows.push(new google.maps.InfoWindow({
-      content: restaurants[i].restaurant.name
+      content: '<a href="/restaurants/' + restaurants[i].restaurant.id + '">' + restaurants[i].restaurant.name + '</a>'
     }));
     google.maps.event.addListener(markers[i], 'click', infoCallback(markerWindows[i], markers[i]));
   }
 }
+
+$(document).ready(function() {
+  initialize();
+})
