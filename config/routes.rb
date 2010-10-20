@@ -52,6 +52,7 @@ RestaurantDemo::Application.routes.draw do
   
   root :to => "restaurants#index"
   resources :restaurants
+  resources :menu_items
   resources :comments
 
   # See how all your routes lay out with "rake routes"

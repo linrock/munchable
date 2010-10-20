@@ -55,6 +55,11 @@ GEM
       activesupport (>= 2.3.6)
       mime-types
       treetop (>= 1.4.5)
+    meta_search (0.9.7.2)
+      actionpack (~> 3.0.0)
+      activerecord (~> 3.0.0)
+      activesupport (~> 3.0.0)
+      arel (~> 1.0.1)
     mime-types (1.16)
     mysql2 (0.2.4)
     polyglot (0.3.1)
@@ -98,6 +103,7 @@ DEPENDENCIES
   formtastic
   haml
   jquery-rails
+  meta_search
   mysql2
   rails (= 3.0.1)
   wirble

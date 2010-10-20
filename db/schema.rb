@@ -30,6 +30,7 @@ ActiveRecord::Schema.define(:version => 0) do
   end
 
   create_table "restaurants", :force => true do |t|
+    t.integer  "menu_item_id"
     t.string   "url"
     t.string   "name"
     t.float    "rating"

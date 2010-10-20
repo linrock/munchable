@@ -6,7 +6,7 @@
 #   cities = City.create([{ :name => 'Chicago' }, { :name => 'Copenhagen' }])
 #   Mayor.create(:name => 'Daley', :city => cities.first)
 
-File.open(RAILS_ROOT + '/db/data.txt').read.split(/\n/)[1..-1].each do |r|
+File.open(RAILS_ROOT + '/db/data.txt').read.split(/\n/)[1..20].each do |r|
   r = r.split(/\t/)
 
   coordinates = JSON.load r[6]
@@ -23,32 +23,76 @@ File.open(RAILS_ROOT + '/db/data.txt').read.split(/\n/)[1..-1].each do |r|
   })
 end
 
-MenuItem.create([{
+m0 = MenuItem.create([{
   :restaurant_id => 1,
-  :name => 'Fuji Apples',
-  :description => 'Amazingly tasty apples',
-  :price => '$2/lb'
+  :name => 'Submarine Sandwich',
+  :description => 'Sinks like a sub in your stomach',
+  :price => '$5'
 },{
   :restaurant_id => 1,
-  :name => 'Home-made Pound Cake',
-  :description => 'Freshly baked daily',
-  :price => '$2/lb'
+  :name => 'History Hoagie',
+  :description => 'The best hoagie in all of history',
+  :price => '$7'
 }])
 
 c0 = MenuComment.create({
   :restaurant_id => 1,
-  :menu_item_id => 1,
-  :content => "i've gotta say that these have got to be the best apples ever!",
+  :menu_item_id => m0[0].id,
+  :content => "dood this sandwich is the shiznit!",
 })
 c1 = MenuComment.create({
   :restaurant_id => 1,
-  :menu_item_id => 1,
+  :menu_item_id => m0[0].id,
   :parent_id => c0.id,
-  :content => "how bout dem apples?!"
+  :content => "man, never had anything better!"
 })
 c2 = MenuComment.create({
   :restaurant_id => 1,
-  :menu_item_id => 1,
+  :menu_item_id => m0[0].id,
   :parent_id => c1.id,
-  :content => "lol are these apples really that special?"
+  :content => "amen brothah!!"
+})
+
+m1 = MenuItem.create([{
+  :restaurant_id => 2,
+  :name => 'Bacon Cheeseburger',
+  :description => 'Delicious strips of bacon in every bite',
+  :price => '$10'
+},{
+  :restaurant_id => 2,
+  :name => 'Grilled Cheese Sandwich',
+  :description => 'Grilled to perfection',
+  :price => '$8'
+},{
+  :restaurant_id => 2,
+  :name => 'Hickory Smoked Burger',
+  :description => 'Delightful hickory-smoked beef',
+  :price => '$7'
+}])
+c0 = MenuComment.create({
+  :restaurant_id => 2,
+  :menu_item_id => m1[0].id,
+  :content => "hey, where's the downvote button?? this entry doesn't exist!"
+})
+
+m2 = MenuItem.create([{
+  :restaurant_id => 3,
+  :name => 'Petite Reuben',
+  :description => 'Tiny little Reuben, but worth every penny',
+  :price => '$20'
+},{
+  :restaurant_id => 3,
+  :name => 'Petite Smokin Sandwich',
+  :description => 'Smokin good, and to perfection',
+  :price => '$14'
+},{
+  :restaurant_id => 3,
+  :name => 'Tiny Burger',
+  :description => 'Small, but delicious',
+  :price => '$7'
+}])
+c0 = MenuComment.create({
+  :restaurant_id => 3,
+  :menu_item_id => m2[0].id,
+  :content => "kind of expensive for such a tiny reuben, but it aint so bad"
 })

@@ -2,7 +2,7 @@ class RestaurantsController < ApplicationController
 
   def index
     serializer = ActiveSupport::JSON
-    @restaurants = Restaurant.find(:all, :limit => 15)
+    @restaurants = Restaurant.find(:all, :limit => 30)
     @restaurants_serialized = serializer.encode(@restaurants)
   end
 

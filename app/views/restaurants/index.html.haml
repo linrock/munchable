@@ -7,6 +7,14 @@
 = javascript_include_tag 'loader.js'
   
 #map_canvas{:style => "width: 500px; height: 500px;"}
+
+#search
+  Search stuff
+  %br/
+  - form_tag menu_items_path, :method => 'get' do
+    = text_field_tag :q, params[:q]
+    = submit_tag 'Search', :name => nil
+
 #info
   %table.tablesorter#restaurant_table
     %thead
@@ -27,3 +35,6 @@
           %td #{restaurant.rating} (#{restaurant.review_count} reviews)
           %td #{restaurant.x}, -#{restaurant.y}
   %br/
+
+:javascript
+  $("#restaurant_table").tablesorter();

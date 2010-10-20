@@ -10,6 +10,7 @@ gem 'devise'
 gem 'cancan'
 gem 'formtastic'
 gem 'acts_as_tree'
+gem 'meta_search'
 
 # For improved rails console/IRB 
 gem 'awesome_print'

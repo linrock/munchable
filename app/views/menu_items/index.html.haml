@@ -1,0 +1,15 @@
+
+.centered
+  - if @menu_items.empty?
+    No results found!
+  - else
+    %table
+      %tr
+        %th Name
+        %th Restaurant
+        %th Description
+      - for item in @menu_items
+        %tr
+          %td= item.name
+          %td= link_to Restaurant.find(item.restaurant_id).name
+          %td= item.description
