@@ -2,7 +2,23 @@
 %html
   %head
     = stylesheet_link_tag :all
+    :css
+      #map_canvas {
+        width: 500px;
+        height: 500px;
+        margin: auto;
+      }
+
+      h1#title {
+        text-align: center;
+        margin-bottom: 30px;
+      }
+
+      #restaurant_table{
+        margin: 10px auto;
+      }
     = javascript_include_tag :all
+
   %body
-    %h1= link_to 'Most Munchable', root_url
+    %h1#title= link_to 'Most Munchable', root_url
     =yield

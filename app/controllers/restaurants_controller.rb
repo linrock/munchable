@@ -11,6 +11,6 @@ class RestaurantsController < ApplicationController
     @restaurant = Restaurant.find(id)
     @comments = MenuComment.where(:restaurant_id => id)
     @restaurant_serialized = ActiveSupport::JSON.encode([@restaurant])
-    @coordinates = JSON.load @restaurant[:coordinates]
+    @coordinates = [@restaurant[:x], @restaurant[:y]]
   end
 end

@@ -36,7 +36,8 @@ ActiveRecord::Schema.define(:version => 0) do
     t.integer  "review_count"
     t.string   "address"
     t.string   "categories"
-    t.string   "coordinates"
+    t.float    "x"
+    t.float    "y"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

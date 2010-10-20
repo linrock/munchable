@@ -8,6 +8,8 @@
 
 File.open(RAILS_ROOT + '/db/data.txt').read.split(/\n/)[1..-1].each do |r|
   r = r.split(/\t/)
+
+  coordinates = JSON.load r[6]
   Restaurant.create({
     :url => r[0],
     :name => r[1],
@@ -15,7 +17,8 @@ File.open(RAILS_ROOT + '/db/data.txt').read.split(/\n/)[1..-1].each do |r|
     :review_count => r[3],
     :address => r[4],
     :categories => r[5],
-    :coordinates => r[6],
+    :x => coordinates[0],
+    :y => coordinates[1],
     :updated_at => r[7]
   })
 end

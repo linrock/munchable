@@ -13,7 +13,7 @@
   var markerWindows = [];
 
   for(var i = 0; i<restaurants.length; i++){
-    markerCoords = eval(restaurants[i].restaurant.coordinates);
+    markerCoords = [restaurants[i].restaurant.x, restaurants[i].restaurant.y];
     markerLatLng = new google.maps.LatLng(parseFloat(markerCoords[0]), -parseFloat(markerCoords[1]));
     markers.push(new google.maps.Marker({
       position: markerLatLng,
