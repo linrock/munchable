@@ -1,12 +1,17 @@
-= javascript_include_tag 'http://maps.google.com/maps/api/js?sensor=true'
+= javascript_include_tag 'http://maps.google.com/maps/api/js?sensor=false'
 :javascript
   var restaurants = #{@restaurants_serialized};
   var x = 37.75;
   var y = -122.40;
   var zoom = 12;
+  var markerWindows;
+= javascript_include_tag 'loader.js'
+:javascript
+  $(document).ready(function() {
+    initialize();
+  });
   
 #map_canvas{:style => "width: 500px; height: 500px;"}
-
 #info
   %table.tablesorter#restaurant_table
     %thead
@@ -27,5 +32,3 @@
           %td #{restaurant.rating} (#{restaurant.review_count} reviews)
           %td #{restaurant.x}, -#{restaurant.y}
   %br/
-
-= javascript_include_tag 'loader.js'

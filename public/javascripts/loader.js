@@ -1,5 +1,5 @@
-(function() {
-  var latlng = new google.maps.LatLng(x, y) //38.95, -77.46);
+function initialize() {
+  var latlng = new google.maps.LatLng(x, y);   //38.95, -77.46);
   var myOptions = {
     zoom: zoom,
     center: latlng,
@@ -7,29 +7,27 @@
   };
   var map = new google.maps.Map(document.getElementById("map_canvas"),myOptions);
   var markers = [];
-  var markerCoords = [];
-  var markerLatLng = [];
-  var contentString = '';
   var markerWindows = [];
+  var markerPositions = [];
 
-  for(var i = 0; i<restaurants.length; i++){
-    markerCoords = [restaurants[i].restaurant.x, restaurants[i].restaurant.y];
-    markerLatLng = new google.maps.LatLng(parseFloat(markerCoords[0]), -parseFloat(markerCoords[1]));
+  function infoCallback(markerWindow, marker, markerPosition) {
+    return function() {
+      markerWindow.open(map, marker);
+      map.setCenter(marker.position);
+    };
+  }
+
+  for(var i=0; i<restaurants.length; i++){
+    markerLatLng = new google.maps.LatLng(restaurants[i].restaurant.x, -restaurants[i].restaurant.y);
+    markerPositions.push(new google.maps.LatLng(restaurants[i].restaurant.x, -restaurants[i].restaurant.y));
     markers.push(new google.maps.Marker({
       position: markerLatLng,
       map: map,
-      title: restaurants[i].restaurant.title
+      title: restaurants[i].restaurant.name
     }));
-
-    contentString = restaurants[i].restaurant.title;
     markerWindows.push(new google.maps.InfoWindow({
-      content: contentString
+      content: restaurants[i].restaurant.name
     }));
-
-    google.maps.event.addListener(markers[i], 'click', function(){
-      markerWindows[i].open(map,markers[i]);
-    });
+    google.maps.event.addListener(markers[i], 'click', infoCallback(markerWindows[i], markers[i]));
   }
-})();
-
-$("#restaurant_table").tablesorter();
+}
