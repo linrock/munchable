@@ -8,6 +8,7 @@ class RestaurantsController < ApplicationController
 
   def show
     @restaurant = Restaurant.find(params[:id])
+    @comments = MenuComment.all
     @restaurant_serialized = ActiveSupport::JSON.encode([@restaurant])
     @coordinates = JSON.load @restaurant[:coordinates]
   end

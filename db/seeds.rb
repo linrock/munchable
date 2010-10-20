@@ -19,3 +19,17 @@ File.open(RAILS_ROOT + '/db/data.txt').read.split(/\n/)[1..-1].each do |r|
     :updated_at => r[7]
   })
 end
+
+MenuItem.create([{
+  :restaurant_id => 1,
+  :name => 'Fuji Apples',
+  :description => 'Amazingly tasty apples',
+  :price => '$2/lb'
+},{
+  :restaurant_id => 1,
+  :name => 'Home-made Pound Cake',
+  :description => 'Freshly baked daily',
+  :price => '$2/lb'
+}])
+
+MenuComment.new

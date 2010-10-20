@@ -13,6 +13,7 @@
 ActiveRecord::Schema.define(:version => 0) do
 
   create_table "menu_comments", :force => true do |t|
+    t.integer  "restaurant_id"
     t.integer  "menu_item_id"
     t.integer  "parent_id"
     t.text     "content"

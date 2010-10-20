@@ -36,6 +36,8 @@
     %b Menu Items:
     - for item in @restaurant.menu_items
       %ol #{item.name} - #{item.description}
+      - for comment in @comments
+        %ol= comment.content 
 
   %h2 User Comments:
 
