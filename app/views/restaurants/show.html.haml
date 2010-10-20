@@ -32,6 +32,11 @@
     %b Rating:
     = "#{@restaurant.rating} (#{@restaurant.review_count})"
 
+  %p
+    %b Menu Items:
+    - for item in @restaurant.menu_items
+      %ol #{item.name} - #{item.description}
+
   %h2 User Comments:
 
 = javascript_include_tag 'loader.js'

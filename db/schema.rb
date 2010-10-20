@@ -13,9 +13,10 @@
 ActiveRecord::Schema.define(:version => 0) do
 
   create_table "menu_comments", :force => true do |t|
+    t.integer  "menu_item_id"
     t.integer  "parent_id"
-    t.string   "title"
     t.text     "content"
+    t.integer  "karma"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
