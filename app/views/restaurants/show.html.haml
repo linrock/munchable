@@ -26,7 +26,7 @@
 %h1.title= @restaurant.name
 #map_canvas{:style => "width: 500px; height: 500px;"}
 
-#info
+#info.centered
   %p
     %b Categories:
     = @restaurant.categories
@@ -34,16 +34,20 @@
     %b Rating:
     = "#{@restaurant.rating} (#{@restaurant.review_count})"
 
-  %p
+  .menu
     %b Menu Items:
     - for item in @restaurant.menu_items
-      %ol #{item.name} - #{item.description}
+      %ol 
+        %i= item.name
+        &nbsp;-&nbsp;
+        = item.description
       %ul
         - for comment in @comments.where(:menu_item_id => item.id)
-          %li.comment
+          .comment
             = comment.content
             &nbsp;-&nbsp;
-            = link_to 'comment', comment_url(:menu_item_id => item.id, :parent_id => comment.id)
+            Comment
+            -# = link_to 'comment', comment_url(:menu_item_id => item.id, :parent_id => comment.id)
 
   %p
     %b User Comments:

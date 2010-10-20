@@ -1,4 +1,4 @@
 class MenuItem < ActiveRecord::Base
-  has_and_belongs_to_many :restaurants
+  belongs_to :restaurant
   has_many :menu_comments
 end

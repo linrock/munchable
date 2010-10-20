@@ -9,11 +9,11 @@
 #map_canvas{:style => "width: 500px; height: 500px;"}
 
 #search
-  Search stuff
+  Search Menus
   %br/
   - form_tag menu_items_path, :method => 'get' do
     = text_field_tag :q, params[:q]
-    = submit_tag 'Search', :name => nil
+    = submit_tag 'Go!', :name => nil
 
 #info
   %table.tablesorter#restaurant_table
