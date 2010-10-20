@@ -21,7 +21,6 @@
   var y = -122.40;
   var zoom = 12;
   
-%h1.title Sample Restaurant App
 #map_canvas{:style => "width: 500px; height: 500px;"}
 
 #info
@@ -30,8 +29,6 @@
       %tr
         %th
           %b Name
-        %th
-          %b Website
         %th
           %b Categories
         %th
@@ -42,7 +39,6 @@
       - for restaurant in @restaurants
         %tr
           %td= link_to restaurant.name, restaurant_url(:id => restaurant.id)
-          %td= link_to restaurant.url
           %td= restaurant.categories
           %td= "#{restaurant.rating} (#{restaurant.review_count} reviews)"
           %td= restaurant.coordinates

@@ -1,0 +1,3 @@
+class MenuCommentsController < ApplicationController
+
+end

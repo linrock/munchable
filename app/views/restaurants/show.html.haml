@@ -36,9 +36,14 @@
     %b Menu Items:
     - for item in @restaurant.menu_items
       %ol #{item.name} - #{item.description}
-      - for comment in @comments
-        %ol= comment.content 
+      %ul
+        - for comment in @comments.where(:menu_item_id => item.id)
+          %li
+            = comment.content
+            &nbsp;-&nbsp;
+            = link_to 'comment', comment_url(:menu_item_id => item.id, :parent_id => comment.id)
 
-  %h2 User Comments:
+  %p
+    %b User Comments:
 
 = javascript_include_tag 'loader.js'

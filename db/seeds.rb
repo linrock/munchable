@@ -32,4 +32,20 @@ MenuItem.create([{
   :price => '$2/lb'
 }])
 
-MenuComment.new
+c0 = MenuComment.create({
+  :restaurant_id => 1,
+  :menu_item_id => 1,
+  :content => "i've gotta say that these have got to be the best apples ever!",
+})
+c1 = MenuComment.create({
+  :restaurant_id => 1,
+  :menu_item_id => 1,
+  :parent_id => c0.id,
+  :content => "how bout dem apples?!"
+})
+c2 = MenuComment.create({
+  :restaurant_id => 1,
+  :menu_item_id => 1,
+  :parent_id => c1.id,
+  :content => "lol are these apples really that special?"
+})
