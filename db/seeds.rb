@@ -6,22 +6,34 @@
 #   cities = City.create([{ :name => 'Chicago' }, { :name => 'Copenhagen' }])
 #   Mayor.create(:name => 'Daley', :city => cities.first)
 
-File.open(RAILS_ROOT + '/db/data.txt').read.split(/\n/)[1..20].each do |r|
-  r = r.split(/\t/)
+require RAILS_ROOT + '/db/generator'
 
-  coordinates = JSON.load r[6]
-  Restaurant.create({
-    :url => r[0],
-    :name => r[1],
-    :rating => r[2],
-    :review_count => r[3],
-    :address => r[4],
-    :categories => r[5],
+fng = FakeNameGenerator.new
+File.open(RAILS_ROOT + '/db/data.txt').read.split(/\n/)[1..20].each do |row|
+  row = row.split(/\t/)
+
+  coordinates = JSON.load row[6]
+  r = Restaurant.create({
+    :url => row[0],
+    :name => row[1],
+    :rating => row[2],
+    :review_count => row[3],
+    :address => row[4],
+    :categories => row[5],
     :x => coordinates[0],
     :y => coordinates[1],
-    :updated_at => r[7]
+    :updated_at => row[7]
   })
+  stuff = []
+  (rand*10).to_i.times do
+    MenuItem.create(
+      :restaurant_id => r.id,
+      :name => fng.generate_name(r.categories),
+      :price => (rand*20).to_i
+    )
+  end
 end
+
 
 m0 = MenuItem.create([{
   :restaurant_id => 1,
