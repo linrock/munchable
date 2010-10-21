@@ -4,4 +4,3 @@ log/*.log
 tmp/**/*
 *~
 *.swp
-Gemfile.lock
