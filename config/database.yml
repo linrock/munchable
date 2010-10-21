@@ -3,9 +3,9 @@
 development:
   adapter: mysql2
   encoding: utf8
-  database: yelp
-  username: yelp
-  password: yelp
+  database: munchable
+  username: munchable
+  password: munchable
   socket: /var/run/mysqld/mysqld.sock
 
 # Warning: The database defined as "test" will be erased and
@@ -14,15 +14,15 @@ development:
 test:
   adapter: mysql2
   encoding: utf8
-  database: yelp
-  username: yelp
-  password: yelp
+  database: munchable
+  username: munchable
+  password: munchable
   socket: /var/run/mysqld/mysqld.sock
 
 production:
   adapter: mysql2
   encoding: utf8
-  database: yelp
-  username: yelp
-  password: yelp
+  database: munchable
+  username: munchable
+  password: munchable
   socket: /var/run/mysqld/mysqld.sock
