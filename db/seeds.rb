@@ -19,7 +19,7 @@ File.open(RAILS_ROOT + '/db/data.txt').read.split(/\n/)[1..20].each do |row|
     :rating => row[2],
     :review_count => row[3],
     :address => row[4],
-    :categories => row[5],
+    # :categories => row[5],
     :x => coordinates[0],
     :y => coordinates[1],
     :updated_at => row[7]

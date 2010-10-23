@@ -42,11 +42,21 @@ ActiveRecord::Schema.define(:version => 20101023013750) do
     t.float    "rating"
     t.integer  "review_count"
     t.string   "address"
-    t.string   "categories"
     t.float    "x"
     t.float    "y"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "categories", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "restaurants_categories", :id => false, :force => true do |t|
+    t.integer  "restaurant_id"
+    t.integer  "category_id"
   end
 
   create_table "users", :force => true do |t|
@@ -64,6 +74,8 @@ ActiveRecord::Schema.define(:version => 20101023013750) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
+
 end
