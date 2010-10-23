@@ -5,7 +5,21 @@ class RestaurantsController < ApplicationController
     # @categories = Category.all
 
     @restaurants = []
-    categories = ['chinese', 'mexican', 'sandwiches', 'delis', 'burgers', 'seafood', 'vegetarian', 'pizza', 'diners', 'buffets']
+    categories = [
+      'bakeries',
+      'desserts',
+      'bars',
+      'food stands',
+      'breakfast & brunch',
+      'coffee & tea',
+      'sandwiches',
+      'pizza',
+      'american (traditional)',
+      'delis',
+      'burgers',
+      'seafood',
+      'diners',
+    ]
     @categories = Category.all(:conditions => {:name => categories})
     @categories.each {|c| @restaurants << c.restaurants }
     @restaurants.flatten!

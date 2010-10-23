@@ -9,7 +9,7 @@
 require RAILS_ROOT + '/db/generator'
 
 fng = FakeNameGenerator.new
-File.open(RAILS_ROOT + '/db/new_data.txt').read.split(/\n/)[1..100].each do |row|
+File.open(RAILS_ROOT + '/db/new_data.txt').read.split(/\n/)[1..500].each do |row|
   row = row.split '|'
 
   categories = []
