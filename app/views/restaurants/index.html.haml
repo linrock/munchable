@@ -1,5 +1,13 @@
 #map_canvas{:style => "width: 500px; height: 500px; text-align: center"}
   = image_tag 'loading.gif', :style => 'margin-top: 200px'
+.clear
+
+#categories{:style => 'width: 450px; margin: 0 auto; padding-top: 10px'}
+  %h3 Categories
+  %p
+    - for c in @categories
+      .entry{:style => 'float: left; width: 150px'}= link_to c.name, category_url(:id => c.id)
+.clear
 
 #search
   Search Menus
@@ -7,6 +15,7 @@
   - form_tag menu_items_path, :method => 'get' do
     = text_field_tag :q, params[:q]
     = submit_tag 'Go!', :name => nil
+.clear
 
 #info
   %table.tablesorter#restaurant_table
@@ -33,8 +42,8 @@
 
 :javascript
   var restaurants = #{@restaurants.to_json};
-  var x = 37.75;
-  var y = -122.40;
+  var x = 37.7547;
+  var y = -122.4426;
   var zoom = 12;
 
   $("#restaurant_table").tablesorter();

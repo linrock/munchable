@@ -2,6 +2,7 @@ class RestaurantsController < ApplicationController
 
   def index
     @restaurants = Restaurant.find(:all, :limit => 30)
+    @categories = Category.all
   end
 
   def show
