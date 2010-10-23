@@ -26,7 +26,7 @@ function initialize() {
       title: restaurants[i].restaurant.name
     }));
     markerWindows.push(new google.maps.InfoWindow({
-      content: '<a href="/restaurants/' + restaurants[i].restaurant.id + '">' + restaurants[i].restaurant.name + '</a>'
+      content: '<p><a href="/restaurants/' + restaurants[i].restaurant.id + '">' + restaurants[i].restaurant.name + '</a><p>' + '<p>' + restaurants[i].restaurant.address + '</p>'
     }));
     google.maps.event.addListener(markers[i], 'click', infoCallback(markerWindows[i], markers[i]));
   }
