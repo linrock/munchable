@@ -16,7 +16,8 @@
   }
 
 %h1.title= @restaurant.name
-#map_canvas{:style => "width: 300px; height: 300px;"}
+#map_canvas{:style => "width: 300px; height: 300px; text-align: center;"}
+  = image_tag 'loading.gif', :style => 'margin-top: 100px'
 
 #info.centered
   %p
@@ -50,5 +51,4 @@
   var y = -#{@coordinates[1]};
   var zoom = 15;
 = javascript_include_tag 'http://maps.google.com/maps/api/js?sensor=true'
-= javascript_include_tag 'loader.js'
 
