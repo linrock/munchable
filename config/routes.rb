@@ -1,4 +1,10 @@
 RestaurantDemo::Application.routes.draw do
+  devise_for :users,
+    :path_names => {
+      :sign_in => 'login',
+      :sign_out => 'logout',
+      :sign_up => 'signup'
+    }
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
@@ -54,12 +60,7 @@ RestaurantDemo::Application.routes.draw do
   resources :restaurants
   resources :menu_items
   resources :comments
-  devise_for :users,
-    :path_names => {
-      :sign_in => 'login',
-      :sign_out => 'logout',
-      :sign_up => 'signup'
-    }
+  resources :users
 
   # See how all your routes lay out with "rake routes"
 
