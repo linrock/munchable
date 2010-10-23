@@ -1,4 +1,4 @@
-RestaurantDemo::Application.routes.draw do
+Munchable::Application.routes.draw do
   devise_for :users,
     :path_names => {
       :sign_in => 'login',

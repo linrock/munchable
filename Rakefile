@@ -4,4 +4,4 @@
 require File.expand_path('../config/application', __FILE__)
 require 'rake'
 
-RestaurantDemo::Application.load_tasks
+Munchable::Application.load_tasks

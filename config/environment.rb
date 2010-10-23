@@ -2,6 +2,6 @@
 require File.expand_path('../application', __FILE__)
 
 # Initialize the rails application
-RestaurantDemo::Application.initialize!
+Munchable::Application.initialize!
 
 Haml::Template.options[:escape_html] = false
