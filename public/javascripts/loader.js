@@ -1,11 +1,10 @@
 function initialize() {
   var latlng = new google.maps.LatLng(x, y);   //38.95, -77.46);
-  var myOptions = {
+  var map = new google.maps.Map(document.getElementById("map_canvas"), {
     zoom: zoom,
     center: latlng,
     mapTypeId: google.maps.MapTypeId.ROADMAP
-  };
-  var map = new google.maps.Map(document.getElementById("map_canvas"),myOptions);
+  });
   var markers = [];
   var markerWindows = [];
   var markerPositions = [];
