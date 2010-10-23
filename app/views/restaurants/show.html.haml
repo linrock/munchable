@@ -19,7 +19,14 @@
 #map_canvas{:style => "width: 300px; height: 300px; text-align: center;"}
   = image_tag 'loading.gif', :style => 'margin-top: 100px'
 
-#info.centered
+#info.centered{:style => "margin-top: 20px"}
+  %p
+    %b
+      Website:
+      = link_to @restaurant.website, @restaurant.website
+  %p
+    %b Hours:
+    = @restaurant.hours
   %p
     %b Categories:
     - for c in @restaurant.categories

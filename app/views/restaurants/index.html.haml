@@ -31,6 +31,10 @@
         %th
           %b Rating
         %th
+          %b Take Out?
+        %th
+          %b Delivery?
+        %th
           %b Coordinates
     %tbody
       - for restaurant in @restaurants
@@ -47,6 +51,16 @@
             - else
               %span.red #{restaurant.rating}
             (#{restaurant.review_count} reviews)
+          %td
+            - if restaurant.take_out
+              %span.green yes
+            - else
+              %span.red no
+          %td
+            - if restaurant.delivery
+              %span.green yes
+            - else
+              %span.red no
           %td #{restaurant.x}, #{restaurant.y}
   %br/
 
