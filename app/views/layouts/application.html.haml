@@ -36,7 +36,10 @@
   %body
     %h1#title= link_to 'Most Munchable', root_url
     #navbar
-      Login
+      - if user_signed_in?
+        Logout
+      - else
+        Login
     .notice
       = flash[:notice]
     .alert

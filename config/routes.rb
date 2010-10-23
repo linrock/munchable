@@ -54,6 +54,12 @@ RestaurantDemo::Application.routes.draw do
   resources :restaurants
   resources :menu_items
   resources :comments
+  devise_for :users,
+    :path_names => {
+      :sign_in => 'login',
+      :sign_out => 'logout',
+      :sign_up => 'signup'
+    }
 
   # See how all your routes lay out with "rake routes"
 
