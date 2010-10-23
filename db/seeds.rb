@@ -38,7 +38,7 @@ File.open(RAILS_ROOT + '/db/data.txt').read.split(/\n/)[1..200].each do |row|
   (rand*10).to_i.times do
     MenuItem.create(
       :restaurant_id => r.id,
-      :name => fng.generate_name(r.categories),
+      :name => fng.generate_name(row[5]),
       :price => (rand*20).to_i
     )
   end
