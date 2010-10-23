@@ -22,7 +22,8 @@
 #info.centered
   %p
     %b Categories:
-    = @restaurant.categories
+    - for c in @restaurant.categories
+      = link_to c.name, category_url(:id => c.id)
   %p 
     %b Rating:
     = "#{@restaurant.rating} (#{@restaurant.review_count})"
