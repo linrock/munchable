@@ -7,9 +7,7 @@ class RestaurantsController < ApplicationController
     @restaurants = []
     categories = ['chinese', 'mexican', 'sandwiches', 'delis', 'burgers', 'seafood', 'vegetarian', 'pizza', 'diners', 'buffets']
     @categories = Category.all(:conditions => {:name => categories})
-    for category in @categories
-      @restaurants << category.restaurants
-    end
+    @categories.each {|c| @restaurants << c.restaurants }
     @restaurants.flatten!
   end
 

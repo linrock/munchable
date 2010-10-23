@@ -9,12 +9,11 @@
 require RAILS_ROOT + '/db/generator'
 
 fng = FakeNameGenerator.new
-File.open(RAILS_ROOT + '/db/data.txt').read.split(/\n/)[1..200].each do |row|
-  row = row.split(/\t/)
+File.open(RAILS_ROOT + '/db/new_data.txt').read.split(/\n/)[1..100].each do |row|
+  row = row.split '|'
 
-  coordinates = JSON.load row[6]
   categories = []
-  for c in JSON.load(row[5]) do
+  for c in JSON.load(row[2]) do
     c = c.downcase
     check = Category.where(:name => c).first
     if check
@@ -26,12 +25,17 @@ File.open(RAILS_ROOT + '/db/data.txt').read.split(/\n/)[1..200].each do |row|
   r = Restaurant.create({
     :url => row[0],
     :name => row[1],
-    :rating => row[2],
-    :review_count => row[3],
-    :address => row[4],
+    :rating => row[5],
+    :review_count => row[6],
+    :address => row[7],
     :categories => categories,
-    :x => coordinates[0],
-    :y => coordinates[1],
+    :website => row[8],
+    :hours => row[9],
+    :good_for => row[10],
+    :delivery => row[11],
+    :take_out => row[12],
+    :x => row[3],
+    :y => row[4],
     :updated_at => row[7]
   })
   stuff = []

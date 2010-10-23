@@ -50,7 +50,7 @@
 :javascript
   var restaurants = #{[@restaurant].to_json};
   var x = #{@coordinates[0]};
-  var y = -#{@coordinates[1]};
+  var y = #{@coordinates[1]};
   var zoom = 15;
 
   $(document).ready(function() {

@@ -17,8 +17,8 @@ function initialize() {
   }
 
   for(var i=0; i<restaurants.length; i++){
-    markerLatLng = new google.maps.LatLng(restaurants[i].restaurant.x, -restaurants[i].restaurant.y);
-    markerPositions.push(new google.maps.LatLng(restaurants[i].restaurant.x, -restaurants[i].restaurant.y));
+    markerLatLng = new google.maps.LatLng(restaurants[i].restaurant.x, restaurants[i].restaurant.y);
+    markerPositions.push(new google.maps.LatLng(restaurants[i].restaurant.x, restaurants[i].restaurant.y));
     markers.push(new google.maps.Marker({
       position: markerLatLng,
       map: map,
