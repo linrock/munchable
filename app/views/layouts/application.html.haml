@@ -37,4 +37,8 @@
     %h1#title= link_to 'Most Munchable', root_url
     #navbar
       Login
+    .notice
+      = flash[:notice]
+    .alert
+      = flash[:alert]
     =yield
