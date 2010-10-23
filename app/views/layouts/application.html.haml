@@ -12,6 +12,10 @@
         text-align: center;
         margin-bottom: 30px;
       }
+      #navbar {
+        text-align: center;
+        width: 500px;
+      }
       #restaurant_table{
         margin: 10px auto;
       }
@@ -31,5 +35,6 @@
 
   %body
     %h1#title= link_to 'Most Munchable', root_url
-    %p(style="float: right") Login
+    #navbar
+      Login
     =yield

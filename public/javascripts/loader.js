@@ -31,7 +31,3 @@ function initialize() {
     google.maps.event.addListener(markers[i], 'click', infoCallback(markerWindows[i], markers[i]));
   }
 }
-
-$(document).ready(function() {
-  initialize();
-})
