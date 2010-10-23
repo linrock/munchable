@@ -7,6 +7,10 @@
       = stylesheet_link_tag 'compiled/ie.css', :media => 'screen, projection'
     = stylesheet_link_tag :all
     :css
+      #container {
+        margin: 0 auto;
+        width: 70%;
+      }
       #map_canvas {
         width: 500px;
         height: 500px;
@@ -18,7 +22,6 @@
       }
       #navbar {
         text-align: center;
-        width: 500px;
       }
       #restaurant_table{
         margin: 10px auto;
@@ -37,9 +40,9 @@
       }
     = javascript_include_tag :all
 
-  %body
+  %body.bp
     %h1#title= link_to 'Most Munchable', root_url
-    .before
+    #container
       #navbar
         - if user_signed_in?
           = link_to 'Logout', destroy_user_session_url
@@ -47,9 +50,11 @@
           = link_to 'Login', new_user_session_url
           &nbsp;-&nbsp;
           = link_to 'Create Account', new_user_url
-      .notice
-        = flash[:notice]
-      .alert
-        = flash[:alert]
-    .clear
-    =yield
+      #notices
+        - if flash[:notice]
+          .notice= flash[:notice]
+        - if flash[:alert]
+          .alert= flash[:alert]
+      .clear
+      %br/
+      =yield
