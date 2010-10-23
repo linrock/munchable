@@ -1,3 +1,18 @@
+#map_canvas{:style => "width: 500px; height: 500px"}
+  = image_tag 'loading.gif', :style => 'margin-top: 200px'
+
 %h2 Category: #{@category.name}
 - for r in @category.restaurants
   %p= link_to r.name, restaurant_url(:id => r.id)
+
+:javascript
+  var restaurants = #{@category.restaurants.to_json};
+  var x = 37.75;
+  var y = -122.40;
+  var zoom = 12;
+
+  $("#restaurant_table").tablesorter();
+  $(document).ready(function() {
+    initialize();
+  });
+= javascript_include_tag 'http://maps.google.com/maps/api/js?sensor=false'
