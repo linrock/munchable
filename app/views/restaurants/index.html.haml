@@ -36,7 +36,14 @@
           %td
             - for c in restaurant.categories
               = link_to c.name, category_url(:id => c.id)
-          %td #{restaurant.rating} (#{restaurant.review_count} reviews)
+          %td
+            - if restaurant.rating >= 4
+              %span.green #{restaurant.rating}
+            - elsif restaurant.rating >= 3
+              %span.yellow #{restaurant.rating}
+            - else
+              %span.red #{restaurant.rating}
+            (#{restaurant.review_count} reviews)
           %td #{restaurant.x}, -#{restaurant.y}
   %br/
 
