@@ -6,7 +6,10 @@
   %h3 Categories
   %p
     - for c in @categories
-      .entry{:style => 'float: left; width: 150px'}= link_to c.name, category_url(:id => c.id)
+      .entry{:style => 'float: left; width: 150px'}
+        = link_to c.name, category_url(:id => c.id)
+        (#{c.restaurants.length})
+
 .clear
 
 #search
