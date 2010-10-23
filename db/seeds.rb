@@ -9,7 +9,7 @@
 require RAILS_ROOT + '/db/generator'
 
 fng = FakeNameGenerator.new
-File.open(RAILS_ROOT + '/db/data.txt').read.split(/\n/)[1..1000].each do |row|
+File.open(RAILS_ROOT + '/db/data.txt').read.split(/\n/)[1..200].each do |row|
   row = row.split(/\t/)
 
   coordinates = JSON.load row[6]

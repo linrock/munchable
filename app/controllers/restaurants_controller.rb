@@ -1,8 +1,16 @@
 class RestaurantsController < ApplicationController
 
   def index
-    @restaurants = Restaurant.find(:all, :limit => 30)
-    @categories = Category.all
+    # @restaurants = Restaurant.find(:all, :limit => 50)
+    # @categories = Category.all
+
+    @restaurants = []
+    categories = ['chinese', 'mexican', 'sandwiches', 'delis', 'burgers', 'seafood', 'vegetarian', 'pizza', 'diners', 'buffets']
+    @categories = Category.all(:conditions => {:name => categories})
+    for category in @categories
+      @restaurants << category.restaurants
+    end
+    @restaurants.flatten!
   end
 
   def show
