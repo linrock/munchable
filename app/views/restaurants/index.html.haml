@@ -24,7 +24,9 @@
       - for restaurant in @restaurants
         %tr
           %td= link_to restaurant.name, restaurant_url(:id => restaurant.id)
-          %td= restaurant.categories
+          %td
+            - for c in restaurant.categories
+              = link_to c.name, category_url(:id => c.id)
           %td #{restaurant.rating} (#{restaurant.review_count} reviews)
           %td #{restaurant.x}, -#{restaurant.y}
   %br/

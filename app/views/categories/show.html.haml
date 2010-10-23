@@ -1,0 +1,3 @@
+%h2 Category: #{@category.name}
+- for r in @category.restaurants
+  %p= link_to r.name, restaurant_url(:id => r.id)

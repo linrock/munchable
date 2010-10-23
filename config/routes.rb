@@ -58,6 +58,7 @@ RestaurantDemo::Application.routes.draw do
   
   root :to => "restaurants#index"
   resources :restaurants
+  resources :categories
   resources :menu_items
   resources :comments
   resources :users

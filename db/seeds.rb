@@ -13,13 +13,23 @@ File.open(RAILS_ROOT + '/db/data.txt').read.split(/\n/)[1..20].each do |row|
   row = row.split(/\t/)
 
   coordinates = JSON.load row[6]
+  categories = []
+  for c in JSON.load(row[5]) do
+    c = c.downcase
+    check = Category.where(:name => c).first
+    if check
+      categories << check
+    else
+      categories << Category.create(:name => c)
+    end
+  end
   r = Restaurant.create({
     :url => row[0],
     :name => row[1],
     :rating => row[2],
     :review_count => row[3],
     :address => row[4],
-    # :categories => row[5],
+    :categories => categories,
     :x => coordinates[0],
     :y => coordinates[1],
     :updated_at => row[7]
