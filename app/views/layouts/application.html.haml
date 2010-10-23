@@ -1,6 +1,10 @@
 !!!
 %html
   %head
+    = stylesheet_link_tag 'compiled/screen.css', :media => 'screen, projection'
+    = stylesheet_link_tag 'compiled/print.css', :media => 'print'
+    /[if lt IE 8]
+      = stylesheet_link_tag 'compiled/ie.css', :media => 'screen, projection'
     = stylesheet_link_tag :all
     :css
       #map_canvas {
@@ -35,13 +39,17 @@
 
   %body
     %h1#title= link_to 'Most Munchable', root_url
-    #navbar
-      - if user_signed_in?
-        = link_to 'Logout', destroy_user_session_url
-      - else
-        = link_to 'Login', new_user_session_url
-    .notice
-      = flash[:notice]
-    .alert
-      = flash[:alert]
+    .before
+      #navbar
+        - if user_signed_in?
+          = link_to 'Logout', destroy_user_session_url
+        - else
+          = link_to 'Login', new_user_session_url
+          &nbsp;-&nbsp;
+          = link_to 'Create Account', new_user_url
+      .notice
+        = flash[:notice]
+      .alert
+        = flash[:alert]
+    .clear
     =yield
