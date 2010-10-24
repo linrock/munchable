@@ -13,7 +13,7 @@
       %tr
         %td= link_to r.name, restaurant_url(:id => r.id)
         %td= r.rating
-        %td #{r.x}, -#{r.y}
+        %td #{r.x}, #{r.y}
 
 :javascript
   var restaurants = #{@category.restaurants.to_json};

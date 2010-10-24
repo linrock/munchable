@@ -52,6 +52,7 @@ ActiveRecord::Schema.define(:version => 20101023013750) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+  add_index "restaurants", ["x", "y"], :name => "index_restaurants_on_x_y", :unique => true
 
   create_table "categories", :force => true do |t|
     t.string   "name", :key => true
