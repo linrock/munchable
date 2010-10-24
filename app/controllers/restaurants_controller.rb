@@ -6,15 +6,17 @@ class RestaurantsController < ApplicationController
 
     @restaurants = []
     categories = [
+      'mexican',
       'bakeries',
       'desserts',
-      'bars',
+      'ice cream & frozen yogurt',
+      'sandwiches',
       'food stands',
       'breakfast & brunch',
       'coffee & tea',
-      'sandwiches',
       'pizza',
       'american (traditional)',
+      'american (new)',
       'delis',
       'burgers',
       'seafood',
@@ -22,7 +24,7 @@ class RestaurantsController < ApplicationController
     ]
     @categories = Category.all(:conditions => {:name => categories})
     @categories.each {|c| @restaurants << c.restaurants }
-    @restaurants.flatten!
+    @restaurants = @restaurants.flatten.uniq
   end
 
   def show

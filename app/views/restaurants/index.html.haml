@@ -2,11 +2,11 @@
   = image_tag 'loading.gif', :style => 'margin-top: 200px'
 .clear
 
-#categories{:style => 'width: 600px; margin: 0 auto; padding-top: 10px'}
+#categories{:style => 'width: 700px; margin: 0 auto; padding-top: 10px'}
   %h3 Categories
   %p
     - for c in @categories
-      .entry{:style => 'float: left; width: 150px'}
+      .entry{:style => 'float: left; width: 175px'}
         = link_to c.name, category_url(:id => c.id)
         (#{c.restaurants.length})
 

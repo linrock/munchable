@@ -22,29 +22,31 @@ File.open(RAILS_ROOT + '/db/data.txt').read.split(/\n/)[1..500].each do |row|
       categories << Category.create(:name => c)
     end
   end
-  r = Restaurant.create({
-    :url => row[0],
-    :name => row[1],
-    :rating => row[5],
-    :review_count => row[6],
-    :address => row[7],
-    :categories => categories,
-    :website => row[8],
-    :hours => row[9],
-    :good_for => row[10],
-    :delivery => row[11],
-    :take_out => row[12],
-    :x => row[3],
-    :y => row[4],
-    :updated_at => row[7]
-  })
-  stuff = []
-  (rand*10).to_i.times do
-    MenuItem.create(
-      :restaurant_id => r.id,
-      :name => fng.generate_name(row[5]),
-      :price => (rand*20).to_i
-    )
+  if Restaurant.where(:x => row[3], :y => row[4]).empty?
+    r = Restaurant.create({
+      :url => row[0],
+      :name => row[1],
+      :rating => row[5],
+      :review_count => row[6],
+      :address => row[7],
+      :categories => categories,
+      :website => row[8],
+      :hours => row[9],
+      :good_for => row[10],
+      :delivery => row[11],
+      :take_out => row[12],
+      :x => row[3],
+      :y => row[4],
+      :updated_at => row[7]
+    })
+    stuff = []
+    (rand*10).to_i.times do
+      MenuItem.create(
+        :restaurant_id => r.id,
+        :name => fng.generate_name(row[5]),
+        :price => (rand*20).to_i
+      )
+    end
   end
 end
 
