@@ -21,6 +21,8 @@ class RestaurantsController < ApplicationController
       'burgers',
       'seafood',
       'diners',
+      'italian',
+      'hot dogs'
     ]
     @categories = Category.all(:conditions => {:name => categories})
     @categories.each {|c| @restaurants << c.restaurants }
