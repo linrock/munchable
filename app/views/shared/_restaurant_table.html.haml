@@ -2,6 +2,7 @@
   %thead
     %tr
       %th Name
+      %th Website
       %th Categories
       %th Rating
       %th Reviews
@@ -12,6 +13,7 @@
     - for restaurant in @restaurants
       %tr
         %td= link_to restaurant.name, restaurant_url(:id => restaurant.id)
+        %td= link_to restaurant.website, restaurant.website
         %td
           - for c in restaurant.categories
             = link_to c.name, category_url(:id => c.id, :location_id => @location.id)
