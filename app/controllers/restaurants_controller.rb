@@ -1,7 +1,6 @@
 class RestaurantsController < ApplicationController
 
   def index
-    # @restaurants = Restaurant.find(:all, :limit => 50)
 
 =begin
     @restaurants = []
@@ -9,10 +8,8 @@ class RestaurantsController < ApplicationController
     @categories.each {|c| @restaurants << c.restaurants }
     @restaurants = @restaurants.flatten.uniq
 =end
+    @restaurants = Location.where(:city => 'San Francisco').first.restaurants
     @categories = Category.all
-    # @restaurants = Restaurant.all
-    @restaurants = Restaurant.where(@zone, 37.6946877, 37.8116826, -122.5233078, -122.3550796).all
-    # @restaurants = Restaurant.where(zone, 37.383116, 37.395221, -122.091879, -122.070637).all
   end
 
   def show

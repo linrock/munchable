@@ -4,7 +4,6 @@ class Restaurant < ActiveRecord::Base
   belongs_to :location
   has_and_belongs_to_many :categories, :join_table => 'restaurants_categories'
 
-  @zone = "x > ? AND x < ? AND y > ? and y < ?"
   @categories = [
     'mexican',
     'bakeries',
