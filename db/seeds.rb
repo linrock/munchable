@@ -75,7 +75,7 @@ data.each do |row|
     (rand*10).to_i.times do
       MenuItem.create(
         :restaurant_id => r.id,
-        :name => fng.generate_name(row[5]),
+        :name => fng.generate_name(categories.collect {|c| c.name }.join ','),
         :price => (rand*20).to_i
       )
     end

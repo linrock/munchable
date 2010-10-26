@@ -20,21 +20,21 @@ class FakeNameGenerator
 
   def generate_name(categories)
     adj = @words[:adj].sample
-    if categories.include? 'Breakfast' then
+    if categories.include? 'breakfast' then
       stuff = @words[:breakfast].sample
-    elsif categories.include? 'Burgers' then
+    elsif categories.include? 'burgers' then
       stuff = @words[:burgers].sample
-    elsif (categories.include? 'Indian') then
+    elsif (categories.include? 'indian') then
       stuff = @words[:indian].sample
-    elsif (categories.include? 'Italian') then
+    elsif (categories.include? 'italian') then
       stuff = @words[:italian].sample
-    elsif (categories.include? 'Mexican') then
+    elsif (categories.include? 'mexican') then
       stuff = @words[:mexican].sample
-    elsif (categories.include? 'Pizzas') then
+    elsif (categories.include? 'pizzas') then
       stuff = @words[:pizzas].sample
-    elsif (categories.include? 'Sandwiches') then
+    elsif (categories.include? 'sandwiches') then
       stuff = @words[:sandwiches].sample
-    elsif (categories.include? 'Seafood') then
+    elsif (categories.include? 'seafood') then
       stuff = @words[:seafood].sample
     else
       stuff = @words[:generic].sample
