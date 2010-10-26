@@ -9,7 +9,7 @@ class RestaurantsController < ApplicationController
     @restaurants = @restaurants.flatten.uniq
 =end
     @location = Location.where(:city => 'San Francisco').first
-    @restaurants = Location.where(:city => 'San Francisco').first.restaurants
+    @restaurants = @location.restaurants
     @categories = Category.all
   end
 
