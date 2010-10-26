@@ -1,0 +1,36 @@
+%table.tablesorter#restaurant_table
+  %thead
+    %tr
+      %th Name
+      %th Categories
+      %th Rating
+      %th Reviews
+      %th Take Out?
+      %th Delivery?
+      %th Coordinates
+  %tbody
+    - for restaurant in @restaurants
+      %tr
+        %td= link_to restaurant.name, restaurant_url(:id => restaurant.id)
+        %td
+          - for c in restaurant.categories
+            = link_to c.name, category_url(:id => c.id, :location_id => @location.id)
+        %td
+          - if restaurant.rating >= 4.5
+            %span.green #{restaurant.rating}
+          - elsif restaurant.rating >= 4.0
+            %span.yellow #{restaurant.rating}
+          - else
+            %span.red #{restaurant.rating}
+        %td= restaurant.review_count
+        %td
+          - if restaurant.take_out
+            %span.green yes
+          - else
+            %span.red no
+        %td
+          - if restaurant.delivery
+            %span.green yes
+          - else
+            %span.red no
+        %td #{restaurant.x}, #{restaurant.y}

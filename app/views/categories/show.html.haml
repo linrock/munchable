@@ -2,18 +2,7 @@
   = image_tag 'loading.gif', :style => 'margin-top: 200px'
 
 %h2 Category: #{@category.name}
-%table.tablesorter#restaurant_table
-  %thead
-    %tr
-      %th Name
-      %th Rating
-      %th Coordinates
-  %tbody
-    - for r in @restaurants
-      %tr
-        %td= link_to r.name, restaurant_url(:id => r.id)
-        %td= r.rating
-        %td #{r.x}, #{r.y}
+= render :partial => 'shared/restaurant_table'
 
 :javascript
   var restaurants = #{@restaurants.to_json};
