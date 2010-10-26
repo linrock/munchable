@@ -1,0 +1,10 @@
+pid: tmp/pids/thin.pid
+log: log/thin.log
+max_conns: 1024
+timeout: 30
+
+environment: production
+servers: 3
+daemonize: true
+socket: tmp/sockets/thin.munchable.sock
+
