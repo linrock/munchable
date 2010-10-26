@@ -8,6 +8,7 @@ class RestaurantsController < ApplicationController
     @categories.each {|c| @restaurants << c.restaurants }
     @restaurants = @restaurants.flatten.uniq
 =end
+    @location = Location.where(:city => 'San Francisco').first
     @restaurants = Location.where(:city => 'San Francisco').first.restaurants
     @categories = Category.all
   end

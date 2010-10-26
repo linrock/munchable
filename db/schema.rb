@@ -58,6 +58,8 @@ ActiveRecord::Schema.define(:version => 20101023013750) do
   create_table "locations", :force => true do |t|
     t.string   "city"
     t.string   "state"
+    t.float    "x_center"
+    t.float    "y_center"
     t.float    "x_lower"
     t.float    "x_upper"
     t.float    "y_lower"
@@ -65,6 +67,7 @@ ActiveRecord::Schema.define(:version => 20101023013750) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+  add_index "locations", ["city", "state"], :name => "index_locations_on_city_state", :unique => true
 
   create_table "categories", :force => true do |t|
     t.string   "name", :key => true

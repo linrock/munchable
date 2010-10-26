@@ -66,8 +66,8 @@
 
 :javascript
   var restaurants = #{@restaurants.to_json};
-  var x = 37.7547;
-  var y = -122.4426;
+  var x = #{@location.x_center};
+  var y = #{@location.y_center};
   var zoom = 12;
 
   $("#restaurant_table").tablesorter();
