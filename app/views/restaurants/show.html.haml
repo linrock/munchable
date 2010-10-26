@@ -30,7 +30,7 @@
   %p
     %b Categories:
     - for c in @restaurant.categories
-      = link_to c.name, category_url(:id => c.id)
+      = link_to c.name, category_url(:id => c.id, :location_id => @location.id)
   %p 
     %b Rating:
     = "#{@restaurant.rating} (#{@restaurant.review_count})"
