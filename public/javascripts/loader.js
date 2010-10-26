@@ -16,10 +16,23 @@ function initialize() {
     };
   }
 
+  var best = 'http://chart.apis.google.com/chart?chst=d_map_pin_letter_withshadow&chld=%E2%80%A2|33CC33|000000';
+  var better = 'http://chart.apis.google.com/chart?chst=d_map_pin_letter_withshadow&chld=%E2%80%A2|FFFF00|000000';
+  var good = 'http://chart.apis.google.com/chart?chst=d_map_pin_letter_withshadow&chld=%E2%80%A2|FF6633|000000';
+
   for(var i=0; i<restaurants.length; i++){
     markerLatLng = new google.maps.LatLng(restaurants[i].restaurant.x, restaurants[i].restaurant.y);
     markerPositions.push(new google.maps.LatLng(restaurants[i].restaurant.x, restaurants[i].restaurant.y));
+
+    if (restaurants[i].restaurant.rating >= 4.5) {
+      icon = best;
+    } else if (restaurants[i].restaurant.rating >= 4.0) {
+      icon = better;
+    } else {
+      icon = good;
+    }
     markers.push(new google.maps.Marker({
+      icon: icon,
       position: markerLatLng,
       map: map,
       title: restaurants[i].restaurant.name
