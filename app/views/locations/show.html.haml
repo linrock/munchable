@@ -5,10 +5,10 @@
 #categories{:style => 'width: 700px; margin: 0 auto; padding-top: 10px'}
   %h3 Categories
   %p
-    - for c in @categories
+    - for name,count in @category_counts
       .entry{:style => 'float: left; width: 175px'}
-        = link_to c.name, category_url(:id => c.id, :location_id => @location.id)
-        (#{c.restaurants.length})
+        = link_to name, category_url(:id => 1, :location_id => @location.id)
+        (#{count})
 
 .clear
 
