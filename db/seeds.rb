@@ -12,6 +12,8 @@ require RAILS_ROOT + '/db/generator'
 Location.create([{
   :city => 'San Francisco',
   :state => 'CA',
+  :x_center => 37.7547,
+  :y_center => -122.4426,
   :x_lower => 37.6946877,
   :x_upper => 37.8116826,
   :y_lower => -122.5233078,
