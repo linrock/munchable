@@ -7,7 +7,7 @@
   %p
     - for c in @categories
       .entry{:style => 'float: left; width: 175px'}
-        = link_to c.name, category_url(:id => c.id)
+        = link_to c.name, category_url(:id => c.id, :location_id => @location.id)
         (#{c.restaurants.length})
 
 .clear
