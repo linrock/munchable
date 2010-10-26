@@ -8,6 +8,24 @@
 
 require RAILS_ROOT + '/db/generator'
 
+
+Location.create([{
+  :city => 'san francisco',
+  :state => 'CA',
+  :x_lower => 37.6946877,
+  :x_upper => 37.8116826,
+  :y_lower => -122.5233078,
+  :y_upper => -122.3550796
+},{
+  :city => 'mountain view',
+  :state => 'CA',
+  :x_lower => 37.383116,
+  :x_upper => 37.395221,
+  :y_lower => -122.091879,
+  :y_upper => -122.070637,
+}])
+
+
 fng = FakeNameGenerator.new
 
 data0 = File.open(RAILS_ROOT + '/db/places/ca_san_francisco.txt').read.split(/\n/)
@@ -31,6 +49,7 @@ data.each do |row|
   end
   if Restaurant.where(:x => row[3], :y => row[4]).empty?
     r = Restaurant.create({
+      :location_id => Location.get_location(row[3], row[4]).id,
       :url => row[0],
       :name => row[1],
       :rating => row[5],

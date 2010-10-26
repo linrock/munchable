@@ -62,6 +62,8 @@ ActiveRecord::Schema.define(:version => 20101023013750) do
     t.float    "x_upper"
     t.float    "y_lower"
     t.float    "y_upper"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "categories", :force => true do |t|
