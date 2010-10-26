@@ -56,10 +56,11 @@ Munchable::Application.routes.draw do
   # just remember to delete public/index.html.
   # root :to => "welcome#index"
   
-  root :to => "restaurants#index"
+  root :to => "locations#show", :defaults => { :id => 1 }
   resources :restaurants
   resources :categories
   resources :menu_items
+  resources :locations
   resources :comments
   resources :users
 

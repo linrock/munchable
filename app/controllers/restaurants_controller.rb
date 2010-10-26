@@ -1,7 +1,6 @@
 class RestaurantsController < ApplicationController
 
   def index
-
 =begin
     @restaurants = []
     @categories = Category.all(:conditions => {:name => @categories})
