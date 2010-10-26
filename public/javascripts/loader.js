@@ -37,11 +37,17 @@ function initialize() {
       map: map,
       title: restaurants[i].restaurant.name
     }));
+
+    var address = JSON.parse(restaurants[i].restaurant.address).join(', ');
+    var hours = JSON.parse(restaurants[i].restaurant.hours).join('<br/>');
     markerWindows.push(new google.maps.InfoWindow({
       content: 
-        '<p><a href="/restaurants/' + restaurants[i].restaurant.id + '">' + restaurants[i].restaurant.name + '</a>' +
-        '<p>' + '<p>' + restaurants[i].restaurant.address + '</p>' +
-        '<p>' + restaurants[i].restaurant.hours + '</p>'
+        '<div style="text-align: left">' +
+        '<a href="/restaurants/' + restaurants[i].restaurant.id + '">' + restaurants[i].restaurant.name + '</a><br/>' +
+        'Rating: ' + '<b>' + restaurants[i].restaurant.rating + '</b><br/>' +
+        address + '<br/>' +
+        hours + '<br/>' +
+        '</div>'
     }));
     google.maps.event.addListener(markers[i], 'click', infoCallback(markerWindows[i], markers[i]));
   }
