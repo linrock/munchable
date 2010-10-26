@@ -4,11 +4,11 @@
       %th Name
       %th Website
       %th Categories
+      %th Good For
       %th Rating
       %th Reviews
       %th Take Out?
       %th Delivery?
-      %th Coordinates
   %tbody
     - for restaurant in @restaurants
       %tr
@@ -17,6 +17,7 @@
         %td
           - for c in restaurant.categories
             = link_to c.name, category_url(:id => c.id, :location_id => @location.id)
+        %td= JSON.load(restaurant.good_for).join ', '
         %td
           - if restaurant.rating >= 4.5
             %span.green #{restaurant.rating}
@@ -35,4 +36,3 @@
             %span.green yes
           - else
             %span.red no
-        %td #{restaurant.x}, #{restaurant.y}
