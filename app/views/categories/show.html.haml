@@ -9,14 +9,14 @@
       %th Rating
       %th Coordinates
   %tbody
-    - for r in @category.restaurants
+    - for r in @restaurants
       %tr
         %td= link_to r.name, restaurant_url(:id => r.id)
         %td= r.rating
         %td #{r.x}, #{r.y}
 
 :javascript
-  var restaurants = #{@category.restaurants.to_json};
+  var restaurants = #{@restaurants.to_json};
   var x = #{@location.x_center};
   var y = #{@location.y_center};
   var zoom = #{@location.zoom_level};
