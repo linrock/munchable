@@ -5,51 +5,8 @@
     = stylesheet_link_tag 'compiled/print.css', :media => 'print'
     /[if lt IE 8]
       = stylesheet_link_tag 'compiled/ie.css', :media => 'screen, projection'
+    = stylesheet_link_tag 'compiled/style.css', :media => 'screen'
     = stylesheet_link_tag :all
-    :css
-      #container {
-        margin: 0 auto;
-        width: 70%;
-      }
-      #map_canvas {
-        width: 500px;
-        height: 500px;
-        margin: auto;
-      }
-      h1#title {
-        text-align: center;
-        margin-bottom: 30px;
-      }
-      #navbar {
-        text-align: center;
-      }
-      #restaurant_table{
-        margin: 10px auto;
-      }
-      #search {
-        padding: 10px;
-        text-align: center;
-      }
-      .centered {
-        width: 800px;
-        margin: 0 auto;
-      }
-      .comment {
-        color: grey;
-        padding-left: 20px;
-      }
-      .green {
-        color: green;
-        font-weight: bold;
-      }
-      .yellow {
-        color: orange;
-        font-weight: bold;
-      }
-      .red {
-        color: red;
-        font-weight: bold;
-      }
     = javascript_include_tag :all
 
   %body.bp
@@ -63,6 +20,11 @@
             = link_to 'Login', new_user_session_url
             &nbsp;-&nbsp;
             = link_to 'Create Account', new_user_url
+      #navbar
+        = link_to 'San Francisco', location_url(:id => 1)
+        &nbsp;-&nbsp;
+        = link_to 'Mountain View', location_url(:id => 2)
+
       #notices
         - if flash[:notice]
           .notice= flash[:notice]
