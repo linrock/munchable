@@ -17,7 +17,7 @@
         %td
           - for c in restaurant.categories
             = link_to c.name, category_url(:id => c.id, :location_id => @location.id)
-        %td= JSON.load(restaurant.good_for).join ', '
+        %td= restaurant.good_for
         %td
           - if restaurant.rating >= 4.5
             %span.green #{restaurant.rating}
