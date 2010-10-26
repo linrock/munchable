@@ -2,31 +2,17 @@ class RestaurantsController < ApplicationController
 
   def index
     # @restaurants = Restaurant.find(:all, :limit => 50)
-    # @categories = Category.all
 
+=begin
     @restaurants = []
-    categories = [
-      'mexican',
-      'bakeries',
-      'desserts',
-      'ice cream & frozen yogurt',
-      'sandwiches',
-      'food stands',
-      'breakfast & brunch',
-      'coffee & tea',
-      'pizza',
-      'american (traditional)',
-      'american (new)',
-      'delis',
-      'burgers',
-      'seafood',
-      'diners',
-      'italian',
-      'hot dogs'
-    ]
-    @categories = Category.all(:conditions => {:name => categories})
+    @categories = Category.all(:conditions => {:name => @categories})
     @categories.each {|c| @restaurants << c.restaurants }
     @restaurants = @restaurants.flatten.uniq
+=end
+    @categories = Category.all
+    # @restaurants = Restaurant.all
+    @restaurants = Restaurant.where(@zone, 37.6946877, 37.8116826, -122.5233078, -122.3550796).all
+    # @restaurants = Restaurant.where(zone, 37.383116, 37.395221, -122.091879, -122.070637).all
   end
 
   def show

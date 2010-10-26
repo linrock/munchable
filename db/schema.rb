@@ -37,6 +37,7 @@ ActiveRecord::Schema.define(:version => 20101023013750) do
 
   create_table "restaurants", :force => true do |t|
     t.integer  "menu_item_id"
+    t.integer  "location_id"
     t.string   "url"
     t.string   "name"
     t.float    "rating"
@@ -53,6 +54,15 @@ ActiveRecord::Schema.define(:version => 20101023013750) do
     t.datetime "updated_at"
   end
   add_index "restaurants", ["x", "y"], :name => "index_restaurants_on_x_y", :unique => true
+
+  create_table "locations", :force => true do |t|
+    t.string   "city"
+    t.string   "state"
+    t.float    "x_lower"
+    t.float    "x_upper"
+    t.float    "y_lower"
+    t.float    "y_upper"
+  end
 
   create_table "categories", :force => true do |t|
     t.string   "name", :key => true
