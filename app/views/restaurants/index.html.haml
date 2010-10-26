@@ -68,7 +68,7 @@
   var restaurants = #{@restaurants.to_json};
   var x = #{@location.x_center};
   var y = #{@location.y_center};
-  var zoom = 12;
+  var zoom = #{@location.zoom_level};
 
   $("#restaurant_table").tablesorter();
   $(document).ready(function() {

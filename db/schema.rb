@@ -58,6 +58,7 @@ ActiveRecord::Schema.define(:version => 20101023013750) do
   create_table "locations", :force => true do |t|
     t.string   "city"
     t.string   "state"
+    t.integer  "zoom_level"
     t.float    "x_center"
     t.float    "y_center"
     t.float    "x_lower"
