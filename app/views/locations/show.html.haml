@@ -11,13 +11,14 @@
         (#{count})
 .clear
 
-#search
-  Search Menus
-  %br/
-  - form_tag menu_items_path, :method => 'get' do
-    = text_field_tag :q, params[:q]
-    = submit_tag 'Go!', :name => nil
-.clear
+-#
+  #search
+    Search Menus
+    %br/
+    - form_tag menu_items_path, :method => 'get' do
+      = text_field_tag :q, params[:q]
+      = submit_tag 'Go!', :name => nil
+  .clear
 
 #info
   = render :partial => "shared/restaurant_table"
