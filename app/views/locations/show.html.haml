@@ -2,6 +2,12 @@
   = image_tag 'loading.gif', :style => 'margin-top: 200px'
 .clear
 
+
+#search
+  - form_tag menu_items_path, :id => 'search_form', :method => 'get' do
+    = text_field_tag :q, params[:q], :id => 'search_field'
+  .clear
+
 #categories{:style => 'width: 700px; margin: 0 auto; padding-top: 10px'}
   %h3 Categories
   %p
