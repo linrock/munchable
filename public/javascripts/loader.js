@@ -40,7 +40,8 @@ google.maps.Map.prototype.addMarkers = function(restaurants) {
     markerWindows.push(new google.maps.InfoWindow({
       content: 
         '<div style="text-align: left">' +
-        '<a href="/restaurants/' + restaurants[i].id + '">' + restaurants[i].name + '</a><br/>' +
+        // '<a href="/restaurants/' + restaurants[i].id + '">' + restaurants[i].name + '</a><br/>' +
+        '<b>' + restaurants[i].name + '</b><br/>' +
         'Rating: ' + '<b>' + restaurants[i].rating + '</b><br/>' +
         address + '<br/>' +
         hours + '<br/>' +
