@@ -1,3 +1,10 @@
+function infoCallback(markerWindow, marker, markerPosition) {
+  return function() {
+    markerWindow.open(map, marker);
+    map.setCenter(marker.position);
+  };
+}
+
 google.maps.Map.prototype.markers = new Array();
 
 google.maps.Map.prototype.clearMarkers = function() {
@@ -5,13 +12,6 @@ google.maps.Map.prototype.clearMarkers = function() {
     this.markers[i].setMap(null);
   }
   this.markers = new Array();
-}
-    
-function infoCallback(markerWindow, marker, markerPosition) {
-  return function() {
-    markerWindow.open(map, marker);
-    map.setCenter(marker.position);
-  };
 }
 
 google.maps.Map.prototype.addMarkers = function(restaurants) {

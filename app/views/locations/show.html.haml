@@ -45,13 +45,13 @@
 = javascript_include_tag 'http://maps.google.com/maps/api/js?sensor=false'
 = javascript_include_tag 'loader.js'
 :javascript
-
   var map;
   var restaurants = #{@restaurants_serialized};
   var best = 'http://chart.apis.google.com/chart?chst=d_map_pin_letter_withshadow&chld=%E2%80%A2|33CC33|000000';
   var better = 'http://chart.apis.google.com/chart?chst=d_map_pin_letter_withshadow&chld=%E2%80%A2|FFFF00|000000';
   var good = 'http://chart.apis.google.com/chart?chst=d_map_pin_letter_withshadow&chld=%E2%80%A2|FF6633|000000';
 
+  var lol;
   $(document).ready(function() {
 
     var latlng = new google.maps.LatLng(#{@location.x_center}, #{@location.y_center});
@@ -63,6 +63,16 @@
 
     var category;
     var categories = #{@categories};
+
+    function requestData() {
+      $.ajax({
+        url: '/restaurants/instant?category=' + escape(category) + '&location_id=#{@location.id}',
+        success: function(data) {
+          map.addMarkers(data.restaurants);
+        }
+      });
+      $("#category").text(category);
+    }
     $("#instant_search").autocomplete({
       delay: 0,
       source: function(req, responseFn) {
@@ -73,15 +83,13 @@
         });
         if (result[0] && category != result[0]) {
           category = result[0];
-          $.ajax({
-            url: '/restaurants/instant?category=' + escape(result[0]) + '&location_id=#{@location.id}',
-            success: function(data) {
-              map.addMarkers(data.restaurants);
-            }
-          });
-          $("#category").text(result[0]);
+          requestData();
         }
         responseFn(result);
+      },
+      select: function(value, data) {
+        category = data.item.value;
+        requestData();
       }
     });
     $("#simple_table").tablesorter();
