@@ -37,18 +37,17 @@
       = submit_tag 'Go!', :name => nil
   .clear
   
-  #info
-    = render :partial => "shared/restaurant_table"
-    %br/
+#info
+  = render :partial => "shared/simple_table"
+  %br/
 
 
 = javascript_include_tag 'http://maps.google.com/maps/api/js?sensor=false'
 = javascript_include_tag 'loader.js'
 :javascript
-  // $("#restaurant_table").tablesorter();
 
   var map;
-  var restaurants = #{@restaurants.to_json};
+  var restaurants = #{@restaurants_serialized};
   var best = 'http://chart.apis.google.com/chart?chst=d_map_pin_letter_withshadow&chld=%E2%80%A2|33CC33|000000';
   var better = 'http://chart.apis.google.com/chart?chst=d_map_pin_letter_withshadow&chld=%E2%80%A2|FFFF00|000000';
   var good = 'http://chart.apis.google.com/chart?chst=d_map_pin_letter_withshadow&chld=%E2%80%A2|FF6633|000000';
@@ -85,4 +84,5 @@
         responseFn(result);
       }
     });
+    $("#simple_table").tablesorter();
   });
