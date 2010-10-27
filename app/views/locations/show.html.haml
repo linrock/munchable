@@ -17,12 +17,9 @@
     .clear
 
 -#
-  -#
-    #search
-      - form_tag menu_items_path, :id => 'search_form', :method => 'get' do
-        = text_field_tag :q, params[:q], :id => 'search_field'
-      .clear
-
+  #search
+    - form_tag menu_items_path, :id => 'search_form', :method => 'get' do
+      = text_field_tag :q, params[:q], :id => 'search_field'
 
   #categories{:style => 'width: 700px; margin: 0 auto; padding-top: 10px'}
     %h3 Categories
@@ -31,19 +28,15 @@
         .entry{:style => 'float: left; width: 175px'}
           = link_to name, category_url(:id => @category[:ids][name], :location_id => @location.id)
           (#{count})
+
+  #search
+    Search Menus
+    %br/
+    - form_tag menu_items_path, :method => 'get' do
+      = text_field_tag :q, params[:q]
+      = submit_tag 'Go!', :name => nil
   .clear
-
-  -#
-    #search
-      Search Menus
-      %br/
-      - form_tag menu_items_path, :method => 'get' do
-        = text_field_tag :q, params[:q]
-        = submit_tag 'Go!', :name => nil
-    .clear
-
-
--#
+  
   #info
     = render :partial => "shared/restaurant_table"
     %br/
