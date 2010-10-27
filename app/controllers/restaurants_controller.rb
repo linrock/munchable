@@ -9,7 +9,10 @@ class RestaurantsController < ApplicationController
   end
   
   def instant
-    categories = Category.where(:name => CGI.unescape(params[:category])).first.restaurants.where(:location_id => params[:location_id])
+    categories = Category.
+      where(:name => CGI.unescape(params[:category])).first.restaurants.
+      where(:location_id => params[:location_id]).
+      all(:order => 'rating DESC', :limit => 7)
     render :json => {
       :restaurants => categories.collect do |c| {
           :name => c.name,
