@@ -40,6 +40,13 @@ data1 = File.open(RAILS_ROOT + '/db/places/ca_mountain_view.txt').read.split(/\n
 data = data0.push data1
 data.flatten!
 
+File.open(RAILS_ROOT + '/db/categories/food.txt').read.split(/\n/).each do |c|
+  Category.create(:name => c.downcase)
+end
+File.open(RAILS_ROOT + '/db/categories/restaurants.txt').read.split(/\n/).each do |c|
+  Category.create(:name => c.downcase)
+end
+
 data.each do |row|
   row = row.split '|'
 
@@ -49,8 +56,6 @@ data.each do |row|
     check = Category.where(:name => c).first
     if check
       categories << check
-    else
-      categories << Category.create(:name => c)
     end
   end
   if Restaurant.where(:x => row[4], :y => row[5]).empty?
