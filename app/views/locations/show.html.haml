@@ -76,8 +76,10 @@
               html += '<td><a href="' + data.restaurants[i].website + '">' + data.restaurants[i].website + '</a></td>';
               html += '<td>' + data.restaurants[i].rating + '</td>';
               html += '<td>' + data.restaurants[i].review_count + '</td>';
-              html += '<td>' + data.restaurants[i].take_out + '</td>';
-              html += '<td>' + data.restaurants[i].delivery + '</td></tr>';
+              html += data.restaurants[i].take_out ? '<td style="color: green">' : '<td style="color: red">';
+              html += data.restaurants[i].take_out + '</td>';
+              html += data.restaurants[i].delivery ? '<td style="color: green">' : '<td style="color: red">';
+              html += data.restaurants[i].delivery + '</td></tr>';
             }
             return html;
           });
