@@ -13,5 +13,15 @@ class LocationsController < ApplicationController
         @category[:ids][c.name] = c.id
       end
     end
+    @categories = Category.all.collect{|c| c.name }.to_json
+    @restaurants = @restaurants.collect do |r| {
+        :name => r.name,
+        :address => r.address,
+        :hours => r.hours,
+        :rating => r.rating,
+        :x => r.x,
+        :y => r.y 
+      }
+    end
   end
 end

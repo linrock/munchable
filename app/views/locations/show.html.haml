@@ -1,43 +1,92 @@
+
 #map_canvas{:style => "width: 500px; height: 500px; text-align: center"}
   = image_tag 'loading.gif', :style => 'margin-top: 200px'
 .clear
 
+-#
+
+  -#
+    #search
+      - form_tag menu_items_path, :id => 'search_form', :method => 'get' do
+        = text_field_tag :q, params[:q], :id => 'search_field'
+      .clear
+
+
+  #categories{:style => 'width: 700px; margin: 0 auto; padding-top: 10px'}
+    %h3 Categories
+    %p
+      - for name,count in @category[:counts]
+        .entry{:style => 'float: left; width: 175px'}
+          = link_to name, category_url(:id => @category[:ids][name], :location_id => @location.id)
+          (#{count})
+  .clear
+
+  -#
+    #search
+      Search Menus
+      %br/
+      - form_tag menu_items_path, :method => 'get' do
+        = text_field_tag :q, params[:q]
+        = submit_tag 'Go!', :name => nil
+    .clear
 
 #search
-  - form_tag menu_items_path, :id => 'search_form', :method => 'get' do
-    = text_field_tag :q, params[:q], :id => 'search_field'
+  - form_tag do
+    = text_field_tag :q, params[:q], :id => 'categories'
   .clear
-
-#categories{:style => 'width: 700px; margin: 0 auto; padding-top: 10px'}
-  %h3 Categories
-  %p
-    - for name,count in @category[:counts]
-      .entry{:style => 'float: left; width: 175px'}
-        = link_to name, category_url(:id => @category[:ids][name], :location_id => @location.id)
-        (#{count})
-.clear
 
 -#
-  #search
-    Search Menus
+  #info
+    = render :partial => "shared/restaurant_table"
     %br/
-    - form_tag menu_items_path, :method => 'get' do
-      = text_field_tag :q, params[:q]
-      = submit_tag 'Go!', :name => nil
-  .clear
-
-#info
-  = render :partial => "shared/restaurant_table"
-  %br/
 
 :javascript
-  var restaurants = #{@restaurants.to_json};
-  var x = #{@location.x_center};
-  var y = #{@location.y_center};
-  var zoom = #{@location.zoom_level};
 
-  $("#restaurant_table").tablesorter();
-  $(document).ready(function() {
-    initialize();
-  });
+#category
+
 = javascript_include_tag 'http://maps.google.com/maps/api/js?sensor=false'
+= javascript_include_tag 'loader.js'
+:javascript
+  // $("#restaurant_table").tablesorter();
+
+  var map;
+  var restaurants = #{@restaurants.to_json};
+  var best = 'http://chart.apis.google.com/chart?chst=d_map_pin_letter_withshadow&chld=%E2%80%A2|33CC33|000000';
+  var better = 'http://chart.apis.google.com/chart?chst=d_map_pin_letter_withshadow&chld=%E2%80%A2|FFFF00|000000';
+  var good = 'http://chart.apis.google.com/chart?chst=d_map_pin_letter_withshadow&chld=%E2%80%A2|FF6633|000000';
+
+  var new_restaurants;
+
+  $(document).ready(function() {
+
+    var latlng = new google.maps.LatLng(#{@location.x_center}, #{@location.y_center});
+    map = new google.maps.Map(document.getElementById("map_canvas"), {
+      zoom: #{@location.zoom_level},
+      center: latlng,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    });
+
+    var category;
+    var categories = #{@categories};
+    $("#categories").autocomplete({
+      delay: 0,
+      source: function(req, responseFn) {
+        var re = $.ui.autocomplete.escapeRegex(req.term);
+        var matcher = new RegExp("^" + re, "i");
+        var result = $.grep(categories, function(item, index) {
+          return matcher.test(item);
+        });
+        if (result[0] && category != result[0]) {
+          category = result[0];
+          $.ajax({
+            url: '/restaurants/instant?category=' + escape(result[0]) + '&location_id=#{@location.id}',
+            success: function(data) {
+              map.addMarkers(data.restaurants);
+            }
+          });
+          $("#category").text(result[0]);
+        }
+        responseFn(result);
+      }
+    });
+  });
