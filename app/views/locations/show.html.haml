@@ -83,10 +83,16 @@
                 html += '<td style="color: red; font-weight: bold">' + data.restaurants[i].rating + '</td>';
               }
               html += '<td>' + data.restaurants[i].review_count + '</td>';
-              html += data.restaurants[i].take_out ? '<td style="color: green">' : '<td style="color: red">';
-              html += data.restaurants[i].take_out + '</td>';
-              html += data.restaurants[i].delivery ? '<td style="color: green">' : '<td style="color: red">';
-              html += data.restaurants[i].delivery + '</td></tr>';
+              if (data.restaurants[i].take_out) {
+                html += '<td style="color: green">yes</td>';
+              } else {
+                html += '<td style="color: red">no</td>';
+              }
+              if (data.restaurants[i].delivery) {
+                html += '<td style="color: green">yes</td>';
+              } else {
+                html += '<td style="color: red">no</td>';
+              }
             }
             return html;
           });
