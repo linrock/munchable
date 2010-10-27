@@ -74,7 +74,13 @@
             for (i in data.restaurants) {
               html += '<tr><td>' + data.restaurants[i].name + '</td>';
               html += '<td><a href="' + data.restaurants[i].website + '">' + data.restaurants[i].website + '</a></td>';
-              html += '<td>' + data.restaurants[i].rating + '</td>';
+              if (data.restaurants[i].rating >= 4.5) {
+                html += '<td style="color: green; font-weight: bold">' + data.restaurants[i].rating + '</td>';
+              } else if (data.restaurants[i].rating >= 4) {
+                html += '<td style="color: orange; font-weight: bold">' + data.restaurants[i].rating + '</td>';
+              } else {
+                html += '<td style="color: red; font-weight: bold">' + data.restaurants[i].rating + '</td>';
+              }
               html += '<td>' + data.restaurants[i].review_count + '</td>';
               html += data.restaurants[i].take_out ? '<td style="color: green">' : '<td style="color: red">';
               html += data.restaurants[i].take_out + '</td>';
