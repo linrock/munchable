@@ -4,7 +4,6 @@ gem 'rails', '3.0.1'
 
 gem 'pg'
 gem 'jquery-rails'
-gem 'rails3-jquery-autocomplete'
 gem 'compass'
 gem 'haml'
 gem 'devise'
