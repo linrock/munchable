@@ -12,7 +12,8 @@ class RestaurantsController < ApplicationController
     categories = Category.
       where(:name => CGI.unescape(params[:category])).first.restaurants.
       where(:location_id => params[:location_id]).
-      all(:order => 'rating DESC', :limit => 7)
+      all(:order => 'rating DESC', :limit => 7).
+      sort_by {|c| c[:review_count]}.reverse
     render :json => {
       :restaurants => categories.collect do |c| {
           :name => c.name,
