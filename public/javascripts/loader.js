@@ -14,7 +14,6 @@ function infoCallback(markerWindow, marker, markerPosition) {
   };
 }
 
-// function addMarkers(restaurants) {
 google.maps.Map.prototype.addMarkers = function(restaurants) {
   this.clearMarkers();
   var markerWindows = [];
