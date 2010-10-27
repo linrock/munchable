@@ -22,11 +22,11 @@ google.maps.Map.prototype.addMarkers = function(restaurants) {
     markerLatLng = new google.maps.LatLng(restaurants[i].x, restaurants[i].y);
 
     if (restaurants[i].rating >= 4.5) {
-      icon = best;
+      icon = 'http://chart.apis.google.com/chart?chst=d_map_pin_letter_withshadow&chld=' + (i+1) + '|33CC33|000000';
     } else if (restaurants[i].rating >= 4.0) {
-      icon = better;
+      icon = 'http://chart.apis.google.com/chart?chst=d_map_pin_letter_withshadow&chld=' + (i+1) + '|FFFF00|000000';
     } else {
-      icon = good;
+      icon = 'http://chart.apis.google.com/chart?chst=d_map_pin_letter_withshadow&chld=' + (i+1) + '|FF6633|000000';
     }
     map.markers.push(new google.maps.Marker({
       icon: icon,

@@ -72,7 +72,8 @@
           $("tbody").html(function() {
             html = '';
             for (i in data.restaurants) {
-              html += '<tr><td>' + data.restaurants[i].name + '</td>';
+              html += '<tr><td>' + (parseInt(i)+1) + '</td>';
+              html += '<td>' + data.restaurants[i].name + '</td>';
               html += '<td><a href="' + data.restaurants[i].website + '">' + data.restaurants[i].website + '</a></td>';
               if (data.restaurants[i].rating >= 4.5) {
                 html += '<td style="color: green; font-weight: bold">' + data.restaurants[i].rating + '</td>';
