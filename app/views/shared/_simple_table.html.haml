@@ -1,5 +1,5 @@
 %table.tablesorter#simple_table
-  %thead
+  %thead{:style => "display: none"}
     %tr
       %th Name
       %th Website
@@ -8,25 +8,3 @@
       %th{:style => "width: 70px"} Take Out?
       %th{:style => "width: 65px"} Delivery?
   %tbody
-    - for restaurant in @restaurants
-      %tr
-        %td= restaurant.name
-        %td= link_to restaurant.website, restaurant.website
-        %td
-          - if restaurant.rating >= 4.5
-            %span.green #{restaurant.rating}
-          - elsif restaurant.rating >= 4.0
-            %span.yellow #{restaurant.rating}
-          - else
-            %span.red #{restaurant.rating}
-        %td= restaurant.review_count
-        %td
-          - if restaurant.take_out
-            %span.green yes
-          - else
-            %span.red no
-        %td
-          - if restaurant.delivery
-            %span.green yes
-          - else
-            %span.red no

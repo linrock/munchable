@@ -46,12 +46,10 @@
 = javascript_include_tag 'loader.js'
 :javascript
   var map;
-  var restaurants = #{@restaurants_serialized};
   var best = 'http://chart.apis.google.com/chart?chst=d_map_pin_letter_withshadow&chld=%E2%80%A2|33CC33|000000';
   var better = 'http://chart.apis.google.com/chart?chst=d_map_pin_letter_withshadow&chld=%E2%80%A2|FFFF00|000000';
   var good = 'http://chart.apis.google.com/chart?chst=d_map_pin_letter_withshadow&chld=%E2%80%A2|FF6633|000000';
 
-  var lol;
   $(document).ready(function() {
 
     var latlng = new google.maps.LatLng(#{@location.x_center}, #{@location.y_center});
@@ -69,6 +67,20 @@
         url: '/restaurants/instant?category=' + escape(category) + '&location_id=#{@location.id}',
         success: function(data) {
           map.addMarkers(data.restaurants);
+
+          $("thead").show();
+          $("tbody").html(function() {
+            html = '';
+            for (i in data.restaurants) {
+              html += '<tr><td>' + data.restaurants[i].name + '</td>';
+              html += '<td><a href="' + data.restaurants[i].website + '">' + data.restaurants[i].website + '</a></td>';
+              html += '<td>' + data.restaurants[i].rating + '</td>';
+              html += '<td>' + data.restaurants[i].review_count + '</td>';
+              html += '<td>' + data.restaurants[i].take_out + '</td>';
+              html += '<td>' + data.restaurants[i].delivery + '</td></tr>';
+            }
+            return html;
+          });
         }
       });
       $("#category").text(category);
