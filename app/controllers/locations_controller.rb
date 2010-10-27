@@ -2,17 +2,14 @@ class LocationsController < ApplicationController
 
   def show
     @location = Location.find(params[:id])
-    @restaurants = @location.restaurants
-    @category = {
-      :counts => {},
-      :ids => {}
-    }
-    @restaurants.each do |r|
+    @categories = []
+    @location.restaurants.each do |r|
       r.categories.each do |c|
-        @category[:counts][c.name] = @category[:counts][c.name].nil? ? 1 : @category[:counts][c.name] + 1
-        @category[:ids][c.name] = c.id
+        if not @categories.include? c.name
+          @categories.push c.name
+        end
       end
     end
-    @categories = Category.all.collect{|c| c.name }.to_json
+    @categories = @categories.to_json
   end
 end
