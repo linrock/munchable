@@ -58,7 +58,9 @@ Munchable::Application.routes.draw do
   
   root :to => "locations#show", :defaults => { :id => 1 }
   resources :restaurants
-  resources :categories
+  resources :categories do
+    get 'autocomplete/:query', :on => :collection, :action => 'autocomplete'
+  end
   resources :menu_items
   resources :locations
   resources :comments
