@@ -44,7 +44,7 @@ data.each do |row|
   row = row.split '|'
 
   categories = []
-  for c in JSON.load(row[2]) do
+  for c in JSON.load(row[3]) do
     c = c.downcase
     check = Category.where(:name => c).first
     if check
@@ -53,23 +53,23 @@ data.each do |row|
       categories << Category.create(:name => c)
     end
   end
-  if Restaurant.where(:x => row[3], :y => row[4]).empty?
+  if Restaurant.where(:x => row[4], :y => row[5]).empty?
     r = Restaurant.create({
-      :location_id => Location.get_location(row[3], row[4]).id,
+      :location_id => Location.get_location(row[4], row[5]).id,
       :url => row[0],
       :name => row[1],
-      :rating => row[5],
-      :review_count => row[6],
-      :address => row[7],
+      :rating => row[6],
+      :review_count => row[7],
+      :address => row[8],
       :categories => categories,
-      :website => row[8],
-      :hours => row[9],
-      :good_for => row[10],
-      :delivery => row[11],
-      :take_out => row[12],
-      :x => row[3],
-      :y => row[4],
-      :updated_at => row[7]
+      :website => row[9],
+      :hours => row[10],
+      :good_for => row[11],
+      :delivery => row[12],
+      :take_out => row[13],
+      :x => row[4],
+      :y => row[5],
+      :updated_at => row[14]
     })
     stuff = []
     (rand*10).to_i.times do
