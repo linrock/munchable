@@ -10,6 +10,20 @@ class RestaurantsController < ApplicationController
   
   def instant
     categories = Category.where(:name => CGI.unescape(params[:category])).first.restaurants.where(:location_id => params[:location_id])
-    render :json => { :restaurants => categories.collect{|c| {:name => c.name, :address => c.address, :hours => c.hours, :rating => c.rating, :x => c.x, :y => c.y} }}
+    render :json => {
+      :restaurants => categories.collect do |c| {
+          :name => c.name,
+          :address => c.address,
+          :hours => c.hours,
+          :website => c.website,
+          :rating => c.rating,
+          :review_count => c.review_count,
+          :take_out => c.take_out,
+          :delivery => c.delivery,
+          :x => c.x,
+          :y => c.y
+        }
+      end
+    }
   end
 end
