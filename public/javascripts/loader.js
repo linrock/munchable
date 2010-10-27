@@ -1,7 +1,7 @@
 function infoCallback(markerWindow, marker, markerPosition) {
   return function() {
     markerWindow.open(map, marker);
-    map.setCenter(marker.position);
+    // map.setCenter(marker.position);
   };
 }
 
