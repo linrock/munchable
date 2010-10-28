@@ -9,10 +9,21 @@ class RestaurantsController < ApplicationController
   end
   
   def instant
-    restaurants = Location.find(params[:location_id]).restaurants
-      .search(:categories_contains => CGI.unescape(params[:category]))
-      .all(:order => 'rating DESC', :limit => 7)
-      .sort_by {|c| [c[:rating], c[:review_count]]}.reverse
+    bounds = CGI.unescape(params[:bounds])
+    if bounds != 'undefined'
+      bounds = JSON.load bounds
+      restaurants = Restaurant
+        .where('x > ? AND x < ? AND y > ? AND y < ?',
+          bounds['x'][0], bounds['x'][1], bounds['y'][0], bounds['y'][1])
+        .search(:categories_contains => CGI.unescape(params[:category]))
+        .all(:order => 'rating DESC', :limit => 7)
+        .sort_by {|c| [c[:rating], c[:review_count]]}.reverse
+    else
+      restaurants = Location.find(params[:location_id]).restaurants
+        .search(:categories_contains => CGI.unescape(params[:category]))
+        .all(:order => 'rating DESC', :limit => 7)
+        .sort_by {|c| [c[:rating], c[:review_count]]}.reverse
+    end
     render :json => {
       :restaurants => restaurants.collect do |r| {
           :name => r.name,
