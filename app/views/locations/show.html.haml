@@ -41,9 +41,6 @@
   = render :partial => "shared/simple_table"
   %br/
 
-#debug
-  hey there
-
 = javascript_include_tag 'http://maps.google.com/maps/api/js?sensor=false'
 = javascript_include_tag 'loader.js'
 :javascript
@@ -69,8 +66,8 @@
       if (d - last_checked > 1000) {
         last_checked = d;
         b = map.getBounds();
-        bounds = JSON.stringify({x: [b.S.b, b.S.c], y: [b.M.c, b.M.b]});
-        $("#debug").html(bounds);
+        bounds = JSON.stringify({ x: [b.S.b, b.S.c], y: [b.M.c, b.M.b] });
+        requestData();
       }
     });
 
@@ -78,42 +75,44 @@
     var categories = #{@categories};
 
     function requestData() {
-      $.ajax({
-        url: '/restaurants/instant?category=' + escape(category) + '&location_id=#{@location.id}' + '&bounds=' + bounds,
-        success: function(data) {
-          map.addMarkers(data.restaurants);
+      if (category) {
+        $.ajax({
+          url: '/restaurants/instant?category=' + escape(category) + '&location_id=#{@location.id}' + '&bounds=' + escape(bounds),
+          success: function(data) {
+            map.addMarkers(data.restaurants);
 
-          $("thead").show();
-          $("tbody").html(function() {
-            html = '';
-            for (i in data.restaurants) {
-              html += '<tr><td>' + (parseInt(i)+1) + '</td>';
-              html += '<td>' + data.restaurants[i].name + '</td>';
-              html += '<td><a href="' + data.restaurants[i].website + '">' + data.restaurants[i].website + '</a></td>';
-              if (data.restaurants[i].rating >= 4.5) {
-                html += '<td style="color: green; font-weight: bold">' + data.restaurants[i].rating + '</td>';
-              } else if (data.restaurants[i].rating >= 4) {
-                html += '<td style="color: orange; font-weight: bold">' + data.restaurants[i].rating + '</td>';
-              } else {
-                html += '<td style="color: red; font-weight: bold">' + data.restaurants[i].rating + '</td>';
+            $("thead").show();
+            $("tbody").html(function() {
+              html = '';
+              for (i in data.restaurants) {
+                html += '<tr><td>' + (parseInt(i)+1) + '</td>';
+                html += '<td>' + data.restaurants[i].name + '</td>';
+                html += '<td><a href="' + data.restaurants[i].website + '">' + data.restaurants[i].website + '</a></td>';
+                if (data.restaurants[i].rating >= 4.5) {
+                  html += '<td style="color: green; font-weight: bold">' + data.restaurants[i].rating + '</td>';
+                } else if (data.restaurants[i].rating >= 4) {
+                  html += '<td style="color: orange; font-weight: bold">' + data.restaurants[i].rating + '</td>';
+                } else {
+                  html += '<td style="color: red; font-weight: bold">' + data.restaurants[i].rating + '</td>';
+                }
+                html += '<td>' + data.restaurants[i].review_count + '</td>';
+                if (data.restaurants[i].take_out) {
+                  html += '<td style="color: green">yes</td>';
+                } else {
+                  html += '<td style="color: red">no</td>';
+                }
+                if (data.restaurants[i].delivery) {
+                  html += '<td style="color: green">yes</td>';
+                } else {
+                  html += '<td style="color: red">no</td>';
+                }
               }
-              html += '<td>' + data.restaurants[i].review_count + '</td>';
-              if (data.restaurants[i].take_out) {
-                html += '<td style="color: green">yes</td>';
-              } else {
-                html += '<td style="color: red">no</td>';
-              }
-              if (data.restaurants[i].delivery) {
-                html += '<td style="color: green">yes</td>';
-              } else {
-                html += '<td style="color: red">no</td>';
-              }
-            }
-            return html;
-          });
-        }
-      });
-      $("#category").html('<span style="color: blue">' + category + '</span>');
+              return html;
+            });
+          }
+        });
+        $("#category").html('<span style="color: blue">' + category + '</span>');
+      }
     }
     $("#instant_search").autocomplete({
       delay: 0,
