@@ -41,14 +41,20 @@
   = render :partial => "shared/simple_table"
   %br/
 
+#debug
+  hey there
 
 = javascript_include_tag 'http://maps.google.com/maps/api/js?sensor=false'
 = javascript_include_tag 'loader.js'
 :javascript
   var map;
+
   var best = 'http://chart.apis.google.com/chart?chst=d_map_pin_letter_withshadow&chld=%E2%80%A2|33CC33|000000';
   var better = 'http://chart.apis.google.com/chart?chst=d_map_pin_letter_withshadow&chld=%E2%80%A2|FFFF00|000000';
   var good = 'http://chart.apis.google.com/chart?chst=d_map_pin_letter_withshadow&chld=%E2%80%A2|FF6633|000000';
+
+  var last_checked = (new Date()).getTime();
+  var bounds;
 
   $(document).ready(function() {
 
@@ -58,13 +64,22 @@
       center: latlng,
       mapTypeId: google.maps.MapTypeId.ROADMAP
     });
+    google.maps.event.addListener(map, 'bounds_changed', function() {
+      d = (new Date()).getTime();
+      if (d - last_checked > 1000) {
+        last_checked = d;
+        b = map.getBounds();
+        bounds = JSON.stringify({x: [b.S.b, b.S.c], y: [b.M.c, b.M.b]});
+        $("#debug").html(bounds);
+      }
+    });
 
     var category;
     var categories = #{@categories};
 
     function requestData() {
       $.ajax({
-        url: '/restaurants/instant?category=' + escape(category) + '&location_id=#{@location.id}',
+        url: '/restaurants/instant?category=' + escape(category) + '&location_id=#{@location.id}' + '&bounds=' + bounds,
         success: function(data) {
           map.addMarkers(data.restaurants);
 
