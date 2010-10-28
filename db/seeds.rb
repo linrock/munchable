@@ -41,32 +41,24 @@ data = data0.push data1
 data.flatten!
 
 File.open(RAILS_ROOT + '/db/categories/food.txt').read.split(/\n/).each do |c|
-  Category.create(:name => c.downcase)
+  Category.create(:name => c)
 end
 File.open(RAILS_ROOT + '/db/categories/restaurants.txt').read.split(/\n/).each do |c|
-  Category.create(:name => c.downcase)
+  Category.create(:name => c)
 end
 
 data.each do |row|
   row = row.split '|'
 
-  categories = []
-  for c in JSON.load(row[3]) do
-    c = c.downcase
-    check = Category.where(:name => c).first
-    if check
-      categories << check
-    end
-  end
   if Restaurant.where(:x => row[4], :y => row[5]).empty?
     r = Restaurant.create({
       :location_id => Location.get_location(row[4], row[5]).id,
       :url => row[0],
       :name => row[1],
+      :categories => row[3],
       :rating => row[6],
       :review_count => row[7],
       :address => row[8],
-      :categories => categories,
       :website => row[9],
       :hours => row[10],
       :good_for => row[11],
@@ -80,7 +72,7 @@ data.each do |row|
     (rand*10).to_i.times do
       MenuItem.create(
         :restaurant_id => r.id,
-        :name => fng.generate_name(categories.collect {|c| c.name }.join ','),
+        :name => fng.generate_name(row[3]),
         :price => (rand*20).to_i
       )
     end

@@ -9,23 +9,22 @@ class RestaurantsController < ApplicationController
   end
   
   def instant
-    categories = Category.
-      where(:name => CGI.unescape(params[:category])).first.restaurants.
-      where(:location_id => params[:location_id]).
-      all(:order => 'rating DESC', :limit => 7).
-      sort_by {|c| [c[:rating], c[:review_count]]}.reverse
+    restaurants = Location.find(params[:location_id]).restaurants
+      .search(:categories_contains => CGI.unescape(params[:category]))
+      .all(:order => 'rating DESC', :limit => 7)
+      .sort_by {|c| [c[:rating], c[:review_count]]}.reverse
     render :json => {
-      :restaurants => categories.collect do |c| {
-          :name => c.name,
-          :address => c.address,
-          :hours => c.hours,
-          :website => c.website,
-          :rating => c.rating,
-          :review_count => c.review_count,
-          :take_out => c.take_out,
-          :delivery => c.delivery,
-          :x => c.x,
-          :y => c.y
+      :restaurants => restaurants.collect do |r| {
+          :name => r.name,
+          :address => r.address,
+          :hours => r.hours,
+          :website => r.website,
+          :rating => r.rating,
+          :review_count => r.review_count,
+          :take_out => r.take_out,
+          :delivery => r.delivery,
+          :x => r.x,
+          :y => r.y
         }
       end
     }
