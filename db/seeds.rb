@@ -28,10 +28,12 @@ Location.create([{
   :y_upper => -122.070637,
 }])
 
-places = []
-places.push File.open(RAILS_ROOT + '/db/places/ca_san_francisco.txt').read.split(/\n/)
-places.push File.open(RAILS_ROOT + '/db/places/ca_mountain_view.txt').read.split(/\n/)
-places.flatten!
+# places = []
+# places.push File.open(RAILS_ROOT + '/db/places/ca_san_francisco.txt').read.split(/\n/)
+# places.push File.open(RAILS_ROOT + '/db/places/ca_mountain_view.txt').read.split(/\n/)
+# places.flatten!
+
+places = File.open(RAILS_ROOT + '/db/data.txt').read.split(/\n/)
 
 File.open(RAILS_ROOT + '/db/categories/food.txt').read.split(/\n/).each do |c|
   Category.create(:name => c)
@@ -49,10 +51,16 @@ places.each do |row|
   row = row.split '|'
   row = row.map{|r| quote(r)}
 
-  delivery = row[12].empty? ? 0 : 1
-  take_out = row[13].empty? ? 0 : 1
-  inserts.push "('#{Location.get_location(row[4], row[5]).id}', E'#{row[0]}', E'#{row[1]}', E'#{row[3]}', '#{row[6]}', '#{row[7]}', E'#{row[8]}', '#{row[9]}', E'#{row[10]}', E'#{row[11]}', '#{delivery}', '#{take_out}', '#{row[4]}', '#{row[5]}', '#{row[14]}')"
+  # location = Location.get_location(row[4], row[5])
+  # location = location.nil? ? 0 : location.id
+  location = 0
+
+  delivery = row[12].empty? ? 0 : (row[12] == 'f' ? 0 : 1)
+  take_out = row[13].empty? ? 0 : (row[13] == 'f' ? 0 : 1)
+
+  inserts.push "('#{location}', E'#{row[0]}', E'#{row[1]}', E'#{row[3]}', '#{row[6]}', '#{row[7]}', E'#{row[8]}', '#{row[9]}', E'#{row[10]}', E'#{row[11]}', '#{delivery}', '#{take_out}', '#{row[4]}', '#{row[5]}', '#{row[14]}')"
 end
 
+puts 'Inserting into DB'
 sql = "INSERT INTO restaurants (location_id, url, name, categories, rating, review_count, address, website, hours, good_for, delivery, take_out, x, y, updated_at) VALUES #{inserts.join(', ')}"
 Restaurant.connection.execute sql
