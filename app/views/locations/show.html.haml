@@ -15,7 +15,11 @@
     - form_tag do
       = text_field_tag :q, params[:q], :id => 'instant_search'
     .clear
-
+      #search_radio{:style => 'font-size: 14pt'}
+        = radio_button_tag :search_type, 'best', true
+        Best
+        = radio_button_tag :search_type, 'nearest'
+        Nearest
 -#
   #search
     - form_tag menu_items_path, :id => 'search_form', :method => 'get' do
@@ -83,7 +87,7 @@
     function requestData() {
       if (category) {
         $.ajax({
-          url: '/restaurants/instant?category=' + escape(category) + '&location_id=#{@location.id}' + '&bounds=' + escape(bounds) + '&center=' + escape(center),
+          url: '/restaurants/instant?category=' + escape(category) + '&location_id=#{@location.id}' + '&bounds=' + escape(bounds) + '&center=' + escape(center) + '&search_type=' + $("input:radio[name=search_type]:checked").val(),
           success: function(data) {
             data_json = JSON.stringify(data.restaurants);
             if (r_data != data_json) {
