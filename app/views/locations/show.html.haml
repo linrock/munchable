@@ -52,6 +52,7 @@
 
   var last_checked = (new Date()).getTime();
   var bounds;
+  var center;
   var r_data;
 
   $(document).ready(function() {
@@ -69,7 +70,9 @@
       if (d - last_checked > 1000) {
         last_checked = d;
         b = map.getBounds();
+        c = map.getCenter();
         bounds = JSON.stringify({ x: [b.S.b, b.S.c], y: [b.M.c, b.M.b] });
+        center = JSON.stringify([c.b, c.c]);
         requestData();
       }
     });
@@ -80,7 +83,7 @@
     function requestData() {
       if (category) {
         $.ajax({
-          url: '/restaurants/instant?category=' + escape(category) + '&location_id=#{@location.id}' + '&bounds=' + escape(bounds),
+          url: '/restaurants/instant?category=' + escape(category) + '&location_id=#{@location.id}' + '&bounds=' + escape(bounds) + '&center=' + escape(center),
           success: function(data) {
             data_json = JSON.stringify(data.restaurants);
             if (r_data != data_json) {
