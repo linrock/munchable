@@ -12,6 +12,14 @@ class RestaurantsController < ApplicationController
     bounds = CGI.unescape(params[:bounds])
     if bounds != 'undefined'
       bounds = JSON.load bounds
+=begin
+      r = Restaurant
+        .where('x > ? AND x < ? AND y > ? AND y < ?', 
+          bounds['x'][0], bounds['x'][1], bounds['y'][0], bounds['y'][1])
+        .search(:categories_contains => CGI.unescape(params[:category]))
+        .all(:order => 'rating DESC', :limit => 7)
+        .sort_by {|c| [c[:rating], c[:review_count]]}.reverse
+=end
       restaurants = Restaurant
         .where('xy && ?', Polygon.from_coordinates([[
           [bounds['x'][0], bounds['y'][0]],
@@ -24,7 +32,7 @@ class RestaurantsController < ApplicationController
         .all(:order => 'rating DESC', :limit => 7)
         .sort_by {|c| [c[:rating], c[:review_count]]}.reverse
     else
-      restaurants = Location.find(params[:location_id]).restaurants
+      restaurants = Location.find(1).get_restaurants
         .search(:categories_contains => CGI.unescape(params[:category]))
         .all(:order => 'rating DESC', :limit => 7)
         .sort_by {|c| [c[:rating], c[:review_count]]}.reverse
