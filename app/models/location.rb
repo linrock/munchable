@@ -7,13 +7,7 @@ class Location < ActiveRecord::Base
     self.where(@zone, x, x, y, y).first
   end
 
-  def get_restaurants
-    Restaurant.where("xy && ?", Polygon.from_coordinates([[
-      [x_lower, y_lower],
-      [x_upper, y_lower],
-      [x_upper, y_upper],
-      [x_upper, y_upper],
-      [x_lower, y_lower]
-    ]], 4326))
+  def bounds
+    {'x' => [x_lower, x_upper], 'y' => [y_lower, y_upper]}
   end
 end

@@ -6,7 +6,8 @@ class LocationsController < ApplicationController
     @categories = []
     # @location.restaurants.all(:select => 'categories').each do |r|
 
-    Location.find(1).get_restaurants.all(:select => 'categories').each do |r|
+    bounds = Location.find(1).bounds
+    Restaurant.within_bounds(bounds).all(:select => 'categories').each do |r|
       JSON.load(r.categories).each do |c|
         if not @categories.include? c
           @categories.push c
