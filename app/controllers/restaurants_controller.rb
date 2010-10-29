@@ -10,32 +10,13 @@ class RestaurantsController < ApplicationController
   
   def instant
     bounds = CGI.unescape(params[:bounds])
+    max_num = 7
     if bounds != 'undefined'
       bounds = JSON.load bounds
-=begin
-      r = Restaurant
-        .where('x > ? AND x < ? AND y > ? AND y < ?', 
-          bounds['x'][0], bounds['x'][1], bounds['y'][0], bounds['y'][1])
-        .search(:categories_contains => CGI.unescape(params[:category]))
-        .all(:order => 'rating DESC', :limit => 7)
-        .sort_by {|c| [c[:rating], c[:review_count]]}.reverse
-=end
-      restaurants = Restaurant
-        .where('xy && ?', Polygon.from_coordinates([[
-          [bounds['x'][0], bounds['y'][0]],
-          [bounds['x'][1], bounds['y'][0]],
-          [bounds['x'][1], bounds['y'][1]],
-          [bounds['x'][0], bounds['y'][1]],
-          [bounds['x'][0], bounds['y'][0]]
-        ]], 4326))
-        .search(:categories_contains => CGI.unescape(params[:category]))
-        .all(:order => 'rating DESC', :limit => 7)
-        .sort_by {|c| [c[:rating], c[:review_count]]}.reverse
+      restaurants = Restaurant.get_nearest(bounds, params[:category], max_num)
     else
-      restaurants = Location.find(1).get_restaurants
-        .search(:categories_contains => CGI.unescape(params[:category]))
-        .all(:order => 'rating DESC', :limit => 7)
-        .sort_by {|c| [c[:rating], c[:review_count]]}.reverse
+      bounds = Location.find(1).bounds
+      restaurants = Restaurant.get_nearest(bounds, params[:category], max_num)
     end
     render :json => {
       :restaurants => restaurants.collect do |r| {
