@@ -5,6 +5,7 @@ development:
   pool: 5
   username: munchable
   password:
+  template: template_postgis
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -16,6 +17,7 @@ test:
   pool: 5
   username: munchable
   password:
+  template: template_postgis
 
 production:
   adapter: postgresql
@@ -23,3 +25,4 @@ production:
   database: munchable_production
   pool: 5
   username: munchable
+  template: template_postgis

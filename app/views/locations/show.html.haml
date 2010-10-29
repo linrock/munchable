@@ -62,6 +62,8 @@
       center: latlng,
       mapTypeId: google.maps.MapTypeId.ROADMAP
     });
+    map.addCrosshairs();
+
     google.maps.event.addListener(map, 'bounds_changed', function() {
       d = (new Date()).getTime();
       if (d - last_checked > 1000) {
@@ -71,7 +73,7 @@
         requestData();
       }
     });
-
+    
     var category;
     var categories = #{@categories};
 
