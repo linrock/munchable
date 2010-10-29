@@ -34,11 +34,10 @@ Location.create([{
 
 fng = FakeNameGenerator.new
 
-data0 = File.open(RAILS_ROOT + '/db/places/ca_san_francisco.txt').read.split(/\n/)
-data1 = File.open(RAILS_ROOT + '/db/places/ca_mountain_view.txt').read.split(/\n/)
-
-data = data0.push data1
-data.flatten!
+places = []
+places.push File.open(RAILS_ROOT + '/db/places/ca_san_francisco.txt').read.split(/\n/)
+places.push File.open(RAILS_ROOT + '/db/places/ca_mountain_view.txt').read.split(/\n/)
+places.flatten!
 
 File.open(RAILS_ROOT + '/db/categories/food.txt').read.split(/\n/).each do |c|
   Category.create(:name => c)
@@ -47,10 +46,7 @@ File.open(RAILS_ROOT + '/db/categories/restaurants.txt').read.split(/\n/).each d
   Category.create(:name => c)
 end
 
-data.each do |row|
-  row = row.split '|'
-
-  if Restaurant.where(:x => row[4], :y => row[5]).empty?
+=begin
     r = Restaurant.create({
       :location_id => Location.get_location(row[4], row[5]).id,
       :url => row[0],
@@ -68,7 +64,8 @@ data.each do |row|
       :y => row[5],
       :updated_at => row[14]
     })
-    stuff = []
+=end
+=begin
     (rand*10).to_i.times do
       MenuItem.create(
         :restaurant_id => r.id,
@@ -76,10 +73,26 @@ data.each do |row|
         :price => (rand*20).to_i
       )
     end
-  end
+=end
+
+def quote (str)
+  str.gsub(/\\|'/) { |c| "\\#{c}" }
 end
 
+inserts = []
+places.each do |row|
+  row = row.split '|'
+  row = row.map{|r| quote(r)}
 
+  delivery = row[12].empty? ? 0 : 1
+  take_out = row[13].empty? ? 0 : 1
+  inserts.push "('#{Location.get_location(row[4], row[5]).id}', E'#{row[0]}', E'#{row[1]}', E'#{row[3]}', '#{row[6]}', '#{row[7]}', E'#{row[8]}', '#{row[9]}', E'#{row[10]}', E'#{row[11]}', '#{delivery}', '#{take_out}', '#{row[4]}', '#{row[5]}', '#{row[14]}')"
+end
+
+sql = "INSERT INTO restaurants (location_id, url, name, categories, rating, review_count, address, website, hours, good_for, delivery, take_out, x, y, updated_at) VALUES #{inserts.join(', ')}"
+Restaurant.connection.execute sql
+
+=begin
 m0 = MenuItem.create([{
   :restaurant_id => 1,
   :name => 'Submarine Sandwich',
@@ -153,3 +166,4 @@ c0 = MenuComment.create({
   :menu_item_id => m2[0].id,
   :content => "kind of expensive for such a tiny reuben, but it aint so bad"
 })
+=end
