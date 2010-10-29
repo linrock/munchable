@@ -58,9 +58,9 @@ places.each do |row|
   delivery = row[12].empty? ? 0 : (row[12] == 'f' ? 0 : 1)
   take_out = row[13].empty? ? 0 : (row[13] == 'f' ? 0 : 1)
 
-  inserts.push "('#{location}', E'#{row[0]}', E'#{row[1]}', E'#{row[3]}', '#{row[6]}', '#{row[7]}', E'#{row[8]}', '#{row[9]}', E'#{row[10]}', E'#{row[11]}', '#{delivery}', '#{take_out}', '#{row[4]}', '#{row[5]}', '#{row[14]}')"
+  inserts.push "('#{location}', E'#{row[0]}', E'#{row[1]}', E'#{row[3]}', '#{row[6]}', '#{row[7]}', E'#{row[8]}', '#{row[9]}', E'#{row[10]}', E'#{row[11]}', '#{delivery}', '#{take_out}', ST_GeometryFromText('POINT(#{row[4]} #{row[5]})', 4326), '#{row[14]}')"
 end
 
 puts 'Inserting into DB'
-sql = "INSERT INTO restaurants (location_id, url, name, categories, rating, review_count, address, website, hours, good_for, delivery, take_out, x, y, updated_at) VALUES #{inserts.join(', ')}"
+sql = "INSERT INTO restaurants (location_id, url, name, categories, rating, review_count, address, website, hours, good_for, delivery, take_out, xy, updated_at) VALUES #{inserts.join(', ')}"
 Restaurant.connection.execute sql

@@ -49,12 +49,11 @@ ActiveRecord::Schema.define(:version => 20101023013750) do
     t.string   "good_for"
     t.boolean  "delivery"
     t.boolean  "take_out"
-    t.float    "x"
-    t.float    "y"
+    t.point    "xy", :null => false, :srid => 4326, :with_z => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-  add_index "restaurants", ["x", "y"], :name => "index_restaurants_on_x_y", :unique => true
+  add_index "restaurants", "xy", :spatial => true
 
   create_table "locations", :force => true do |t|
     t.string   "city"
