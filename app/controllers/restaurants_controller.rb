@@ -13,10 +13,13 @@ class RestaurantsController < ApplicationController
     max_num = 7
     if bounds != 'undefined'
       bounds = JSON.load bounds
-      restaurants = Restaurant.get_nearest(bounds, params[:category], max_num)
+      center = JSON.load params[:center]
+      restaurants = Restaurant.get_nearest(bounds, center, params[:category], max_num)
     else
-      bounds = Location.find(1).bounds
-      restaurants = Restaurant.get_nearest(bounds, params[:category], max_num)
+      l = Location.find(1)
+      bounds = l.bounds
+      center = [l.x_center, l.y_center]
+      restaurants = Restaurant.get_nearest(bounds, center, params[:category], max_num)
     end
     render :json => {
       :restaurants => restaurants.collect do |r| {

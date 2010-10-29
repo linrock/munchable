@@ -19,9 +19,10 @@ class Restaurant < ActiveRecord::Base
     ]], 4326))
   }
 
-  scope :k_nearest, lambda {|bounds, k|
-    center = [(bounds['x'][0] + bounds['x'][1])/2, (bounds['y'][0] + bounds['y'][1])/2]
-    order("ST_Distance(xy, ST_GeomFromText('#{'POINT(%f %f)' % center}', 4326))").limit(k)
+  scope :k_nearest, lambda {|center, k|
+    if center.all? {|c| c.is_a? Numeric}
+      order("ST_Distance(xy, ST_GeomFromText('#{'POINT(%f %f)' % center}', 4326))").limit(k)
+    end
   }
 
   scope :relevant, lambda {|category|
@@ -32,11 +33,10 @@ class Restaurant < ActiveRecord::Base
     order('rating DESC, review_count DESC').limit(k)
   }
 
-  def self.get_nearest(bounds, category, max_num)
+  def self.get_nearest(bounds, center, category, max_num)
     self.relevant(category)
       .within_bounds(bounds)
-      .k_nearest(bounds, max_num)
-      .sort_by{|c| [c[:rating], c[:review_count]]}.reverse
+      .k_nearest(center, max_num)
   end
 
   def self.get_best(bounds, category, max_num)
