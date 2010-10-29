@@ -50,3 +50,24 @@ google.maps.Map.prototype.addMarkers = function(restaurants) {
     google.maps.event.addListener(map.markers[i], 'click', infoCallback(markerWindows[i], map.markers[i]));
   }
 }
+
+google.maps.Map.prototype.addCrosshairs = function() {
+  var crosshairsSize = 20;
+  var container = this.getDiv();
+
+  if (this.crosshairs) {
+    this.removeCrosshairs();
+  }
+  var crosshairs = document.createElement('img');
+  crosshairs.src = '/images/crosshairs.gif';
+  crosshairs.style.width = crosshairsSize + 'px';
+  crosshairs.style.height = crosshairsSize + 'px';
+  crosshairs.style.border = 0;
+  crosshairs.style.position = 'relative';
+  crosshairs.style.top = ((container.clientHeight-crosshairsSize)/2) + 'px';
+  crosshairs.style.left = '0px';
+  crosshairs.style.zIndex = 500;
+
+  container.appendChild(crosshairs);
+  this.crosshairs = crosshairs;
+}
