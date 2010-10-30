@@ -12,7 +12,7 @@
       What kind of food do you want?
     %span{:style => 'font-size: 10pt'} (ie. pizza)
   #search
-    - form_tag do
+    = form_tag do
       = text_field_tag :q, params[:q], :id => 'instant_search'
     .clear
       #search_radio{:style => 'font-size: 14pt'}
