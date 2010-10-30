@@ -15,7 +15,7 @@ class RestaurantsController < ApplicationController
       bounds = JSON.load bounds
       center = JSON.load params[:center]
     else
-      l = Location.find(1)
+      l = Location.find(params[:location_id])
       bounds = l.bounds
       center = [l.x_center, l.y_center]
     end
