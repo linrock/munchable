@@ -146,5 +146,8 @@
         requestData();
       }
     });
+    $("input:radio[name=search_type]").change(function() {
+      requestData();
+    });
     // $("#simple_table").tablesorter();
   });
