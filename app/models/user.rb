@@ -23,6 +23,10 @@ class User < ActiveRecord::Base
         :group_id => g.id,
         :role => 'admin'
       })
+      List.create({
+        :user_id => self.id,
+        :group_id => g.id
+      })
     else
       nil
     end

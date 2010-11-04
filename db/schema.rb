@@ -108,6 +108,7 @@ ActiveRecord::Schema.define(:version => 20101023013750) do
   end
 
   create_table "lists", :force => true do |t|
+    t.integer  "user_id"
     t.integer  "group_id"
   end
 
