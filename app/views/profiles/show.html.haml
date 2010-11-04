@@ -1,0 +1,6 @@
+%h2 Your Profile
+= @user.id
+
+%p Your groups
+- for group in @user.groups
+  = link_to group.name, user_group_url(:id => group.id)

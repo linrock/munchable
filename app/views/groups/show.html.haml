@@ -1,0 +1,5 @@
+%h2= @group.name
+
+%p Members
+- for member in @group.members
+  = member.email

@@ -8,6 +8,19 @@ class User < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation, :remember_me
   validates_presence_of  :password
 
-  has_many :memberships
+  has_one :profile
+  has_many :memberships, :dependent => :destroy
   has_many :groups, :through => :memberships
+
+  def add_group(name)
+    g = Group.create({
+      :user_id => self.id,
+      :name => name,
+    })
+    Membership.create({
+      :user_id => self.id,
+      :group_id => g.id,
+      :role => 'admin'
+    })
+  end
 end
