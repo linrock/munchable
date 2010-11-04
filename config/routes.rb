@@ -66,7 +66,10 @@ Munchable::Application.routes.draw do
   resources :menu_items
   resources :locations
   resources :comments
-  resources :users
+  resources :users do
+    resources :groups
+    resource :profile
+  end
 
   # See how all your routes lay out with "rake routes"
 
