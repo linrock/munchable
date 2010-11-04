@@ -14,15 +14,16 @@
   %body.bp
     %h1#title= link_to 'Most Munchable', root_url
     #container
-      -#
-        #navbar
-          - if user_signed_in?
-            = link_to 'Logout', destroy_user_session_url
-          - else
-            = link_to 'Login', new_user_session_url
-            &nbsp;-&nbsp;
-            = link_to 'Create Account', new_user_url
       #navbar
+        - if user_signed_in?
+          #{current_user.email}
+          &nbsp;-&nbsp;
+          = link_to 'Logout', destroy_user_session_url
+        - else
+          = link_to 'Login', new_user_session_url
+          &nbsp;-&nbsp;
+          = link_to 'Create Account', new_user_registration_url
+        %br/
         = link_to 'San Francisco', location_url(:id => 1)
         &nbsp;-&nbsp;
         = link_to 'Mountain View', location_url(:id => 2)

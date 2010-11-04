@@ -96,4 +96,20 @@ ActiveRecord::Schema.define(:version => 20101023013750) do
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
 
+  create_table "memberships", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "group_id"
+    t.string   "role"
+  end
+
+  create_table "groups", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "name"
+  end
+
+  create_table "group_restaurants", :force => true do |t|
+    t.integer  "group_id"
+    t.integer  "restaurant_id"
+    t.text     "comment"
+  end
 end
