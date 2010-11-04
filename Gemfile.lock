@@ -43,6 +43,10 @@ GEM
       warden (~> 0.10.7)
     erubis (2.6.6)
       abstract (>= 1.0.0)
+    formtastic (1.1.0)
+      actionpack (>= 2.3.0)
+      activesupport (>= 2.3.0)
+      i18n (>= 0.4.0)
     haml (3.0.22)
     i18n (0.4.1)
     jquery-rails (0.2.4)
@@ -98,6 +102,7 @@ DEPENDENCIES
   cancan
   compass
   devise
+  formtastic
   haml
   jquery-rails
   meta_search
