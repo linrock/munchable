@@ -12,15 +12,19 @@ class User < ActiveRecord::Base
   has_many :memberships, :dependent => :destroy
   has_many :groups, :through => :memberships
 
-  def add_group(name)
-    g = Group.create({
+  def create_group(name)
+    g = Group.new({
       :user_id => self.id,
       :name => name,
     })
-    Membership.create({
-      :user_id => self.id,
-      :group_id => g.id,
-      :role => 'admin'
-    })
+    if g.save
+      Membership.create({
+        :user_id => self.id,
+        :group_id => g.id,
+        :role => 'admin'
+      })
+    else
+      nil
+    end
   end
 end

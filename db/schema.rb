@@ -29,12 +29,6 @@ ActiveRecord::Schema.define(:version => 20101023013750) do
     t.string  "price"
   end
 
-  create_table "profiles", :force => true do |t|
-    t.integer  "user_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "restaurants", :force => true do |t|
     t.integer  "menu_item_id"
     t.integer  "location_id"
@@ -95,6 +89,12 @@ ActiveRecord::Schema.define(:version => 20101023013750) do
   end
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
+
+  create_table "profiles", :force => true do |t|
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "memberships", :force => true do |t|
     t.integer  "user_id"
