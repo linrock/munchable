@@ -64,9 +64,9 @@ Munchable::Application.routes.draw do
   resources :categories do
     get 'autocomplete', :on => :collection, :action => 'autocomplete'
   end
-  resources :menu_items
+  # resources :menu_items
+  # resources :comments
   resources :locations
-  resources :comments
   resources :users do
     resources :groups do
       resource :list

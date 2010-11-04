@@ -10,3 +10,41 @@
   = form_tag do
     = text_field_tag :q, params[:q], :id => 'instant_search'
 Add restaurants
+
+:javascript
+  var query;
+  var restaurant;
+  var r_data;
+  var r_names;
+
+  function requestData(callback) {
+    query = $("#instant_search").val();
+    $.ajax({
+      url: '/restaurants/n_instant?q=' + escape(query),
+      success: function(data) {
+        r_data = data.restaurants;
+        r_names = [];
+        for (i in r_data) {
+          r_names.push(r_data[i].name);
+        }
+        if (callback) {
+          callback();
+        }
+      }
+    });
+  }
+
+  $(document).ready(function() {
+    $("#instant_search").autocomplete({
+      delay: 0,
+      source: function(req, responseFn) {
+        requestData(function() {
+          responseFn(r_names);
+        });
+      },
+      select: function(value, data) {
+        restaurant = data.item.value;
+      }
+    });
+  });
+
