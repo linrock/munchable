@@ -28,12 +28,17 @@ Location.create([{
   :y_upper => -122.070637,
 }])
 
+User.create({
+  :email => 'root@you.com',
+  :password => 'asdfasdf',
+  :password_confirmation => 'asdfasdf'
+})
+
 # places = []
 # places.push File.open(RAILS_ROOT + '/db/places/ca_san_francisco.txt').read.split(/\n/)
 # places.push File.open(RAILS_ROOT + '/db/places/ca_mountain_view.txt').read.split(/\n/)
 # places.flatten!
 
-places = File.open(RAILS_ROOT + '/db/data.txt').read.split(/\n/)
 
 File.open(RAILS_ROOT + '/db/categories/food.txt').read.split(/\n/).each do |c|
   Category.create(:name => c)
@@ -46,7 +51,9 @@ def quote (str)
   str.gsub(/\\|'/) { |c| "\\#{c}" }
 end
 
+=begin
 inserts = []
+places = File.open(RAILS_ROOT + '/db/data.txt').read.split(/\n/)
 places.each do |row|
   row = row.split '|'
   row = row.map{|r| quote(r)}
@@ -64,3 +71,4 @@ end
 puts 'Inserting into DB'
 sql = "INSERT INTO restaurants (location_id, url, name, categories, rating, review_count, address, website, hours, good_for, delivery, take_out, x, y, xy, updated_at) VALUES #{inserts.join(', ')}"
 Restaurant.connection.execute sql
+=end
