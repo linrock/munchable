@@ -33,6 +33,21 @@ User.create({
   :password => 'asdfasdf',
   :password_confirmation => 'asdfasdf'
 })
+User.create({
+  :email => 'noob0@lol.com',
+  :password => 'asdfasdf',
+  :password_confirmation => 'asdfasdf'
+})
+User.create({
+  :email => 'noob1@lol.com',
+  :password => 'asdfasdf',
+  :password_confirmation => 'asdfasdf'
+})
+User.create({
+  :email => 'noob2@lol.com',
+  :password => 'asdfasdf',
+  :password_confirmation => 'asdfasdf'
+})
 
 # places = []
 # places.push File.open(RAILS_ROOT + '/db/places/ca_san_francisco.txt').read.split(/\n/)
