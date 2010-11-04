@@ -1,3 +1,7 @@
+%div{:style => 'text-align: center'}
+  = link_to 'San Francisco', location_url(:id => 1)
+  &nbsp;-&nbsp;
+  = link_to 'Mountain View', location_url(:id => 2)
 
 #map_canvas{:style => "width: 500px; height: 500px; text-align: center"}
   = image_tag 'loading.gif', :style => 'margin-top: 200px'
