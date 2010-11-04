@@ -42,4 +42,24 @@ class RestaurantsController < ApplicationController
       end
     }
   end
+
+  def name_instant
+    query = params[:name]
+    restaurants = Restaurant.where("name ILIKE ?", ["%#{query}%"]).order('rating DESC').limit(10)
+    render :json => {
+      :restaurants => restaurants.collect do |r| {
+          :name => r.name,
+          :address => r.address,
+          :hours => r.hours,
+          :website => r.website,
+          :rating => r.rating,
+          :review_count => r.review_count,
+          :take_out => r.take_out,
+          :delivery => r.delivery,
+          :x => r.xy.x,
+          :y => r.xy.y
+        }
+      end
+    }
+  end
 end

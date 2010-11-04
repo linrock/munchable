@@ -1,7 +1,6 @@
 %h2 Your Profile
 
-= link_to 'Create Group', new_user_group_url
-
 %h3 Your groups
 - for group in @user.groups
   %li= link_to group.name, user_group_url(:id => group.id)
+= link_to 'Create Group', new_user_group_url

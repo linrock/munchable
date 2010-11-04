@@ -59,6 +59,7 @@ Munchable::Application.routes.draw do
   root :to => "locations#show", :defaults => { :id => 1 }
   resources :restaurants do
     get 'instant', :on => :collection, :action => 'instant'
+    get 'n_instant', :on => :collection, :action => 'name_instant'
   end
   resources :categories do
     get 'autocomplete', :on => :collection, :action => 'autocomplete'

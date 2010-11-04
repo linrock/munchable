@@ -3,3 +3,10 @@
 %p Members
 - for member in @group.members
   = member.email
+%p= link_to 'Add member', ''
+
+%p Restaurants
+#search
+  = form_tag do
+    = text_field_tag :q, params[:q], :id => 'instant_search'
+Add restaurants
