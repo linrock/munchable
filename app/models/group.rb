@@ -1,6 +1,7 @@
 class Group < ActiveRecord::Base
   has_many :memberships, :dependent => :destroy
   has_many :users, :through => :memberships
+  has_one :list
 
   def members
     uids = self.memberships.all(:select => :user_id).collect {|m| m.user_id }.uniq

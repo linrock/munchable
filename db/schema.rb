@@ -107,8 +107,12 @@ ActiveRecord::Schema.define(:version => 20101023013750) do
     t.string   "name"
   end
 
-  create_table "group_restaurants", :force => true do |t|
+  create_table "lists", :force => true do |t|
     t.integer  "group_id"
+  end
+
+  create_table "restaurant_comments", :force => true do |t|
+    t.integer  "user_id"
     t.integer  "restaurant_id"
     t.text     "comment"
   end
