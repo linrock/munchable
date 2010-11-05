@@ -6,10 +6,13 @@
 %p= link_to 'Add member', ''
 
 %p Restaurants List
-- for restaurant in @group.list.restaurants
-  %li= restaurant.name
+#restaurants
+  - for restaurant in @group.list.restaurants
+    %li= restaurant.name
+
 #search
-  = form_tag user_group_list_url(:user_id => @user.id, :group_id => @group.id), :method => :put, :remote => :true do
+  = form_tag user_group_list_url(:user_id => @user.id, :group_id => @group.id),
+    :method => :put, :remote => :true, :id => 'new_restaurant_form' do
     = text_field_tag :q, params[:q], :id => 'instant_search'
     = hidden_field_tag :rid, :id => 'rid'
     = submit_tag 'Add'
@@ -50,10 +53,15 @@
           restaurant = data.item.value;
           if (r_data[i].name == restaurant) {
             restaurant_data = r_data[i];
+            $("#rid").val(r_data[i].id);
           }
-          $("#rid").val(r_data[i].id);
         }
       }
     });
+    $("#new_restaurant_form")
+      .bind('ajax:success', function(data, xhr, status) {
+        var r = JSON.parse(xhr);
+        $("#restaurants").append('<li>' + r.name + '</li>');
+      });
   });
 
