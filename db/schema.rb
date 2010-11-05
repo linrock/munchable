@@ -55,6 +55,8 @@ ActiveRecord::Schema.define(:version => 20101023013750) do
     t.integer  "restaurant_id"
     t.integer  "list_id"
     t.boolean  "public"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "lists", :force => true do |t|

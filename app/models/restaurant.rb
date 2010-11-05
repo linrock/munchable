@@ -3,6 +3,7 @@ class Restaurant < ActiveRecord::Base
   has_many :menu_items
   has_many :menu_comments
   has_many :comments
+  has_many :listings, :dependent => :destroy
   has_many :lists, :through => :listings
 
   scope :within_bounds_xy, lambda {|bounds|
