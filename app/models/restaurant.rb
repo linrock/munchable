@@ -11,7 +11,6 @@ class Restaurant < ActiveRecord::Base
       bounds['x'][0], bounds['x'][1], bounds['y'][0], bounds['y'][1]
     )
   }
-
   scope :within_bounds, lambda {|bounds|
     where('xy && ?', Polygon.from_coordinates([[
       [bounds['x'][0], bounds['y'][0]],
@@ -21,19 +20,19 @@ class Restaurant < ActiveRecord::Base
       [bounds['x'][0], bounds['y'][0]]
     ]], 4326))
   }
-
   scope :k_nearest, lambda {|center, k|
     if center.all? {|c| c.is_a? Numeric}
       order("ST_Distance(xy, ST_GeomFromText('#{'POINT(%f %f)' % center}', 4326))").limit(k)
     end
   }
-
   scope :relevant, lambda {|category|
     where("categories LIKE ?", ["%#{category}%"])
   }
-
   scope :limited, lambda { |k|
     order('rating DESC, review_count DESC').limit(k)
+  }
+  scope :tsearch, lambda { |query|
+    where("to_tsvector('english', name) @@ to_tsquery('english', ?)", query.split.join(' & '))
   }
 
   def self.get_nearest(bounds, center, category, max_num)

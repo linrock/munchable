@@ -45,7 +45,8 @@ class RestaurantsController < ApplicationController
 
   def name_instant
     query = params[:q]
-    restaurants = Restaurant.where("name ILIKE ?", ["%#{query}%"]).order('rating DESC').limit(10)
+    # restaurants = Restaurant.where("name ILIKE ?", ["%#{query}%"]).order('rating DESC').limit(10)
+    restaurants = Restaurant.tsearch(query).order('rating DESC').limit(10)
     render :json => {
       :restaurants => restaurants.collect do |r| {
           :id => r.id,
