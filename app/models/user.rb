@@ -29,6 +29,7 @@ class User < ActiveRecord::Base
         :user_id => self.id,
         :group_id => g.id
       })
+      g
     else
       nil
     end

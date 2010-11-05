@@ -32,7 +32,7 @@ class Restaurant < ActiveRecord::Base
     order('rating DESC, review_count DESC').limit(k)
   }
   scope :tsearch, lambda { |query|
-    where("to_tsvector('english', name) @@ to_tsquery('english', ?)", query.split.join(' & '))
+    where("to_tsvector('english', name) @@ to_tsquery('english', E?)", query.split.join(' & '))
   }
 
   def self.get_nearest(bounds, center, category, max_num)
