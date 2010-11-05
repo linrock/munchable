@@ -8,7 +8,11 @@
 %p Restaurants List
 #restaurants
   - for restaurant in @group.list.restaurants
-    %li= restaurant.name
+    .restaurant_listing
+      = restaurant.name
+      = link_to 'comment', ''
+      %span{:style => 'float: right'}
+        = button_to 'x', user_group_list_listing_url(:user_id => @user.id, :group_id => @group.id, :rid => restaurant.id), :method => :delete, :remote => :true, :class => 'listing'
 
 #search
   = form_tag user_group_list_url(:user_id => @user.id, :group_id => @group.id),
@@ -62,6 +66,11 @@
       .bind('ajax:success', function(data, xhr, status) {
         var r = JSON.parse(xhr);
         $("#restaurants").append('<li>' + r.name + '</li>');
+      });
+    $(".listing")
+      .bind('ajax:success', function(data, xhr, status) {
+        var result = xhr;
+        alert(xhr);
       });
   });
 

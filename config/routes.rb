@@ -69,7 +69,9 @@ Munchable::Application.routes.draw do
   resources :locations
   resources :users do
     resources :groups do
-      resource :list
+      resource :list do
+        resources :listings
+      end
     end
     resource :profile
   end
