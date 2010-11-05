@@ -3,8 +3,23 @@
 %p * E-mail notifications
 
 %h3 Your groups
-- for group in @user.groups
-  %li= link_to group.name, user_group_url(:id => group.id)
-= link_to 'Create Group', new_user_group_url
+#groups
+  - for group in @user.groups
+    %li.group= link_to group.name, user_group_url(:id => group.id)
+
+= form_tag user_groups_url, :method => :post, :remote => :true, :id => 'group_form' do
+  = text_field_tag :group_name, params[:group_name]
+  = submit_tag 'Create Group'
 
 %h3 Your friends
+
+:javascript
+  var group;
+
+  $(document).ready(function() {
+    $("#group_form")
+      .bind('ajax:success', function(data, xhr, status) {
+        group = JSON.parse(xhr);
+        $("#groups").append('<li class="group"><a href="/users/#{@user.id}/groups/' + group.id + '">' + group.name + '</a></li>');
+      });
+  });

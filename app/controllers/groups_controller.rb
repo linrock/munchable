@@ -1,18 +1,17 @@
 class GroupsController < ApplicationController
 
-  def new
-    @group = Group.new
-  end
-
   def create
     @user = User.find(params[:user_id])
-    status = @user.create_group(params[:group][:name])
-    if status
+    group = @user.create_group(params[:group_name])
+    if group
       flash[:notice] = 'Group created!'
-      redirect_to user_profile_url(:id => @user.id)
+      render :json => {
+        :id => group.id,
+        :name => group.name
+      }
     else
       flash[:notice] = 'Group creation failed!'
-      render :action => :new
+      render :json => 0
     end
   end
 
