@@ -5,15 +5,19 @@
   = member.email
 %p= link_to 'Add member', ''
 
-%p Restaurants
+%p Restaurants List
+- for restaurant in @group.list.restaurants
+  %li= restaurant.name
 #search
-  = form_tag do
+  = form_tag user_group_list_url(:user_id => @user.id, :group_id => @group.id), :method => :put, :remote => :true do
     = text_field_tag :q, params[:q], :id => 'instant_search'
-Add restaurants
+    = hidden_field_tag :rid, :id => 'rid'
+    = submit_tag 'Add'
 
 :javascript
   var query;
   var restaurant;
+  var restaurant_data;
   var r_data;
   var r_names;
 
@@ -33,7 +37,6 @@ Add restaurants
       }
     });
   }
-
   $(document).ready(function() {
     $("#instant_search").autocomplete({
       delay: 0,
@@ -43,7 +46,13 @@ Add restaurants
         });
       },
       select: function(value, data) {
-        restaurant = data.item.value;
+        for (i in r_data) {
+          restaurant = data.item.value;
+          if (r_data[i].name == restaurant) {
+            restaurant_data = r_data[i];
+          }
+          $("#rid").val(r_data[i].id);
+        }
       }
     });
   });
