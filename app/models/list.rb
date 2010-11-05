@@ -1,5 +1,4 @@
 class List < ActiveRecord::Base
-  belongs_to :group
-  has_many :restaurants
-  has_many :restaurant_comments
+  belongs_to :user, :through => :groups
+  has_many :restaurants, :through => :listings
 end

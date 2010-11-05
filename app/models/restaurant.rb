@@ -1,7 +1,9 @@
 class Restaurant < ActiveRecord::Base
+  belongs_to :location
   has_many :menu_items
   has_many :menu_comments
-  belongs_to :location
+  has_many :comments
+  has_many :lists, :through => :listings
 
   scope :within_bounds_xy, lambda {|bounds|
     where('x > ? AND x < ? AND y > ? AND y < ?',

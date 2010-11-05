@@ -30,7 +30,6 @@ ActiveRecord::Schema.define(:version => 20101023013750) do
   end
 
   create_table "restaurants", :force => true do |t|
-    t.integer  "menu_item_id"
     t.integer  "location_id"
     t.string   "url"
     t.string   "name"
@@ -51,6 +50,19 @@ ActiveRecord::Schema.define(:version => 20101023013750) do
   end
   add_index "restaurants", "xy", :spatial => true
   add_index "restaurants", ["x", "y"], :name => "index_restaurants_on_x_y", :unique => true
+
+  create_table "listings", :force => true do |t|
+    t.integer  "restaurant_id"
+    t.integer  "list_id"
+    t.boolean  "public"
+  end
+
+  create_table "lists", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "group_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "locations", :force => true do |t|
     t.string   "city"
@@ -100,21 +112,23 @@ ActiveRecord::Schema.define(:version => 20101023013750) do
     t.integer  "user_id"
     t.integer  "group_id"
     t.string   "role"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "groups", :force => true do |t|
     t.integer  "user_id"
     t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
-  create_table "lists", :force => true do |t|
-    t.integer  "user_id"
-    t.integer  "group_id"
-  end
-
-  create_table "restaurant_comments", :force => true do |t|
+  create_table "comments", :force => true do |t|
     t.integer  "user_id"
     t.integer  "restaurant_id"
-    t.text     "comment"
+    t.integer  "list_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.text     "body"
   end
 end

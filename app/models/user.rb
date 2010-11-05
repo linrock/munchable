@@ -11,6 +11,8 @@ class User < ActiveRecord::Base
   has_one :profile
   has_many :memberships, :dependent => :destroy
   has_many :groups, :through => :memberships
+  has_many :lists, :through => :groups
+  has_many :comments
 
   def create_group(name)
     g = Group.new({
