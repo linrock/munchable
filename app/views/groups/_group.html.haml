@@ -1,0 +1,5 @@
+.group_listing{:id => "group-#{group.id}"}
+  = link_to group.name, user_group_url(:id => group.id)
+  %span{:style => 'float: right'}
+    = form_tag user_group_url(:user_id => @user.id, :id => group.id), :remote => :true, :method => :delete, :class => 'delete_group_form' do
+      = submit_tag 'x'

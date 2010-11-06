@@ -15,8 +15,7 @@
         = button_to 'x', user_group_list_listing_url(:user_id => @user.id, :group_id => @group.id, :rid => restaurant.id), :method => :delete, :remote => :true, :class => 'listing'
 
 #search
-  = form_tag user_group_list_url(:user_id => @user.id, :group_id => @group.id),
-    :method => :put, :remote => :true, :id => 'new_restaurant_form' do
+  = form_tag user_group_list_url(:user_id => @user.id, :group_id => @group.id), :method => :put, :remote => :true, :id => 'new_restaurant_form' do
     = text_field_tag :q, params[:q], :id => 'instant_search'
     = hidden_field_tag :rid, :id => 'rid'
     = submit_tag 'Add'

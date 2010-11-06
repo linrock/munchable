@@ -2,16 +2,10 @@ class GroupsController < ApplicationController
 
   def create
     @user = User.find(params[:user_id])
-    group = @user.create_group(params[:group_name])
-    if group
-      flash[:notice] = 'Group created!'
-      render :json => {
-        :id => group.id,
-        :name => group.name
-      }
-    else
-      flash[:notice] = 'Group creation failed!'
-      render :json => 0
+    @group = @user.create_group(params[:group_name])
+
+    respond_to do |format|
+      format.js
     end
   end
 
@@ -19,5 +13,13 @@ class GroupsController < ApplicationController
     @user = User.find(params[:user_id])
     @group = Group.find(params[:id])
     @list = @group.list
+  end
+
+  def destroy
+    @group = Group.find(params[:id])
+    @group.destroy
+    respond_to do |format|
+      format.js
+    end
   end
 end

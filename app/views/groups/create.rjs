@@ -1,0 +1,3 @@
+page.insert_html :bottom, :groups, :partial => 'group', :object => @group
+page.replace_html :notice, flash[:notice]
+flash.discard
