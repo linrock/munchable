@@ -1,0 +1,3 @@
+page.insert_html :bottom, :restaurants, :partial => 'listing', :locals => {:restaurant => @restaurant, :listing => @listing}
+page.replace_html :notice, flash[:notice]
+flash.discard

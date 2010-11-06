@@ -1,0 +1,5 @@
+.restaurant_listing{:id => "listing-#{listing.id}"}
+  = restaurant.name
+  = link_to 'comment', ''
+  %span{:style => 'float: right'}
+    = button_to 'x', user_group_list_listing_url(:user_id => @user.id, :group_id => @group.id, :id => listing.id), :method => :delete, :remote => :true, :class => 'listing'
