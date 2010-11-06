@@ -27,10 +27,12 @@
         %br/
 
       #notices
+        - if flash[:error]
+          .error= flash[:error]
         - if flash[:notice]
           .notice= flash[:notice]
-        - if flash[:alert]
-          .alert= flash[:alert]
+        - if flash[:success]
+          .success= flash[:success]
       .clear
       %br/
       =yield
