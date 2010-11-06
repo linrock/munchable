@@ -6,7 +6,7 @@
     = member.email
   %p= link_to 'Add member', ''
 
-%p Restaurants List
+%h3 Restaurants
 #restaurants
   - for r_listing in @restaurant_listings
     = render :partial => 'listings/listing', :locals => { :listing => r_listing[0], :restaurant => r_listing[1] }

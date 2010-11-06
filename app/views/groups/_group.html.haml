@@ -1,4 +1,5 @@
-.group_listing.ui-corner-all{:id => "group-#{group.id}"}
+.group_listing.ui-state-default.ui-corner-all{:id => "group-#{group.id}"}
+  %span{:class => 'ui-icon ui-icon-triangle-1-e', :style => 'float: left; padding: 1px'}
   = link_to group.name, user_group_url(:id => group.id)
   %span{:style => 'float: right'}
     = form_tag user_group_url(:user_id => @user.id, :id => group.id), :remote => :true, :method => :delete do

@@ -1,4 +1,5 @@
-.restaurant_listing.ui-corner-all{:id => "listing-#{listing.id}"}
+.restaurant_listing.ui-state-default.ui-corner-all{:id => "listing-#{listing.id}"}
+  %span{:class => 'ui-icon ui-icon-triangle-1-e', :style => 'float: left; padding: 1px'}
   = restaurant.name
   -# = link_to 'comment', ''
   %span{:style => 'float: right'}
