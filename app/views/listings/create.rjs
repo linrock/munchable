@@ -1,3 +1,10 @@
-page.insert_html :bottom, :restaurants, :partial => 'listing', :locals => {:restaurant => @restaurant, :listing => @listing}
-page.replace_html :notice, flash[:notice]
-flash.discard
+if @listing
+  page.insert_html :bottom, :restaurants, :partial => 'listing', :locals => {:restaurant => @restaurant, :listing => @listing}
+else
+  page << "$('.notice').text('#{flash[:notice]}')"
+  page << "$('.notice').fadeIn('slow')"
+  page.delay(2) do
+    page << "$('.notice').fadeOut('slow')"
+  end
+  flash.discard
+end

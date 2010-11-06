@@ -30,10 +30,18 @@
       #notices
         - if flash[:error]
           .error= flash[:error]
+        - else
+          .error{:style => 'display: none'}
+
         - if flash[:notice]
           .notice= flash[:notice]
+        - else
+          .notice{:style => 'display: none'}
+
         - if flash[:success]
           .success= flash[:success]
+        - else
+          .success{:style => 'display: none'}
       .clear
       %br/
       =yield

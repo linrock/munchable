@@ -5,10 +5,14 @@ class ListingsController < ApplicationController
     @group = Group.find(params[:group_id])
     @restaurant = Restaurant.find(params[:rid])
 
-    @listing = Listing.create({
-      :list_id => @group.list.id,
-      :restaurant_id => @restaurant.id
-    })
+    if Listing.where(:list_id => @group.list.id, :restaurant_id => @restaurant.id).empty?
+      @listing = Listing.create({
+        :list_id => @group.list.id,
+        :restaurant_id => @restaurant.id
+      })
+    else
+      flash[:notice] = 'Restaurant already exists!'
+    end
     respond_to do |format|
       format.js
     end
