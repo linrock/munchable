@@ -7,15 +7,11 @@
 
 %p Restaurants List
 #restaurants
-  - for restaurant in @group.list.restaurants
-    .restaurant_listing
-      = restaurant.name
-      = link_to 'comment', ''
-      %span{:style => 'float: right'}
-        = button_to 'x', user_group_list_listing_url(:user_id => @user.id, :group_id => @group.id, :rid => restaurant.id), :method => :delete, :remote => :true, :class => 'listing'
+  - for r_listing in @restaurant_listings
+    = render :partial => 'listings/listing', :locals => { :listing => r_listing[0], :restaurant => r_listing[1] }
 
 #search
-  = form_tag user_group_list_url(:user_id => @user.id, :group_id => @group.id), :method => :put, :remote => :true, :id => 'new_restaurant_form' do
+  = form_tag user_group_list_listings_url(:user_id => @user.id, :group_id => @group.id), :method => :post, :remote => :true, :id => 'new_restaurant_form' do
     = text_field_tag :q, params[:q], :id => 'instant_search'
     = hidden_field_tag :rid, :id => 'rid'
     = submit_tag 'Add'

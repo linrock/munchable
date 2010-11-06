@@ -13,6 +13,8 @@ class GroupsController < ApplicationController
     @user = User.find(params[:user_id])
     @group = Group.find(params[:id])
     @list = @group.list
+
+    @restaurant_listings = @list.listings.zip(@list.restaurants)
   end
 
   def destroy
