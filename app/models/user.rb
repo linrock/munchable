@@ -14,6 +14,8 @@ class User < ActiveRecord::Base
   has_many :lists, :through => :groups
   has_many :comments
 
+  after_create :create_profile
+
   def create_group(name)
     g = Group.new({
       :user_id => self.id,
@@ -33,5 +35,11 @@ class User < ActiveRecord::Base
     else
       nil
     end
+  end
+
+  def create_profile
+    Profile.create({
+      :user_id => self.id
+    })
   end
 end
