@@ -1,9 +1,10 @@
 %h2= @group.name
 
-%p Members
-- for member in @group.members
-  = member.email
-%p= link_to 'Add member', ''
+-#
+  %p Members
+  - for member in @group.members
+    = member.email
+  %p= link_to 'Add member', ''
 
 %p Restaurants List
 #restaurants
