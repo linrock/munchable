@@ -1,6 +1,6 @@
 .restaurant_listing{:id => "listing-#{listing.id}"}
   = restaurant.name
-  = link_to 'comment', ''
+  -# = link_to 'comment', ''
   %span{:style => 'float: right'}
     = form_tag user_group_list_listing_url(:user_id => @user.id, :group_id => @group.id, :id => listing.id), :remote => :true, :method => :delete do
       = submit_tag '', :style => "border: none", :class => 'ui-icon ui-icon-circle-close'
