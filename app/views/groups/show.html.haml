@@ -30,9 +30,7 @@
 
   function requestData(callback) {
     query = $("#restaurant_ac").val();
-    $.ajax({
-      url: '/restaurants/n_instant?q=' + escape(query),
-      success: function(data) {
+    $.getJSON('/restaurants/n_instant', { q: query }, function(data) {
         r_data = data.restaurants;
         r_names = [];
         for (i in r_data) {
@@ -42,7 +40,7 @@
           callback();
         }
       }
-    });
+    );
   }
   $(document).ready(function() {
     $("#restaurant_ac").autocomplete({

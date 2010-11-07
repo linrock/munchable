@@ -9,9 +9,9 @@ class RestaurantsController < ApplicationController
   end
   
   def instant
-    bounds = CGI.unescape(params[:bounds])
     max_num = 7
-    if bounds != 'undefined'
+    if params[:bounds]
+      bounds = CGI.unescape(params[:bounds])
       bounds = JSON.load bounds
       center = JSON.load params[:center]
     else

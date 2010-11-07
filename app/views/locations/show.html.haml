@@ -90,42 +90,46 @@
 
     function requestData() {
       if (category) {
-        $.ajax({
-          url: '/restaurants/instant?category=' + escape(category) + '&location_id=#{@location.id}' + '&bounds=' + escape(bounds) + '&center=' + escape(center) + '&search_type=' + $("input:radio[name=search_type]:checked").val(),
-          success: function(data) {
-            data_json = JSON.stringify(data.restaurants);
-            if (r_data != data_json) {
-              r_data = data_json;
-              map.addMarkers(data.restaurants);
-              $("thead").show();
-              $("tbody").html(function() {
-                html = '';
-                for (i in data.restaurants) {
-                  html += '<tr><td>' + (parseInt(i)+1) + '</td>';
-                  html += '<td>' + data.restaurants[i].name + '</td>';
-                  html += '<td><a href="' + data.restaurants[i].website + '">' + data.restaurants[i].website + '</a></td>';
-                  if (data.restaurants[i].rating >= 4.5) {
-                    html += '<td style="color: green; font-weight: bold">' + data.restaurants[i].rating + '</td>';
-                  } else if (data.restaurants[i].rating >= 4) {
-                    html += '<td style="color: orange; font-weight: bold">' + data.restaurants[i].rating + '</td>';
-                  } else {
-                    html += '<td style="color: red; font-weight: bold">' + data.restaurants[i].rating + '</td>';
-                  }
-                  html += '<td>' + data.restaurants[i].review_count + '</td>';
-                  if (data.restaurants[i].take_out) {
-                    html += '<td style="color: green">yes</td>';
-                  } else {
-                    html += '<td style="color: red">no</td>';
-                  }
-                  if (data.restaurants[i].delivery) {
-                    html += '<td style="color: green">yes</td>';
-                  } else {
-                    html += '<td style="color: red">no</td>';
-                  }
+        var data = {
+          category: category,
+          location_id: #{@location.id},
+          bounds: bounds,
+          center: center,
+          search_type: $("input:radio[name=search_type]:checked").val()
+        };
+        $.getJSON('/restaurants/instant', data, function(data) {
+          data_json = JSON.stringify(data.restaurants);
+          if (r_data != data_json) {
+            r_data = data_json;
+            map.addMarkers(data.restaurants);
+            $("thead").show();
+            $("tbody").html(function() {
+              html = '';
+              for (i in data.restaurants) {
+                html += '<tr><td>' + (parseInt(i)+1) + '</td>';
+                html += '<td>' + data.restaurants[i].name + '</td>';
+                html += '<td><a href="' + data.restaurants[i].website + '">' + data.restaurants[i].website + '</a></td>';
+                if (data.restaurants[i].rating >= 4.5) {
+                  html += '<td style="color: green; font-weight: bold">' + data.restaurants[i].rating + '</td>';
+                } else if (data.restaurants[i].rating >= 4) {
+                  html += '<td style="color: orange; font-weight: bold">' + data.restaurants[i].rating + '</td>';
+                } else {
+                  html += '<td style="color: red; font-weight: bold">' + data.restaurants[i].rating + '</td>';
                 }
-                return html;
-              });
-            }
+                html += '<td>' + data.restaurants[i].review_count + '</td>';
+                if (data.restaurants[i].take_out) {
+                  html += '<td style="color: green">yes</td>';
+                } else {
+                  html += '<td style="color: red">no</td>';
+                }
+                if (data.restaurants[i].delivery) {
+                  html += '<td style="color: green">yes</td>';
+                } else {
+                  html += '<td style="color: red">no</td>';
+                }
+              }
+              return html;
+            });
           }
         });
         $("#category").html('<span style="color: blue">' + category + '</span>');
