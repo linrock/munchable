@@ -1,29 +1,35 @@
-%div{:style => 'text-align: center'}
-  = link_to 'San Francisco', location_url(:id => 1)
-  &nbsp;-&nbsp;
-  = link_to 'Mountain View', location_url(:id => 2)
+#right{:style => 'float: right; text-align: center'}
+  #map_container
+    #locations
+      = link_to 'San Francisco', location_url(:id => 1)
+      &nbsp;-&nbsp;
+      = link_to 'Mountain View', location_url(:id => 2)
+    #map_canvas{:style => "width: 500px; height: 500px"}
+      = image_tag 'loading.gif', :style => 'margin-top: 200px'
 
-#map_canvas{:style => "width: 500px; height: 500px; text-align: center"}
-  = image_tag 'loading.gif', :style => 'margin-top: 200px'
+#left{:style => 'float: left'}
+  #search_area
+    %br/
+    %div
+      %span{:style => 'font-size: 16pt'}
+        What kind of food do you want?
+      %span{:style => 'font-size: 10pt'} (ie. pizza)
+    #search
+      = form_tag do
+        = text_field_tag :q, params[:q], :id => 'instant_search'
+        #search_radio{:style => 'font-size: 14pt'}
+          = radio_button_tag :search_type, 'best', true
+          Best
+          = radio_button_tag :search_type, 'nearest'
+          Nearest
+  #instructions{:style => 'padding: 20px'}
+    %h2 Instructions
+    %h3 1. Enter what you want
+    %h3 2. Pick your location
+    %h3 3. Delivery or Reservation?
+    %h3 4. Enjoy!
 .clear
 
-#search_area
-  %div{:style => 'height: 20px'}
-    %b#category
-  %br/
-  %div
-    %span{:style => 'font-size: 16pt'}
-      What kind of food do you want?
-    %span{:style => 'font-size: 10pt'} (ie. pizza)
-  #search
-    = form_tag do
-      = text_field_tag :q, params[:q], :id => 'instant_search'
-    .clear
-      #search_radio{:style => 'font-size: 14pt'}
-        = radio_button_tag :search_type, 'best', true
-        Best
-        = radio_button_tag :search_type, 'nearest'
-        Nearest
 -#
   #search
     - form_tag menu_items_path, :id => 'search_form', :method => 'get' do
@@ -45,7 +51,8 @@
       = submit_tag 'Go!', :name => nil
   .clear
   
-#info
+#restaurant_info
+  %b#category
   = render :partial => "shared/simple_table"
   %br/
 

@@ -11,33 +11,31 @@
     = javascript_include_tag 'jquery.tablesorter.min.js'
     = javascript_include_tag 'jquery-ui-1.8.5.custom.min.js'
 
-  %body.bp
+  %body.bp.main
     #container
-      %h1#title= link_to 'Most Munchable', root_url
-      #navbar
-        - if user_signed_in?
-          = link_to 'Your Profile', user_profile_url(:user_id => current_user.id)
-          #{current_user.email}
-          &nbsp;-&nbsp;
-          = link_to 'Logout', destroy_user_session_url
-        - else
-          = link_to 'Login', new_user_session_url
-          &nbsp;-&nbsp;
-          = link_to 'Create Account', new_user_registration_url
-        %br/
-      .clear
-
+      #header
+        %h1#title= link_to 'Most Munchable', root_url
+        #navbar
+          - if user_signed_in?
+            = link_to 'Your Profile', user_profile_url(:user_id => current_user.id)
+            #{current_user.email}
+            &nbsp;-&nbsp;
+            = link_to 'Logout', destroy_user_session_url
+          - else
+            = link_to 'Login', new_user_session_url
+            &nbsp;-&nbsp;
+            = link_to 'Create Account', new_user_registration_url
+          %br/
+        .clear
       #notices
         - if flash[:error]
           .error= flash[:error]
         - else
           .error{:style => 'display: none'}
-
         - if flash[:notice]
           .notice= flash[:notice]
         - else
           .notice{:style => 'display: none'}
-
         - if flash[:success]
           .success= flash[:success]
         - else
