@@ -41,24 +41,33 @@ body.main
         +column(8, true)
         +push(0)
         border: 1px solid gray
-
     #content
-      #map_canvas
-        +box-shadow(gray, 5px, 5px, 5px)
-        width: 500px
-        height: 500px
-        border: 1px solid gray
+      #main_page
+        #map_canvas
+          +box-shadow(gray, 5px, 5px, 5px)
+          border: 1px solid gray
+          width: 500px
+          height: 500px
+        #search_area
+          text-align: center
+        #instant_search
+          font-size: 20pt
+        #category
+          font-size: 12pt
+        #results_table
+          width: 650px
+      #profile_page
+        .group_listing
+          width: 400px
+          padding: 3px
+          margin: 3px
+      #group_page
+        .restaurant_listing
+          width: 400px
+          padding: 3px
+          margin: 3px
+        #listings
+          float: left
+          width: 400px
     #footer
       +column($blueprint-grid-columns)
-  
-  #m_sidebar
-    // One third of the grid columns, rounding down. With 24 cols, this is 8.
-    $sidebar-columns: floor($blueprint-grid-columns / 3)
-    +column($sidebar-columns)
-  #m_content
-    // Two thirds of the grid columns, rounding up.
-    // With 24 cols, this is 16.
-    $content-columns: ceil(2 * $blueprint-grid-columns / 3)
-    // true means it's the last column in the row
-    +column($content-columns, true)
-
