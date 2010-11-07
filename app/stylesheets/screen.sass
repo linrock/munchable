@@ -42,20 +42,31 @@ body.main
         +push(0)
         border: 1px solid gray
     #content
+      +column($blueprint-grid-columns)
       #main_page
-        #map_canvas
-          +box-shadow(gray, 5px, 5px, 5px)
-          border: 1px solid gray
-          width: 500px
-          height: 500px
-        #search_area
-          text-align: center
-        #instant_search
-          font-size: 20pt
-        #category
-          font-size: 12pt
-        #results_table
-          width: 650px
+        #search_container
+          +column(10)
+          #search_box
+            text-align: center
+            input#instant_search
+              font-size: 20pt
+        #instructions
+          padding: 20px
+        #map_container
+          +column(14, true)
+          +push(0)
+          #locations
+            text-align: center
+          #map_canvas
+            +box-shadow(gray, 5px, 5px, 5px)
+            +append-bottom(20px)
+            border: 1px solid gray
+            width: 500px
+            height: 500px
+          #category
+            font-size: 12pt
+          table#results_table
+            width: 650px
       #profile_page
         .group_listing
           width: 400px
