@@ -14,7 +14,8 @@
   %body.bp.main
     #container
       #header
-        %h1#title= link_to 'Most Munchable', root_url
+        #logo
+          %h1= link_to 'Most Munchable', root_url
         #navbar
           - if user_signed_in?
             = link_to 'Your Profile', user_profile_url(:user_id => current_user.id)
@@ -26,20 +27,22 @@
             &nbsp;-&nbsp;
             = link_to 'Create Account', new_user_registration_url
           %br/
+      #content
+        #notices
+          - if flash[:error]
+            .error= flash[:error]
+          - else
+            .error{:style => 'display: none'}
+          - if flash[:notice]
+            .notice= flash[:notice]
+          - else
+            .notice{:style => 'display: none'}
+          - if flash[:success]
+            .success= flash[:success]
+          - else
+            .success{:style => 'display: none'}
         .clear
-      #notices
-        - if flash[:error]
-          .error= flash[:error]
-        - else
-          .error{:style => 'display: none'}
-        - if flash[:notice]
-          .notice= flash[:notice]
-        - else
-          .notice{:style => 'display: none'}
-        - if flash[:success]
-          .success= flash[:success]
-        - else
-          .success{:style => 'display: none'}
-      .clear
-      %br/
-      =yield
+        %br/
+        =yield
+      #footer
+
