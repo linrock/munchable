@@ -23,6 +23,12 @@
     #address_box
       = form_tag '', :id => 'address_autocomplete' do
         = text_field_tag :q, params[:q], :class => 'field', :id => 'address_field'
+      -#
+        %button#mark_button.ui-button.ui-button-text-only.ui-widget.ui-state-default.ui-corner-all
+          %span.ui-button-text Mark
+        %input#mark_button.ui-button.ui-widget.ui-state-default.ui-corner-all{:type => 'submit', :value => 'Mark'}
+        %input#center_button.ui-button.ui-widget.ui-state-default.ui-corner-all{:type => 'submit', :value => 'Center'}
+        %input#clear_button.ui-button.ui-widget.ui-state-default.ui-corner-all{:type => 'submit', :value => 'Clear'}
       %input#mark_button{:type => 'submit', :value => 'Mark'}
       %input#center_button{:type => 'submit', :value => 'Center'}
       %input#clear_button{:type => 'submit', :value => 'Clear'}
