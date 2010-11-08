@@ -21,8 +21,12 @@
       %span.content Place a marker somewhere!
       %span.example (ie. Your address)
     #address_box
-      = form_tag instant_restaurants_url, :id => 'address_autocomplete' do
+      = form_tag '', :id => 'address_autocomplete' do
         = text_field_tag :q, params[:q], :class => 'field', :id => 'address_field'
+      %input#mark_button{:type => 'submit', :value => 'Mark'}
+      %input#center_button{:type => 'submit', :value => 'Center'}
+      %input#clear_button{:type => 'submit', :value => 'Clear'}
+
     #instructions
       %h2 Instructions
       %ol
@@ -53,20 +57,12 @@
   var last_checked = (new Date()).getTime();
   var current_category;
   var categories = #{@categories};
-
+  var cur_location = "#{@location.city + ' ' + @location.state}";
+  var selected_address;
+  var addresses;
   var gresults;
-  var gstatus;
-
-  function lol(address) {
-    geocoder.geocode({'address': address}, function(results, status) {
-      gresults = results;
-      gstatus = status;
-      // results[0].geometry.location.sa
-    });
-  }
 
   $(document).ready(function() {
-
     var latlng = new google.maps.LatLng(#{@location.x_center}, #{@location.y_center});
     map = new google.maps.Map(document.getElementById("map_canvas"), {
       zoom: #{@location.zoom_level},
@@ -76,7 +72,7 @@
     map.addCrosshairs();
     geocoder = new google.maps.Geocoder();
 
-    function requestData() {
+    var requestData = function() {
       b = map.getBounds();
       c = map.getCenter();
       $("input#bounds").val(JSON.stringify({ x: [b.S.b, b.S.c], y: [b.L.c, b.L.b] }));
@@ -113,31 +109,36 @@
         requestData();
       }
     });
-
     $("#address_field").autocomplete({
       delay: 0,
       source: function(req, responseFn) {
-        var re = $.ui.autocomplete.escapeRegex(req.term);
-        var matcher = new RegExp("^" + re, "i");
-        var result = $.grep(categories, function(item, index) {
-          return matcher.test(item);
+        var address = req.term + ' ' + cur_location;
+        geocoder.geocode({ 'address': address }, function(results, status) {
+          gresults = results;
+          addresses = {};
+          var formatted_results = [];
+          for (i in results) {
+            formatted_results.push(results[i].formatted_address);
+            addresses[results[i].formatted_address] = new google.maps.LatLng(results[i].geometry.location.ra, results[i].geometry.location.sa);
+          }
+          responseFn(formatted_results);
         });
-        if (result[0] && current_category != result[0]) {
-          current_category = result[0];
-          $("input#category").val(current_category);
-          requestData();
-        }
-        responseFn(result);
       },
       select: function(value, data) {
-        current_category = data.item.value;
-        $("input#category").val(current_category);
-        requestData();
+        selected_address = data.item.value;
       }
     });
 
     $("input:radio[name=search_type]").change(function() {
       requestData();
     });
-    // $("#simple_table").tablesorter();
+
+    $("#mark_button").click(function() {
+      map.address_marker = new google.maps.Marker({
+        position: addresses[selected_address],
+        map: map,
+        title: selected_address
+      });
+      map.address_marker.setMap(map);
+    });
   });
