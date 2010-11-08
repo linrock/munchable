@@ -1,0 +1,82 @@
+10/28/10
+========
+
+* Directions to go
+  * Use PostGIS Database
+    * Rails "spacial_adapter" plugin
+  * Show "Nearest" and "Best"
+    * Nearest-neighbors to crosshairs on map
+    * Decrease viewport search size
+  * Google Directions
+    * Get directions from user-specified marker to a chosen restaurant
+
+* Apply Google Maps idea elsewhere
+
+
+10/29/10
+========
+
+* UI Changes
+  * Search box on top
+  * Map and results, side-by-side
+* More sources than just Yelp
+* Click restaurants to display reviews
+* 1-click step to make reservations, or get delivery
+* Message friends about the restaurant
+  * Twitter, other social stuff
+
+
+11/03/10
+========
+
+* A place to organize the food/restaurants you like
+* Quick way for a group to friends to decide on a dinner place
+  * Vote on place and time
+* Place to share food preferences
+  * Share places you'd want to go to in the future
+  * Users decide what they like
+
+* LATER FEATURES
+  * Option to add pictures of restaurants
+  * Group chats between friends
+
+* Stuff to do right now:
+  * Restaurant Auto-Complete
+  * Fix restaurant/categories again
+  * Load only Bay Area restaurants
+
+* Shit that needs to be done
+  * Add members to groups
+    * Members have roles/permissions (admin, read/write, read-only)
+    * Show notice in member's profile when added
+  * Add personal restaurants
+    * Personal profile of restaurants
+    * Add comments to restaurants
+    * Add restaurants to groups
+
+
+11/04/10
+========
+
+* Need more categories
+* Add price range from Yelp ($, $$, $$$, $$$$)
+
+
+11/06/10
+========
+
+* Two directions
+  * Social Network
+    * Need to get UI up and working (using jQuery UI)
+  * Food Finder
+    * Reset map functionality 
+    * Short reviews (like Twitter)
+
+
+11/07/10
+========
+
+* Released new layout
+* Next steps
+  * Update scraper to fetch more useful information (price range)
+  * Allow user to plant markers at an address
