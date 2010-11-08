@@ -84,3 +84,17 @@
 
 * Theme Ideas
   * Page in notebook? Yellow/Red theme?
+
+* More Ideas
+  * Monetize
+    * OpenTable (Restuarant Reservations) Affiliate Program
+    * Line of ads along bottom of page
+  * Flow
+    * Friends food profiles
+    * Select friends, send mass invites
+    * Easy way to make dinner reservations (phone, OpenTable)
+    * Favorite/Remove restaurants on map
+    * Save current search, with multiple categories or whatever
+  * Mockups
+    * Iterate design over time also
+
