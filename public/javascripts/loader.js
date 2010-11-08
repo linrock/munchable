@@ -24,7 +24,7 @@ google.maps.Map.prototype.addMarkers = function(restaurants) {
     if (restaurants[i].rating >= 4.5) {
       icon = 'http://chart.apis.google.com/chart?chst=d_map_pin_letter_withshadow&chld=' + (i+1) + '|33CC33|000000';
     } else if (restaurants[i].rating >= 4.0) {
-      icon = 'http://chart.apis.google.com/chart?chst=d_map_pin_letter_withshadow&chld=' + (i+1) + '|FFFF00|000000';
+      icon = 'http://chart.apis.google.com/chart?chst=d_map_pin_letter_withshadow&chld=' + (i+1) + '|FFD700|000000';
     } else {
       icon = 'http://chart.apis.google.com/chart?chst=d_map_pin_letter_withshadow&chld=' + (i+1) + '|FF6633|000000';
     }

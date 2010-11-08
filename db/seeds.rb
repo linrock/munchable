@@ -72,6 +72,7 @@ def quote (str)
   str.gsub(/\\|'/) { |c| "\\#{c}" }
 end
 
+puts 'Loading data.txt...'
 inserts = []
 places = File.open(RAILS_ROOT + '/db/data.txt').read.split(/\n/)
 places.each do |row|
@@ -88,6 +89,6 @@ places.each do |row|
   inserts.push "('#{location}', E'#{row[0]}', E'#{row[1]}', E'#{row[3]}', '#{row[6]}', '#{row[7]}', E'#{row[8]}', '#{row[9]}', E'#{row[10]}', E'#{row[11]}', '#{delivery}', '#{take_out}', #{row[4]}, #{row[5]}, ST_GeometryFromText('POINT(#{row[4]} #{row[5]})', 4326), '#{row[14]}')"
 end
 
-puts 'Inserting into DB'
+puts 'Inserting into DB...'
 sql = "INSERT INTO restaurants (location_id, url, name, categories, rating, review_count, address, website, hours, good_for, delivery, take_out, x, y, xy, updated_at) VALUES #{inserts.join(', ')}"
 Restaurant.connection.execute sql

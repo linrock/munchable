@@ -64,12 +64,11 @@ ActiveRecord::Schema.define(:version => 20101104015703) do
     t.boolean  "take_out"
     t.float    "x"
     t.float    "y"
-    t.point    "xy", :null => false, :srid => 4326, :with_z => false
+    t.point    "xy",           :limit => nil, :null => false, :srid => 4326
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.point    "xy",           :limit => nil, :null => false, :srid => 4326
   end
-  add_index "restaurants", "xy", :spatial => true
+  add_index "restaurants", ["xy"], :spatial => true
   add_index "restaurants", ["x", "y"], :name => "index_restaurants_on_x_y", :unique => true
   execute "CREATE INDEX restaurants_name_idx ON restaurants USING gin(to_tsvector('english', name))"
 
