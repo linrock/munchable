@@ -43,8 +43,12 @@ body.main
             #search_radio
               font-size: 14pt
         #instructions
-          +prepend-top(20px)
+          +prepend-top(30px)
           +column(10)
+          ol
+            margin-left: 0
+            padding-left: $blueprint-grid-width
+            font-size: 14pt
         #map_container
           +column(14, true)
           +push(-1)
