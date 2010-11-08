@@ -10,7 +10,7 @@ class RestaurantsController < ApplicationController
   
   def instant
     max_num = 7
-    if params[:bounds]
+    if params[:bounds] #XXX - Need to fix parameter validation
       bounds = CGI.unescape(params[:bounds])
       bounds = JSON.load bounds
       center = JSON.load params[:center]
