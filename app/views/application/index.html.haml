@@ -56,7 +56,7 @@
 
     google.maps.event.addListener(map, 'bounds_changed', function() {
       d = (new Date()).getTime();
-      if (d - last_checked > 1000) {
+      if (d - last_checked > 750) {
         last_checked = d;
         b = map.getBounds();
         c = map.getCenter();
