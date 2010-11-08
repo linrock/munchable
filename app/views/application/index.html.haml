@@ -43,7 +43,7 @@
   var good = 'http://chart.apis.google.com/chart?chst=d_map_pin_letter_withshadow&chld=%E2%80%A2|FF6633|000000';
 
   var last_checked = (new Date()).getTime();
-  var category;
+  var current_category;
   var categories = #{@categories};
 
   $(document).ready(function() {
@@ -56,15 +56,18 @@
     });
     map.addCrosshairs();
 
+    function requestData() {
+      b = map.getBounds();
+      c = map.getCenter();
+      $("input#bounds").val(JSON.stringify({ x: [b.S.b, b.S.c], y: [b.L.c, b.L.b] }));
+      $("input#center").val(JSON.stringify([c.ra, c.sa]));
+      $("#instant_search").submit();
+    }
+
     google.maps.event.addListener(map, 'bounds_changed', function() {
       d = (new Date()).getTime();
       if (d - last_checked > 750) {
-        last_checked = d;
-        b = map.getBounds();
-        c = map.getCenter();
-        $("input#bounds").val(JSON.stringify({ x: [b.S.b, b.S.c], y: [b.L.c, b.L.b] }));
-        $("input#center").val(JSON.stringify([c.ra, c.sa]));
-        $("#instant_search").submit();
+        requestData();
       }
     });
 
@@ -76,21 +79,21 @@
         var result = $.grep(categories, function(item, index) {
           return matcher.test(item);
         });
-        if (result[0] && category != result[0]) {
-          category = result[0];
-          $("input#category").val(category);
-          $("#instant_search").submit();
+        if (result[0] && current_category != result[0]) {
+          current_category = result[0];
+          $("input#category").val(current_category);
+          requestData();
         }
         responseFn(result);
       },
       select: function(value, data) {
-        category = data.item.value;
-        $("input#category").val(category);
-        $("#instant_search").submit();
+        current_category = data.item.value;
+        $("input#category").val(current_category);
+        requestData();
       }
     });
     $("input:radio[name=search_type]").change(function() {
-      $("#instant_search").submit();
+      requestData();
     });
     // $("#simple_table").tablesorter();
   });
