@@ -18,8 +18,7 @@
     .clear
     .col_spacer
     .directions
-      %span.content Place a marker somewhere!
-      %span.example (ie. Your address)
+      %span.content Mark an address!
     #address_box
       = form_tag '', :id => 'address_autocomplete' do
         = text_field_tag :q, params[:q], :class => 'field', :id => 'address_field'
@@ -29,14 +28,17 @@
         %input#mark_button.ui-button.ui-widget.ui-state-default.ui-corner-all{:type => 'submit', :value => 'Mark'}
         %input#center_button.ui-button.ui-widget.ui-state-default.ui-corner-all{:type => 'submit', :value => 'Center'}
         %input#clear_button.ui-button.ui-widget.ui-state-default.ui-corner-all{:type => 'submit', :value => 'Clear'}
-      %input#mark_button{:type => 'submit', :value => 'Mark'}
-      %input#center_button{:type => 'submit', :value => 'Center'}
-      %input#clear_button{:type => 'submit', :value => 'Clear'}
+      .clear
+      %div{:style => 'margin-top: 5px'}
+        %input#mark_button{:type => 'submit', :value => 'Mark'}
+        %input#center_button{:type => 'submit', :value => 'Center Map'}
+        %input#clear_button{:type => 'submit', :value => 'Clear'}
 
     #instructions
       %h2 Instructions
       %ol
-        %li Enter what you want
+        %li Enter what food you want
+        %li Place a marker at any address
         %li Scroll the map to discover restaurants
         %li Have fun!
   #map_container
@@ -132,10 +134,13 @@
               var types = value.types;
               $.each(['point_of_interest', 'establishment', 'route', 'street_number'], function(index, value) {
                 if ($.inArray(value, types) == 0) {
+                  if (a != '') {
+                    a += ' ';
+                  }
                   if (value == 'point_of_interest' || value == 'establishment') {
-                    a += long_name + ', ';
+                    a += long_name + ' @';
                   } else {
-                    a += long_name + ' ';
+                    a += long_name;
                   }
                 }
               });
