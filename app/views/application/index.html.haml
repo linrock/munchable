@@ -67,7 +67,7 @@
   var categories = #{@categories};
   var cur_location = { city: "#{@location.city}", state: "#{@location.state}" };
   var selected_address;
-  var addresses;
+  var addresses = {};
   var gresults;
 
   $(document).ready(function() {
@@ -123,9 +123,8 @@
         var address = req.term + ' ' + cur_location.city + ', ' + cur_location.state;
         geocoder.geocode({ 'address': address }, function(results, status) {
           gresults = results;
-          addresses = {};
           var formatted_results = [];
-
+          var new_addresses = {};
           $.each(results, function(index, value) {
             var a = '';
             var result = value;
@@ -146,12 +145,14 @@
               });
             });
             if (a != '') {
-              addresses[a] = new google.maps.LatLng(result.geometry.location.ra, result.geometry.location.sa);
+              addresses[a.toLowerCase()] = new google.maps.LatLng(result.geometry.location.ra, result.geometry.location.sa);
+              new_addresses[a] = '';
             }
           });
-          for (key in addresses) {
+          for (key in new_addresses) {
             formatted_results.push(key);
           }
+          selected_address = formatted_results[0];
           /*
           var re = $.ui.autocomplete.escapeRegex(cur_location.city);
           var matcher = new RegExp(re, "i");
@@ -176,7 +177,7 @@
         map.address_marker.setMap(null);
       }
       map.address_marker = new google.maps.Marker({
-        position: addresses[selected_address],
+        position: addresses[selected_address.toLowerCase()],
         map: map,
         title: selected_address
       });
