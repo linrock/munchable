@@ -19,28 +19,31 @@ class RestaurantsController < ApplicationController
       bounds = l.bounds
       center = [l.x_center, l.y_center]
     end
+    @category = params[:category]
     if params[:search_type] == 'nearest'
-      restaurants = Restaurant.get_nearest(bounds, center, params[:category], max_num)
+      @restaurants = Restaurant.get_nearest(bounds, center, @category, max_num)
     elsif params[:search_type] == 'best'
-      restaurants = Restaurant.get_best(bounds, params[:category], max_num)
+      @restaurants = Restaurant.get_best(bounds, @category, max_num)
     else
       render :json => {}
     end
-    render :json => {
-      :restaurants => restaurants.collect do |r| {
-          :name => r.name,
-          :address => r.address,
-          :hours => r.hours,
-          :website => r.website,
-          :rating => r.rating,
-          :review_count => r.review_count,
-          :take_out => r.take_out,
-          :delivery => r.delivery,
-          :x => r.xy.x,
-          :y => r.xy.y
-        }
-      end
+    @restaurants_clean = @restaurants.collect {|r|
+      {
+        :name => r.name,
+        :address => r.address,
+        :hours => r.hours,
+        :website => r.website,
+        :rating => r.rating,
+        :review_count => r.review_count,
+        :take_out => r.take_out,
+        :delivery => r.delivery,
+        :x => r.xy.x,
+        :y => r.xy.y
+      }
     }
+    respond_to do |format|
+      format.js
+    end
   end
 
   def name_instant

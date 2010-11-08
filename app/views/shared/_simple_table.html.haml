@@ -1,11 +1,30 @@
+%b= @category
 %table.tablesorter#results_table
-  %thead{:style => "display: none"}
+  %thead
     %tr
       %th Rank
       %th Name
-      %th Website
       %th Rating
       %th Reviews
       %th Take Out?
       %th Delivery?
   %tbody
+    - @restaurants.each_with_index do |restaurant, i|
+      %tr
+        %td= i+1
+        %td= restaurant.name
+        - if restaurant.rating >= 4.5
+          %td{:style => "color: green; font-weight: bold"}= restaurant.rating
+        - elsif restaurant.rating >= 4
+          %td{:style => "color: orange; font-weight: bold"}= restaurant.rating
+        - else
+          %td{:style => "color: red; font-weight: bold"}= restaurant.rating
+        %td= restaurant.review_count
+        - if restaurant.take_out
+          %td{:style => "color: green"} yes
+        - else
+          %td{:style => "color: red"} no
+        - if restaurant.delivery
+          %td{:style => "color: green"} yes
+        - else
+          %td{:style => "color: red"} no
