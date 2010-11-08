@@ -15,6 +15,9 @@ body.bp
 form
   +blueprint-form
 
+.col_spacer
+  +append-bottom(30px)
+
 body.main
   #container
     +container
@@ -31,25 +34,31 @@ body.main
         text-align: right
     #content
       +column($blueprint-grid-columns)
-      #main_page
+      #index_page
         #search_container
           +column(10)
-          #search_box
+          .directions
+            span.content
+              font-size: 16pt
+            span.example
+              font-size: 10pt
+          input.field
             +column(8)
-            // text-align: center
-            input#category_field
-              +column(8)
-              +box-shadow(gray, 3px, 3px, 3px)
-              font-size: 20pt
+            +box-shadow(gray, 3px, 3px, 3px)
+            font-size: 20pt
+          #category_box
+            +column(8)
             #search_radio
               font-size: 14pt
-        #instructions
-          +prepend-top(40px)
-          +column(10)
-          ol
-            margin-left: 0
-            padding-left: $blueprint-grid-width
-            font-size: 14pt
+          #address_box
+            +column(8)
+          #instructions
+            +prepend-top(40px)
+            +column(10)
+            ol
+              margin-left: 0
+              padding-left: $blueprint-grid-width
+              font-size: 14pt
         #map_container
           +column(14, true)
           +push(-1)

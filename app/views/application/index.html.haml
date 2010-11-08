@@ -1,21 +1,28 @@
-#main_page
+#index_page
   #search_container
-    %div
-      %span{:style => 'font-size: 16pt'}
-        What kind of food do you want?
-      %span{:style => 'font-size: 10pt'} (ie. pizza)
-    #search_box
+    .directions
+      %span.content What kind of food do you want?
+      %span.example (ie. pizza)
+    #category_box
       = form_tag instant_restaurants_url, :remote => :true, :method => :get, :id => 'instant_search' do
-        = text_field_tag :q, params[:q], :id => 'category_field'
+        = text_field_tag :q, params[:q], :class => 'field', :id => 'category_field'
         #search_radio
           = radio_button_tag :search_type, 'best', true
           = label_tag 'Best'
           = radio_button_tag :search_type, 'nearest'
           = label_tag 'Nearest'
-          = hidden_field_tag :category
-          = hidden_field_tag :bounds
-          = hidden_field_tag :center
-          = hidden_field_tag :location_id, @location.id
+        = hidden_field_tag :category
+        = hidden_field_tag :bounds
+        = hidden_field_tag :center
+        = hidden_field_tag :location_id, @location.id
+    .clear
+    .col_spacer
+    .directions
+      %span.content Place a marker somewhere!
+      %span.example (ie. Your address)
+    #address_box
+      = form_tag instant_restaurants_url, :id => 'address_autocomplete' do
+        = text_field_tag :q, params[:q], :class => 'field', :id => 'address_field'
     #instructions
       %h2 Instructions
       %ol
@@ -37,6 +44,7 @@
 = javascript_include_tag 'loader.js'
 :javascript
   var map;
+  var geocoder;
 
   var best = 'http://chart.apis.google.com/chart?chst=d_map_pin_letter_withshadow&chld=%E2%80%A2|33CC33|000000';
   var better = 'http://chart.apis.google.com/chart?chst=d_map_pin_letter_withshadow&chld=%E2%80%A2|FFFF00|000000';
@@ -45,6 +53,17 @@
   var last_checked = (new Date()).getTime();
   var current_category;
   var categories = #{@categories};
+
+  var gresults;
+  var gstatus;
+
+  function lol(address) {
+    geocoder.geocode({'address': address}, function(results, status) {
+      gresults = results;
+      gstatus = status;
+      // results[0].geometry.location.sa
+    });
+  }
 
   $(document).ready(function() {
 
@@ -55,6 +74,7 @@
       mapTypeId: google.maps.MapTypeId.ROADMAP
     });
     map.addCrosshairs();
+    geocoder = new google.maps.Geocoder();
 
     function requestData() {
       b = map.getBounds();
@@ -93,6 +113,29 @@
         requestData();
       }
     });
+
+    $("#address_field").autocomplete({
+      delay: 0,
+      source: function(req, responseFn) {
+        var re = $.ui.autocomplete.escapeRegex(req.term);
+        var matcher = new RegExp("^" + re, "i");
+        var result = $.grep(categories, function(item, index) {
+          return matcher.test(item);
+        });
+        if (result[0] && current_category != result[0]) {
+          current_category = result[0];
+          $("input#category").val(current_category);
+          requestData();
+        }
+        responseFn(result);
+      },
+      select: function(value, data) {
+        current_category = data.item.value;
+        $("input#category").val(current_category);
+        requestData();
+      }
+    });
+
     $("input:radio[name=search_type]").change(function() {
       requestData();
     });
