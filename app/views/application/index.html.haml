@@ -57,7 +57,7 @@
   var last_checked = (new Date()).getTime();
   var current_category;
   var categories = #{@categories};
-  var cur_location = "#{@location.city + ' ' + @location.state}";
+  var cur_location = { city: "#{@location.city}", state: "#{@location.state}" };
   var selected_address;
   var addresses;
   var gresults;
@@ -93,15 +93,15 @@
       source: function(req, responseFn) {
         var re = $.ui.autocomplete.escapeRegex(req.term);
         var matcher = new RegExp("^" + re, "i");
-        var result = $.grep(categories, function(item, index) {
+        var results = $.grep(categories, function(item, index) {
           return matcher.test(item);
         });
-        if (result[0] && current_category != result[0]) {
-          current_category = result[0];
+        if (results[0] && current_category != results[0]) {
+          current_category = results[0];
           $("input#category").val(current_category);
           requestData();
         }
-        responseFn(result);
+        responseFn(results);
       },
       select: function(value, data) {
         current_category = data.item.value;
@@ -112,15 +112,42 @@
     $("#address_field").autocomplete({
       delay: 0,
       source: function(req, responseFn) {
-        var address = req.term + ' ' + cur_location;
+        var address = req.term + ' ' + cur_location.city + ', ' + cur_location.state;
         geocoder.geocode({ 'address': address }, function(results, status) {
           gresults = results;
           addresses = {};
           var formatted_results = [];
-          for (i in results) {
-            formatted_results.push(results[i].formatted_address);
-            addresses[results[i].formatted_address] = new google.maps.LatLng(results[i].geometry.location.ra, results[i].geometry.location.sa);
+
+          $.each(results, function(index, value) {
+            var a = '';
+            var result = value;
+            $.each(value.address_components, function(index, value) {
+              var long_name = value.long_name;
+              var types = value.types;
+              $.each(['point_of_interest', 'establishment', 'route', 'street_number'], function(index, value) {
+                if ($.inArray(value, types) == 0) {
+                  if (value == 'point_of_interest' || value == 'establishment') {
+                    a += long_name + ', ';
+                  } else {
+                    a += long_name + ' ';
+                  }
+                }
+              });
+            });
+            if (a != '') {
+              addresses[a] = new google.maps.LatLng(result.geometry.location.ra, result.geometry.location.sa);
+            }
+          });
+          for (key in addresses) {
+            formatted_results.push(key);
           }
+          /*
+          var re = $.ui.autocomplete.escapeRegex(cur_location.city);
+          var matcher = new RegExp(re, "i");
+          formatted_results = $.grep(formatted_results, function(item, index) {
+            return matcher.test(item);
+          });
+          */
           responseFn(formatted_results);
         });
       },
@@ -134,11 +161,22 @@
     });
 
     $("#mark_button").click(function() {
+      if (map.address_marker) {
+        map.address_marker.setMap(null);
+      }
       map.address_marker = new google.maps.Marker({
         position: addresses[selected_address],
         map: map,
         title: selected_address
       });
       map.address_marker.setMap(map);
+    });
+    $("#center_button").click(function() {
+      map.setCenter(map.address_marker.position);
+    });
+    $("#clear_button").click(function() {
+      if (map.address_marker) {
+        map.address_marker.setMap(null);
+      }
     });
   });

@@ -79,4 +79,8 @@
 * Released new layout
 * Next steps
   * Update scraper to fetch more useful information (price range)
-  * Allow user to plant markers at an address
+  * Allow user to plant markers at an address, or just enter in an address
+  * Add restaurants to a list?
+
+* Theme Ideas
+  * Page in notebook? Yellow/Red theme?
