@@ -1,0 +1,3 @@
+page << "var LatLng = new google.maps.LatLng(#{@location.x_center}, #{@location.y_center});"
+page << "map.setCenter(LatLng);"
+page << "map.setZoom(#{@location.zoom_level});"

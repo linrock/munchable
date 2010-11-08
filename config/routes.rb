@@ -56,7 +56,8 @@ Munchable::Application.routes.draw do
   # just remember to delete public/index.html.
   # root :to => "welcome#index"
   
-  root :to => "locations#show", :defaults => { :id => 1 }
+  # root :to => "locations#show", :defaults => { :id => 1 }
+  root :to => "application#index"
   resources :restaurants do
     get 'instant', :on => :collection, :action => 'instant'
     get 'n_instant', :on => :collection, :action => 'name_instant'
