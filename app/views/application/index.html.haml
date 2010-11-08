@@ -67,6 +67,7 @@
     google.maps.event.addListener(map, 'bounds_changed', function() {
       d = (new Date()).getTime();
       if (d - last_checked > 750) {
+        last_checked = d;
         requestData();
       }
     });

@@ -10,7 +10,7 @@ gem 'haml'
 gem 'devise'
 gem 'cancan'
 gem 'formtastic'
-# gem 'acts_as_tree'
+gem 'acts_as_tree'
 gem 'meta_search'
 gem 'spatial_adapter'
 
