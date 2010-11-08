@@ -7,7 +7,7 @@
     #search_box
       = form_tag do
         = text_field_tag :q, params[:q], :id => 'instant_search'
-        #search_radio{:style => 'font-size: 14pt'}
+        #search_radio
           = radio_button_tag :search_type, 'best', true
           Best
           = radio_button_tag :search_type, 'nearest'
@@ -15,9 +15,8 @@
     #instructions
       %h2 Instructions
       %h3 1. Enter what you want
-      %h3 2. Pick your location
-      %h3 3. Delivery or Reservation?
-      %h3 4. Enjoy!
+      %h3 2. Use the map to discover restaurants
+      %h3 3. Enjoy!
   #map_container
     #locations
       = link_to 'San Francisco', location_url(:id => 1)

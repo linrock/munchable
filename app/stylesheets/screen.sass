@@ -1,37 +1,25 @@
-// This import applies a global reset to any page that imports this stylesheet.
 @import blueprint/reset
-// To configure blueprint, edit the partials/base.sass file.
 @import partials/base
-// Import all the default blueprint modules so that we can access their mixins.
 @import blueprint
-// Import the non-default scaffolding module.
 @import blueprint/scaffolding
-
 @import compass/css3
 
-// To generate css equivalent to the blueprint css but with your
-// configuration applied, uncomment:
-// @include blueprint
-
-// But Compass recommends that you scope your blueprint styles
-// So that you can better control what pages use blueprint
-// when stylesheets are concatenated together.
+// Remove the scaffolding when you're ready to start doing visual design.
+// Or leave it in if you're happy with how blueprint looks out-of-the-box
 +blueprint-scaffolding("body.bp")
 body.bp
   +blueprint-typography(true)
   +blueprint-utilities
   +blueprint-debug
   +blueprint-interaction
-  +showgrid
-  // Remove the scaffolding when you're ready to start doing visual design.
-  // Or leave it in if you're happy with how blueprint looks out-of-the-box
 form
   +blueprint-form
 
 body.main
   #container
     +container
-    border: 1px solid black
+    // +showgrid
+    +prepend-top(20px)
     #header
       +column($blueprint-grid-columns)
       +append-bottom(10px)
@@ -39,34 +27,45 @@ body.main
         +column(8)
       #navbar
         +column(8, true)
-        +push(0)
-        border: 1px solid gray
+        +push(-1)
+        text-align: right
     #content
       +column($blueprint-grid-columns)
       #main_page
         #search_container
           +column(10)
           #search_box
-            text-align: center
+            +column(8)
+            // text-align: center
             input#instant_search
+              +column(8)
               font-size: 20pt
+            #search_radio
+              font-size: 14pt
         #instructions
-          padding: 20px
+          +prepend-top(20px)
+          +column(10)
         #map_container
           +column(14, true)
-          +push(0)
+          +push(-1)
+          +float-right
           #locations
+            +float-right
+            width: $map-dimensions
             text-align: center
           #map_canvas
+            +float-right
             +box-shadow(gray, 5px, 5px, 5px)
             +append-bottom(20px)
-            border: 1px solid gray
-            width: 500px
-            height: 500px
-          #category
-            font-size: 12pt
-          table#results_table
-            width: 650px
+            width: $map-dimensions
+            height: $map-dimensions
+          #restaurant_info
+            +float-right
+            width: $map-dimensions
+            #category
+              font-size: 12pt
+            table#results_table
+              width: $map-dimensions
       #profile_page
         .group_listing
           width: 400px
