@@ -26,14 +26,40 @@ Location.create([{
   :x_upper => 37.395221,
   :y_lower => -122.091879,
   :y_upper => -122.070637,
+},{
+  :city => 'Washington DC',
+  :state => '',
+  :zoom_level => 12,
+  :x_center => 38.900385,
+  :y_center => -77.014503
 }])
+
+User.create({
+  :email => 'root@you.com',
+  :password => 'asdfasdf',
+  :password_confirmation => 'asdfasdf'
+})
+User.create({
+  :email => 'noob0@lol.com',
+  :password => 'asdfasdf',
+  :password_confirmation => 'asdfasdf'
+})
+User.create({
+  :email => 'noob1@lol.com',
+  :password => 'asdfasdf',
+  :password_confirmation => 'asdfasdf'
+})
+User.create({
+  :email => 'noob2@lol.com',
+  :password => 'asdfasdf',
+  :password_confirmation => 'asdfasdf'
+})
 
 # places = []
 # places.push File.open(RAILS_ROOT + '/db/places/ca_san_francisco.txt').read.split(/\n/)
 # places.push File.open(RAILS_ROOT + '/db/places/ca_mountain_view.txt').read.split(/\n/)
 # places.flatten!
 
-places = File.open(RAILS_ROOT + '/db/data.txt').read.split(/\n/)
 
 File.open(RAILS_ROOT + '/db/categories/food.txt').read.split(/\n/).each do |c|
   Category.create(:name => c)
@@ -47,6 +73,7 @@ def quote (str)
 end
 
 inserts = []
+places = File.open(RAILS_ROOT + '/db/data.txt').read.split(/\n/)
 places.each do |row|
   row = row.split '|'
   row = row.map{|r| quote(r)}

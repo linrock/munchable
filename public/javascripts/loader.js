@@ -65,7 +65,7 @@ google.maps.Map.prototype.addCrosshairs = function() {
   crosshairs.style.border = 0;
   crosshairs.style.position = 'relative';
   crosshairs.style.top = ((container.clientHeight-crosshairsSize)/2) + 'px';
-  crosshairs.style.left = '0px';
+  crosshairs.style.left = ((container.clientWidth-crosshairsSize)/2) + 'px';
   crosshairs.style.zIndex = 500;
 
   container.appendChild(crosshairs);

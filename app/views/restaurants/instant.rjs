@@ -1,0 +1,7 @@
+page.replace_html :restaurant_info, :partial => 'shared/simple_table',
+  :locals => {
+    :category => @category,
+    :restaurants => @restaurants
+  }
+page << "data = #{@restaurants_clean.to_json};"
+page << "map.addMarkers(data);"

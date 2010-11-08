@@ -56,17 +56,26 @@ Munchable::Application.routes.draw do
   # just remember to delete public/index.html.
   # root :to => "welcome#index"
   
-  root :to => "locations#show", :defaults => { :id => 1 }
+  # root :to => "locations#show", :defaults => { :id => 1 }
+  root :to => "application#index"
   resources :restaurants do
     get 'instant', :on => :collection, :action => 'instant'
+    get 'n_instant', :on => :collection, :action => 'name_instant'
   end
   resources :categories do
     get 'autocomplete', :on => :collection, :action => 'autocomplete'
   end
-  resources :menu_items
+  # resources :menu_items
+  # resources :comments
   resources :locations
-  resources :comments
-  resources :users
+  resources :users do
+    resources :groups do
+      resource :list do
+        resources :listings
+      end
+    end
+    resource :profile
+  end
 
   # See how all your routes lay out with "rake routes"
 

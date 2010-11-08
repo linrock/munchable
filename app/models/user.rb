@@ -7,4 +7,39 @@ class User < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me
   validates_presence_of  :password
+
+  has_one :profile
+  has_many :memberships, :dependent => :destroy
+  has_many :groups, :through => :memberships
+  has_many :lists, :through => :groups
+  has_many :comments
+
+  after_create :create_profile
+
+  def create_group(name)
+    g = Group.new({
+      :user_id => self.id,
+      :name => name,
+    })
+    if g.save
+      Membership.create({
+        :user_id => self.id,
+        :group_id => g.id,
+        :role => 'admin'
+      })
+      List.create({
+        :user_id => self.id,
+        :group_id => g.id
+      })
+      g
+    else
+      nil
+    end
+  end
+
+  def create_profile
+    Profile.create({
+      :user_id => self.id
+    })
+  end
 end

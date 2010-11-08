@@ -1,0 +1,65 @@
+#group_page
+  %h2 Group: #{@group.name}
+
+  -#
+    %p Members
+    - for member in @group.members
+      = member.email
+    %p= link_to 'Add member', ''
+
+  #listings
+    %h3 Restaurants
+    #restaurants
+      - for r_listing in @restaurant_listings
+        = render :partial => 'listings/listing', :locals => { :listing => r_listing[0], :restaurant => r_listing[1] }
+
+    #search
+      = form_tag user_group_list_listings_url(:user_id => @user.id, :group_id => @group.id), :method => :post, :remote => :true do
+        = text_field_tag :q, params[:q], :id => 'restaurant_ac'
+        = hidden_field_tag :rid, :id => 'rid'
+        = submit_tag 'Add'
+
+  #map{:style => 'float: right; width: 300px; height: 300px; border: 1px dotted black'}
+  .clear
+
+:javascript
+  var query;
+  var restaurant;
+  var restaurant_data;
+  var r_data;
+  var r_names;
+
+  function requestData(callback) {
+    query = $("#restaurant_ac").val();
+    $.getJSON('/restaurants/n_instant', { q: query }, function(data) {
+        r_data = data.restaurants;
+        r_names = [];
+        for (i in r_data) {
+          r_names.push(r_data[i].name);
+        }
+        if (callback) {
+          callback();
+        }
+      }
+    );
+  }
+  $(document).ready(function() {
+    $("#restaurant_ac").autocomplete({
+      delay: 0,
+      source: function(req, responseFn) {
+        requestData(function() {
+          responseFn(r_names);
+        });
+      },
+      select: function(value, data) {
+        for (i in r_data) {
+          restaurant = data.item.value;
+          if (r_data[i].name == restaurant) {
+            restaurant_data = r_data[i];
+            $("#rid").val(r_data[i].id);
+          }
+        }
+      }
+    });
+  });
+

@@ -1,0 +1,100 @@
+#main_page
+  #search_container
+    %div
+      %span{:style => 'font-size: 16pt'}
+        What kind of food do you want?
+      %span{:style => 'font-size: 10pt'} (ie. pizza)
+    #search_box
+      = form_tag instant_restaurants_url, :remote => :true, :method => :get, :id => 'instant_search' do
+        = text_field_tag :q, params[:q], :id => 'category_field'
+        #search_radio
+          = radio_button_tag :search_type, 'best', true
+          = label_tag 'Best'
+          = radio_button_tag :search_type, 'nearest'
+          = label_tag 'Nearest'
+          = hidden_field_tag :category
+          = hidden_field_tag :bounds
+          = hidden_field_tag :center
+          = hidden_field_tag :location_id, @location.id
+    #instructions
+      %h2 Instructions
+      %ol
+        %li Enter what you want
+        %li Scroll the map to discover restaurants
+        %li Have fun!
+  #map_container
+    #locations
+      = link_to 'San Francisco', location_url(:id => 1), :remote => true
+      &nbsp;-&nbsp;
+      = link_to 'Mountain View', location_url(:id => 2), :remote => true
+      &nbsp;-&nbsp;
+      = link_to 'Washington DC', location_url(:id => 3), :remote => true
+    #map_canvas
+      = image_tag 'loading.gif', :style => 'margin-top: 200px'
+    #restaurant_info
+
+= javascript_include_tag 'http://maps.google.com/maps/api/js?sensor=false'
+= javascript_include_tag 'loader.js'
+:javascript
+  var map;
+
+  var best = 'http://chart.apis.google.com/chart?chst=d_map_pin_letter_withshadow&chld=%E2%80%A2|33CC33|000000';
+  var better = 'http://chart.apis.google.com/chart?chst=d_map_pin_letter_withshadow&chld=%E2%80%A2|FFFF00|000000';
+  var good = 'http://chart.apis.google.com/chart?chst=d_map_pin_letter_withshadow&chld=%E2%80%A2|FF6633|000000';
+
+  var last_checked = (new Date()).getTime();
+  var current_category;
+  var categories = #{@categories};
+
+  $(document).ready(function() {
+
+    var latlng = new google.maps.LatLng(#{@location.x_center}, #{@location.y_center});
+    map = new google.maps.Map(document.getElementById("map_canvas"), {
+      zoom: #{@location.zoom_level},
+      center: latlng,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    });
+    map.addCrosshairs();
+
+    function requestData() {
+      b = map.getBounds();
+      c = map.getCenter();
+      $("input#bounds").val(JSON.stringify({ x: [b.S.b, b.S.c], y: [b.L.c, b.L.b] }));
+      $("input#center").val(JSON.stringify([c.ra, c.sa]));
+      $("#instant_search").submit();
+    }
+
+    google.maps.event.addListener(map, 'bounds_changed', function() {
+      d = (new Date()).getTime();
+      if (d - last_checked > 750) {
+        last_checked = d;
+        requestData();
+      }
+    });
+
+    $("#category_field").autocomplete({
+      delay: 0,
+      source: function(req, responseFn) {
+        var re = $.ui.autocomplete.escapeRegex(req.term);
+        var matcher = new RegExp("^" + re, "i");
+        var result = $.grep(categories, function(item, index) {
+          return matcher.test(item);
+        });
+        if (result[0] && current_category != result[0]) {
+          current_category = result[0];
+          $("input#category").val(current_category);
+          requestData();
+        }
+        responseFn(result);
+      },
+      select: function(value, data) {
+        current_category = data.item.value;
+        $("input#category").val(current_category);
+        requestData();
+      }
+    });
+    $("input:radio[name=search_type]").change(function() {
+      requestData();
+    });
+    // $("#simple_table").tablesorter();
+  });

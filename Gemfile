@@ -4,6 +4,7 @@ gem 'rails', '3.0.1'
 
 gem 'pg'
 gem 'jquery-rails'
+gem 'jrails'
 gem 'compass'
 gem 'haml'
 gem 'devise'
