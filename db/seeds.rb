@@ -26,6 +26,12 @@ Location.create([{
   :x_upper => 37.395221,
   :y_lower => -122.091879,
   :y_upper => -122.070637,
+},{
+  :city => 'Washington DC',
+  :state => '',
+  :zoom_level => 12,
+  :x_center => 38.900385,
+  :y_center => -77.014503
 }])
 
 User.create({

@@ -20,13 +20,15 @@
       %h2 Instructions
       %ol
         %li Enter what you want
-        %li Use the map to discover restaurants
+        %li Scroll the map to discover restaurants
         %li Have fun!
   #map_container
     #locations
       = link_to 'San Francisco', location_url(:id => 1), :remote => true
       &nbsp;-&nbsp;
       = link_to 'Mountain View', location_url(:id => 2), :remote => true
+      &nbsp;-&nbsp;
+      = link_to 'Washington DC', location_url(:id => 3), :remote => true
     #map_canvas
       = image_tag 'loading.gif', :style => 'margin-top: 200px'
     #restaurant_info
