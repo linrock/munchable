@@ -98,3 +98,21 @@
   * Mockups
     * Iterate design over time also
 
+
+11/08/10
+========
+
+* Instant Food Delivery
+  * Click a few buttons to get food
+  + Implementations:
+    * Proxy that orders on your behalf. Use a bot that fills/submits forms on vendor sites
+    * Use an API (delivery.com, etc.) for services with an affiliate program
+  * May be breaking terms of service?
+
+* Next Steps
+  * Address auto-complete/instant search not intuitive
+    * Type address, auto-zoom to locations
+  * Fix bug...
+    * Hitting enter on address form refreshes page and replaces food type with the text
+  * Get rid of crosshairs. Distracting.
+  * Color gold, silver, bronze
