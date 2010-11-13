@@ -84,3 +84,12 @@
 
 * Theme Ideas
   * Page in notebook? Yellow/Red theme?
+
+
+11/10/10
+========
+
+* Still need more food categories
+* Remove link to home on home page
+* Saving personal list of restaurants would be useful still
+
