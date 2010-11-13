@@ -93,3 +93,15 @@
 * Remove link to home on home page
 * Saving personal list of restaurants would be useful still
 
+
+11/13/10
+========
+
+* Looked at traffic logs
+  * Best day: 27 uniques on Nov. 10
+  * More traffic than I expected...
+* Tested browsers in Windows VM (finally)
+  * Firefox 4b7 performance in 32-bit Windows VM >> Native 64-bit Linux. REALLY?! FUCK YOU MOZILLA!!!
+  * Does not work in IE6 and looks like shit. IE6 sucks.
+  * Works in IE8, but looks bad. Worry about IE-compatibility later?
+
