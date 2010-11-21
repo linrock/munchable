@@ -105,3 +105,19 @@
   * Does not work in IE6 and looks like shit. IE6 sucks.
   * Works in IE8, but looks bad. Worry about IE-compatibility later?
 
+
+11/14/10
+========
+
+* Show phone numbers and whether a store is open
+* Get data from many different sources (citysearch, yellowpages, google)
+* Still two options
+  * Place for fast food finding site
+  * Create your own restaurant profiles
+* Here's a list of sources
+  - yelp.com
+  - citysearch.com
+  - tastyr.com
+  - zagat.com
+  - tripadvisor.com
+
