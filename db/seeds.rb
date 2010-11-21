@@ -72,6 +72,7 @@ def quote (str)
   str.gsub(/\\|'/) { |c| "\\#{c}" }
 end
 
+=begin
 puts 'Loading data.txt...'
 inserts = []
 places = File.open(RAILS_ROOT + '/db/data.txt').read.split(/\n/)
@@ -92,3 +93,4 @@ end
 puts 'Inserting into DB...'
 sql = "INSERT INTO restaurants (location_id, url, name, categories, rating, review_count, address, website, hours, good_for, delivery, take_out, x, y, xy, updated_at) VALUES #{inserts.join(', ')}"
 Restaurant.connection.execute sql
+=end
