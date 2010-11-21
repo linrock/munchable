@@ -128,7 +128,7 @@
           $.each(results, function(index, value) {
             var a = '';
             var result = value;
-            addresses[result.formatted_address.toLowerCase()] = new google.maps.LatLng(result.geometry.location.ra, result.geometry.location.sa);
+            addresses[result.formatted_address.toLowerCase()] = new google.maps.LatLng(result.geometry.location.sa, result.geometry.location.ta);
             new_addresses[result.formatted_address] = '';
             /*
             $.each(value.address_components, function(index, value) {
