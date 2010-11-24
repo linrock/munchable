@@ -117,6 +117,7 @@
   * Get rid of crosshairs. Distracting.
   * Color gold, silver, bronze
 
+
 11/10/10
 ========
 
@@ -151,4 +152,11 @@
   - tastyr.com
   - zagat.com
   - tripadvisor.com
+
+
+11/23/10
+========
+
+* Show which places are open or closed.
+* Go more for information presentation than anything else.
 
