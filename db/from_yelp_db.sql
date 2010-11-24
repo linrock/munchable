@@ -23,14 +23,14 @@ SELECT * FROM dblink('dbname=yelp', '
         reservations
     FROM entries
 ') AS (
-    url             char(128),
-    name            char(128),
-    categories      char(128),
+    url             char(255),
+    name            char(255),
+    categories      char(255),
     x               float,
     y               float,
     xy              geometry,
-    address         char(128),
-    website         char(128),
+    address         char(255),
+    website         char(255),
     phone_number    char(16),
     price_range     char(4),
     rating          float,
