@@ -157,13 +157,6 @@
             formatted_results.push(key);
           }
           selected_address = formatted_results[0];
-          /*
-          var re = $.ui.autocomplete.escapeRegex(cur_location.city);
-          var matcher = new RegExp(re, "i");
-          formatted_results = $.grep(formatted_results, function(item, index) {
-            return matcher.test(item);
-          });
-          */
           responseFn(formatted_results);
         });
       },
@@ -195,4 +188,8 @@
         map.address_marker.setMap(null);
       }
     });
+
+    setTimeout(function() {
+      $('.notice, .warning, .error').fadeOut(2000)
+    }, 5000);
   });
