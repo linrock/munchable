@@ -83,8 +83,10 @@
     var requestData = function() {
       b = map.getBounds();
       c = map.getCenter();
-      $("input#bounds").val(JSON.stringify({ x: [b.S.b, b.S.c], y: [b.L.c, b.L.b] }));
-      $("input#center").val(JSON.stringify([c.ra, c.sa]));
+      var ne = b.getNorthEast();
+      var sw = b.getSouthWest();
+      $("input#bounds").val(JSON.stringify({ x: [sw.lat(), ne.lat()], y: [sw.lng(), ne.lat()] }));
+      $("input#center").val(JSON.stringify([c.lat(), c.lng()]));
       $("#instant_search").submit();
     }
 
