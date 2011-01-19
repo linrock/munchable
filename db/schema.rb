@@ -27,8 +27,8 @@ ActiveRecord::Schema.define(:version => 20101108075929) do
   end
 
   create_table "friendships", :force => true do |t|
-    t.integer "user_id"
-    t.integer "friend_id"
+    t.integer  "user_id"
+    t.integer  "friend_id"
   end
 
   create_table "groups", :force => true do |t|
